@@ -1,0 +1,2 @@
+module AttendanceLogsHelper
+end
