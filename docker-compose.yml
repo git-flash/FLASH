@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:13.1
+    ports:
+    - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-passwd
+      - POSTGRES_USER=super
+      - POSTGRES_DB=flash_development
+    volumes:
+      - flash-pg-db:/var/lib/postgresql/data
+      - /var/run/postgresql:/var/run/postgresql
+    secrets:
+      - postgres-passwd
+    networks:
+      flash_network:
+        aliases:
+          - database
+
+volumes:
+  flash-pg-db:
+    external: true
+
+secrets:
+  postgres-passwd:
+    file: ./secrets/postgres-passwd
+
+networks:
+  flash_network:
