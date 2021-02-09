@@ -1,10 +1,27 @@
 version: '3.9'
 
 services:
+  flash:
+    build: .
+    ports:
+    - 3000:3000
+    command: -b 0.0.0.0 -p 3000 -e development
+    environment:
+      - FLASH_DB_USERNAME=super
+      - FLASH_DB_PASSWORD_FILE=/run/secrets/postgres-passwd
+      - FLASH_DB_HOSTNAME=database
+      - FLASH_DB_PORT=5432
+    secrets:
+      - postgres-passwd
+    networks:
+      flash_network:
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:13.1
     ports:
-    - 5432:5432
+      - 5432:5432
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-passwd
       - POSTGRES_USER=super
@@ -21,7 +38,6 @@ services:
 
 volumes:
   flash-pg-db:
-    external: true
 
 secrets:
   postgres-passwd:

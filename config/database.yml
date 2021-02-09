@@ -29,19 +29,40 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  username: super
+  username: <%=
+  ENV['FLASH_DB_USERNAME'] ||
+    if ENV.has_key?('FLASH_DB_USERNAME_FILE')
+      File.read(ENV['FLASH_DB_USERNAME_FILE']).to_str
+    else
+      'super'
+    end
+  %>
 
   # The password associated with the postgres role (username).
-  password: <%= File.read("secrets/postgres-passwd").to_str %>
+  password: <%= ENV['FLASH_DB_PASSWORD'] || File.read(ENV['FLASH_DB_PASSWORD_FILE'] || 'secrets/postgres-passwd').to_str %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: localhost
+  host: <%=
+  ENV['FLASH_DB_HOSTNAME'] ||
+    if ENV.has_key?('FLASH_DB_HOSTNAME_FILE')
+      File.read(ENV['FLASH_DB_HOSTNAME_FILE']).to_str
+    else
+      'localhost'
+    end
+  %>
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  port: 5432
+  port: <%=
+  ENV['FLASH_DB_PORT'] ||
+    if ENV.has_key?('FLASH_DB_PORT_FILE')
+      File.read(ENV['FLASH_DB_PORT_FILE']).to_str
+    else
+      '5432'
+    end
+  %>
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
