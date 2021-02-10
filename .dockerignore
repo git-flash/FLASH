@@ -33,3 +33,4 @@ yarn-debug.log*
 
 secrets
 **/.gitignore
+app/javascript/generated

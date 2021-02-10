@@ -27,7 +27,7 @@ services:
       - POSTGRES_USER=super
       - POSTGRES_DB=flash_development
     volumes:
-      - flash-pg-db:/var/lib/postgresql/data
+#      - flash-pg-db:/var/lib/postgresql/data
       - /var/run/postgresql:/var/run/postgresql
     secrets:
       - postgres-passwd
@@ -36,8 +36,8 @@ services:
         aliases:
           - database
 
-volumes:
-  flash-pg-db:
+#volumes:
+#  flash-pg-db:
 
 secrets:
   postgres-passwd:
