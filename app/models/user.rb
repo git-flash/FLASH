@@ -1,4 +1,19 @@
 class User < ApplicationRecord
+  enum user_type: [:base, :staff, :executive]
+  after_initialize :set_default_user_type, :if => :new_record?
+
+  private def set_default_user_type
+    self.user_type ||= :base
+  end
+
+  def check_executive?
+    self.user_type.executive?
+  end
+
+  def check_staff?
+    self.user_type.executive? || self.user_type.staff?
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
@@ -13,6 +28,5 @@ class User < ApplicationRecord
 
   validates :first_name, length: { minimum: 1 }
   validates :last_name, length: { minimum: 1 }
-  validates :user_type, numericality: { greater_than_or_equal_to: 0 }
   validates :uin, numericality: { only_integer: true, greater_than_or_equal_to: 100000000, less_than_or_equal_to: 999999999 }
 end

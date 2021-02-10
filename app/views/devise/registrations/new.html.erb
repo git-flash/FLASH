@@ -39,6 +39,8 @@
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
+
+  <%= f.hidden_field :user_type, value: :base %>
 <% end %>
 
 <%= render "devise/shared/links" %>

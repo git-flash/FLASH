@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_02_09_194818) do
   create_table "attendance_logs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "event_id", null: false
+    t.string "passcode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_attendance_logs_on_event_id"
@@ -54,7 +55,6 @@ ActiveRecord::Schema.define(version: 2021_02_09_194818) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "password_digest"
     t.string "first_name"
     t.string "last_name"
     t.bigint "committee_id"
