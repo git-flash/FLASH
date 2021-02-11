@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_02_09_194818) do
   create_table "rsvps", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "event_id", null: false
-    t.string "rsvp_option"
+    t.integer "rsvp_option"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_rsvps_on_event_id"
