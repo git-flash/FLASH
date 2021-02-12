@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum user_type: [:base, :staff, :executive]
+  enum user_type: [:base, :staff, :executive, :admin]
   after_initialize :set_default_user_type, :if => :new_record?
 
   private def set_default_user_type
@@ -7,11 +7,11 @@ class User < ApplicationRecord
   end
 
   def check_executive?
-    self.user_type.executive?
+    self.user_type.executive? || self.user_type.admin?
   end
 
   def check_staff?
-    self.user_type.executive? || self.user_type.staff?
+    self.user_type.executive? || self.user_type.staff? || self.user_type.admin?
   end
 
   # Include default devise modules. Others available are:
@@ -21,7 +21,8 @@ class User < ApplicationRecord
          :recoverable,
          :rememberable,
          :validatable,
-         :trackable
+         :trackable,
+         stretches: 12
   belongs_to :committee, optional: true
   has_many :rsvps
   has_many :attendance_logs
