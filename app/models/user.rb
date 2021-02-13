@@ -6,12 +6,16 @@ class User < ApplicationRecord
     self.user_type ||= :base
   end
 
+  def check_admin?
+    self.user_type >= :admin
+  end
+
   def check_executive?
-    self.user_type.executive? || self.user_type.admin?
+    self.user_type >= :executive
   end
 
   def check_staff?
-    self.user_type.executive? || self.user_type.staff? || self.user_type.admin?
+    self.user_type >= :staff
   end
 
   # Include default devise modules. Others available are:
