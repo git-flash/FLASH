@@ -9,14 +9,18 @@ class ApplicationController < ActionController::Base
   protected
 
   def confirm_logged_in
-    :redirect_to_login unless user_signed_in?
+    redirect_to_login unless user_signed_in?
   end
 
   def confirm_staff
-    :redirect_to_login unless user_signed_in? && current_user.check_staff?
+    redirect_to_home unless user_signed_in? && current_user.check_staff?
   end
 
   def confirm_exec
+  end
+
+  def redirect_to_home
+    redirect_to root_path, alert: 'You do not have permissions'
   end
 
   def redirect_to_login
