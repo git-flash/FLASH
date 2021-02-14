@@ -34,7 +34,7 @@ development:
     if ENV.has_key?('FLASH_DB_USERNAME_FILE')
       File.read(ENV['FLASH_DB_USERNAME_FILE']).to_str
     else
-      'super'
+      'rails_user'
     end
   %>
 
