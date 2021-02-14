@@ -1,2 +1,38 @@
-<h1>Committees#show</h1>
-<p>Find me in app/views/committees/show.html.erb</p>
+<div class="container">
+  <h1>Committee Viewer</h1>
+
+  <h2><%= @committee.name %></h2>
+
+  <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == @committee.id)) %>
+    <p>
+      <strong>Users:</strong>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>UIN</th>
+          <th>User Type</th>
+          <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @committee.users.each do |user| %>
+          <tr>
+            <td><%= user.first_name %></td>
+            <td><%= user.last_name %></td>
+            <td><%= user.uin %></td>
+            <td><%= user.user_type %></td>
+            <td><%= user.email %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </p>
+  <% end %>
+
+  <% if user_signed_in? && current_user.check_executive?  %>
+    <%= link_to 'Edit', edit_committee_path(@committee) %>
+  <% end %>
+  <%= link_to 'Back', committees_path %>
+</div>

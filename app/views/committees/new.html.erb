@@ -1,2 +1,7 @@
-<h1>Committees#new</h1>
-<p>Find me in app/views/committees/new.html.erb</p>
+<div class="container">
+  <h1>New Committee</h1>
+
+  <%= render 'form', committee: @committee %>
+
+  <%= button_to 'Back', committees_path %>
+</div>

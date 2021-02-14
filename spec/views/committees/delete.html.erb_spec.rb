@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe "committees/delete.html.erb", type: :view do
+RSpec.describe "committees/destroy.html.erb", type: :view do
   pending "add some examples to (or delete) #{__FILE__}"
 end

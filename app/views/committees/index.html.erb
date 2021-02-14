@@ -1,2 +1,37 @@
-<h1>Committees#index</h1>
-<p>Find me in app/views/committees/index.html.erb</p>
+<div class="container">
+  <h1>Committees</h1>
+
+  <% if user_signed_in? && current_user.check_executive? %>
+    <%= button_to "New", new_committee_path %>
+  <% end %>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <% if user_signed_in? && current_user.check_executive? %>
+        <th colspan="3"></th>
+      <% else %>
+        <th colspan="1"></th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @committees.each do |committee| %>
+      <tr>
+        <td><%= committee.name %></td>
+        <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == committee.id)) %>
+          <td><%= link_to 'View', committee %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <% if user_signed_in? && current_user.check_executive? %>
+          <td><%= link_to 'Edit', edit_committee_path(committee) %></td>
+          <td><%= link_to 'Delete', committee, method: :delete, data: { confirm: "Are you sure you wish to delete " + committee.name + "?" } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

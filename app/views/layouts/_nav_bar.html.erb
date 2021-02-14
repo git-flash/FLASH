@@ -10,11 +10,22 @@
         <%= link_to "Home", root_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+        <%= link_to "Committees", committees_path, class: "nav-link" %>
       </li>
-      <li class="nav-item">
-        <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", method: :delete %>
-      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <% if user_signed_in? %>
+        <li class="navbar-text">
+          Signed in as <%= current_user.first_name + " " + current_user.last_name %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", method: :delete %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>

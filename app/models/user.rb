@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum user_type: [:base, :staff, :executive, :admin]
+  enum user_type: {base: 0, staff: 10, executive: 20, admin: 30}
   after_initialize :set_default_user_type, :if => :new_record?
 
   private def set_default_user_type
@@ -7,15 +7,15 @@ class User < ApplicationRecord
   end
 
   def check_admin?
-    self.user_type >= :admin
+    self.admin?
   end
 
   def check_executive?
-    self.user_type >= :executive
+    self.executive? || self.check_admin?
   end
 
   def check_staff?
-    self.user_type >= :staff
+    self.staff? || self.check_executive?
   end
 
   # Include default devise modules. Others available are:
