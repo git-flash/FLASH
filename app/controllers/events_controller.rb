@@ -1,7 +1,7 @@
 #MR
 class EventsController < ApplicationController
-  before_action :confirm_logged_in
-  skip_before_action :confirm_staff, :only => [:index, :show]
+  before_action :confirm_logged_in, only: [:index, :show]
+  before_action :confirm_staff, only: [:new, :create, :edit, :update, :delete, :destroy]
 
   def index
     # Calendar/event view
@@ -16,15 +16,15 @@ class EventsController < ApplicationController
 
   def new
     # Create event if >staff
-    @event = Event.new
+    @event = Event.new(point_value: 1)
   end
 
   def create
     @event = Event.new(event_params)
-    if event.save
+    if @event.save
       redirect_to events_path, alert: 'Event Created'
     else
-      render('new')
+      redirect_to new_event_path, alert: "Couldn't create event."
     end
   end
 
@@ -36,9 +36,9 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
-      redirect_to event_path(@event), alert 'Event Updated'
+      redirect_to event_path(@event), alert: 'Event Updated'
     else
-      render('edit')
+      redirect_to edit_event_path(@event), alert: "Couldn't update event."
     end
   end
 
@@ -50,13 +50,13 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
-    redirect_to event_path, alert: 'Event Deleted'
+    redirect_to events_path, alert: 'Event Deleted'
   end
 
   private
 
   def event_params
-    params.reqire(:event).permit(:name, :start_timestamp, :end_timestamp, :location, :point_value, :passcode)
+    params.require(:event).permit(:name, :committee_id, :start_timestamp, :end_timestamp, :location, :point_value, :passcode)
   end
 
 end

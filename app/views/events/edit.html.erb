@@ -1,2 +1,10 @@
-<h1>Events#edit</h1>
-<p>Find me in app/views/events/edit.html.erb</p>
+<%= link_to "Back to Event", event_path(@event) %>
+
+<div class="container">
+    <h2>Update Event</h2>
+    <%= link_to "Delete Event", delete_event_path(@event) %>
+    <%= form_for( @event ) do |f| %>
+    <%= render partial: 'form', locals: {f:f} %>
+    <%= f.submit "Update Event", disable_with: 'Updating Event...' %>
+    <% end %>
+</div>

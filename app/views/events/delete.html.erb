@@ -1,2 +1,9 @@
-<h1>Events#delete</h1>
-<p>Find me in app/views/events/delete.html.erb</p>
+<%= link_to "Back to Event", event_path(@event) %>
+
+<div class="container">
+    <h2>Delete Book</h2>
+    <%= form_for( @event , method: 'delete') do |f| %>
+    <p><%= "Are you sure you want to delete event: #{@event.name}" %></p>
+    <%= f.submit "Delete Event", disable_with: 'Deleting Event...' %>
+    <% end %>
+</div>

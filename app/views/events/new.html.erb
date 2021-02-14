@@ -1,2 +1,10 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<%= link_to "Back to List", events_path %>
+
+<div class="container">
+    <h2>Create Event</h2>
+
+    <%= form_for( @event ) do |f| %>
+    <%= render partial: 'form', locals: {f:f} %>
+    <%= f.submit "Create Event", disable_with: 'Creating Event...' %>
+    <% end %>
+</div>
