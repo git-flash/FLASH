@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :committees
 
+  resources :attendance_committee
+
   resources :events do
     member do
       get :delete

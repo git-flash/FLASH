@@ -1,5 +1,10 @@
 #CC
 class AttendanceCommitteeController < ApplicationController
+    def show
+    end
+    
+    def index
+    end
 end
 
 # ../attendance/committee/{id}  Shows points and logs for committee, only >exec, or >staff for committee
