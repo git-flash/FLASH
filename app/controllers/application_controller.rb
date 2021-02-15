@@ -6,31 +6,25 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :uin, :user_type])
   end
 
-  protected def confirm_logged_in
-    unless user_signed_in?
-      :redirect_to_login
-    end
+  protected
+
+  def confirm_logged_in
+    redirect_to_login unless user_signed_in?
   end
 
-  protected def confirm_staff
-    unless user_signed_in? && current_user.check_staff?
-      :redirect_to_login
-    end
+  def confirm_staff
+    redirect_to_home unless user_signed_in? && current_user.check_staff?
   end
 
-  protected def confirm_exec
-    unless user_signed_in? && current_user.check_executive?
-      :redirect_to_login
-    end
+  def confirm_exec
   end
 
-  protected def confirm_admin
-    unless user_signed_in? && current_user.check_admin?
-      :redirect_to_login
-    end
-  end
-
-  protected def redirect_to_login
+  def redirect_to_home
     redirect_to root_path, alert: 'You do not have permissions'
   end
+
+  def redirect_to_login
+    redirect_to new_user_session_path, alert: 'You do not have permissions'
+  end
+    
 end
