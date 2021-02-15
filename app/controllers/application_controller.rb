@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
   end
 
   def confirm_exec
+    redirect_to_home unless user_signed_in? && current_user.check_executive?
+  end
+
+  def confirm_admin
+    redirect_to_home unless user_signed_in? && current_user.check_admin?
   end
 
   def redirect_to_home
