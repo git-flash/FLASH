@@ -5,6 +5,7 @@
     <div class="links">
         <%= link_to "Edit Event", edit_event_path(@event) %>
         <%= link_to "Delete Event", delete_event_path(@event) %>
+        <%= link_to "Attend Event", new_attendance_log_path(eid: @event.id) %>
     </div>
     <table class="table">
         <tr>

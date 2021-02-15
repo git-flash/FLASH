@@ -28,8 +28,8 @@ class User < ApplicationRecord
          :trackable,
          stretches: 12
   belongs_to :committee, optional: true
-  has_many :rsvps
-  has_many :attendance_logs
+  has_many :events, through: :rsvps, source: :rsvps_table_foreign_key_to_events_table
+  has_many :events, through: :attendance_logs, source: :attendance_logs_table_foreign_key_to_events_table
 
   validates :first_name, length: { minimum: 1 }
   validates :last_name, length: { minimum: 1 }
