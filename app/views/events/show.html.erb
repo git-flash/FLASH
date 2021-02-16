@@ -32,9 +32,11 @@
             <th>Point Value</th>
             <td><%= strip_tags @event.point_value.to_s %></td>
         </tr>
+        <% if @event.committee_id.eql? current_user.committee_id %>
         <tr>
             <th>Passcode</th>
             <td><%= strip_tags @event.passcode %></td>
         </tr>
+        <% end %>
     </table>
 </div>

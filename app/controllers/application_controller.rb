@@ -16,7 +16,12 @@ class ApplicationController < ActionController::Base
     redirect_to_home unless user_signed_in? && current_user.check_staff?
   end
 
+  def confirm_event_staff(event)
+    redirect_to_home unless user_signed_in? && current_user.check_staff? && (current_user.committee_id.eql? event.committee_id)
+  end
+
   def confirm_exec
+    redirect_to_home unless user_signed_in? && current_user.check_executive?
   end
 
   def redirect_to_home

@@ -21,6 +21,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.committee_id = current_user.committee_id
     if @event.save
       redirect_to events_path, alert: 'Event created.'
     else
@@ -31,10 +32,12 @@ class EventsController < ApplicationController
   def edit
     # Edit event if >staff
     @event = Event.find(params[:id])
+    confirm_event_staff(@event)
   end
 
   def update
     @event = Event.find(params[:id])
+    confirm_event_staff(@event)
     if @event.update(event_params)
       redirect_to event_path(@event), alert: 'Event updated.'
     else
@@ -45,10 +48,12 @@ class EventsController < ApplicationController
   def delete
     # Delete event if >staff
     @event = Event.find(params[:id])
+    confirm_event_staff(@event)
   end
 
   def destroy
     @event = Event.find(params[:id])
+    confirm_event_staff(@event)
     @event.destroy
     redirect_to events_path, alert: 'Event deleted'
   end
@@ -56,7 +61,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:name, :committee_id, :start_timestamp, :end_timestamp, :location, :point_value, :passcode)
+    params.require(:event).permit(:name, :start_timestamp, :end_timestamp, :location, :point_value, :passcode)
   end
 
 end

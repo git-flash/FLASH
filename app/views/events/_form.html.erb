@@ -1,30 +1,35 @@
 <table class="table">
     <tr>
-        <th>Name</th>
+        <th><%= f.label :name %></th>
         <td><%= f.text_field :name %></td>
     </tr>
+    <%
+=begin%>
+    Pull committee id from current user's committee id
     <tr>
-        <th>Committee</th>
+        <th><%= f.label :committee_id %></th>
         <td><%= f.select :committee_id, options_for_select(Committee.all.map{|c|[c.name, c.id]}) %></td>
     </tr>
+    <%
+=end%>
     <tr>
-        <th>Start Date</th>
+        <th><%= f.label :start_timestamp %></th>
         <td><%= f.datetime_select :start_timestamp, start_year: Date.today.year, end_year: Date.today.year + 1 %></td>
     </tr>
     <tr>
-        <th>End Date</th>
+        <th><%= f.label :end_timestamp %></th>
         <td><%= f.datetime_select :end_timestamp, start_year: Date.today.year, end_year: Date.today.year + 1 %></td>
     </tr>
     <tr>
-        <th>Location</th>
+        <th><%= f.label :location %></th>
         <td><%= f.text_field :location %></td>
     </tr>
     <tr>
-        <th>Point Value</th>
+        <th><%= f.label :point_value %></th>
         <td><%= f.number_field :point_value %></td>
     </tr>
     <tr>
-        <th>Passcode</th>
+        <th><%= f.label :passcode %></th>
         <td><%= f.text_field :passcode %></td>
     </tr>
 </table>
