@@ -16,9 +16,9 @@ class AttendanceLogsController < ApplicationController
     @log = AttendanceLog.new(attendance_log_params)
     @log.user_id = current_user.id
     if @log.save
-      redirect_to events_path, alert: 'Attendance logged'
+      redirect_to events_path, alert: 'Attendance logged.'
     else
-      redirect_to events_path, alert: "Couldn't log attendance. Please try again."
+      redirect_to new_attendance_log_path(eid: @log.event_id), alert: "Couldn't log attendance."
     end
   end
 

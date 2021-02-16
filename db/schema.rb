@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_002553) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_attendance_logs_on_event_id"
+    t.index ["user_id", "event_id"], name: "index_attendance_logs_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_attendance_logs_on_user_id"
   end
 
