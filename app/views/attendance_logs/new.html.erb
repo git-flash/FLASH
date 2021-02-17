@@ -1,10 +1,10 @@
-<%= link_to "Back to Event", event_path(id: @log.event_id) %>
+<%= link_to "Back to Event", event_path(id: @log.event_id), class: "btn btn-secondary" %>
 
 <div class="container">
     <h2>Log Attendance</h2>
 
     <%= form_for( @log ) do |f| %>
-    <%= render partial: 'form', locals: {f:f} %>
-    <%= f.submit "Attend Event", disable_with: 'Attending Event...' %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <%= f.submit "Attend Event", disable_with: 'Attending Event...', class: 'btn btn-primary' %>
     <% end %>
 </div>

@@ -1,5 +1,7 @@
 #MR
 class AttendanceLogsController < ApplicationController
+  before_action :confirm_logged_in
+
   # def index
   # end
 
@@ -18,7 +20,8 @@ class AttendanceLogsController < ApplicationController
     if @log.save
       redirect_to events_path, alert: 'Attendance logged.'
     else
-      redirect_to new_attendance_log_path(eid: @log.event_id), alert: "Couldn't log attendance."
+      # redirect_to new_attendance_log_path(eid: @log.event_id), alert: "Couldn't log attendance."
+      render 'new'
     end
   end
 

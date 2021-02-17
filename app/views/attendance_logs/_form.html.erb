@@ -1,8 +1,10 @@
+<%= error_messages_for(f.object) %>
+
 <table class="table">
     <%= f.hidden_field :event_id %>
     <tr>
         <th><%= f.label :passcode %></th>
-        <td><%= f.text_field :passcode %></td>
+        <td><%= f.text_field :passcode, { class: "form-control mx-2" } %></td>
     </tr>
 
 </table>

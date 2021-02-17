@@ -25,7 +25,8 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to events_path, alert: 'Event created.'
     else
-      redirect_to new_event_path, alert: "Couldn't create event."
+      # redirect_to new_event_path, alert: "Couldn't create event."
+      render 'new' # this will render error messages for the previous object
     end
   end
 
@@ -41,7 +42,8 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       redirect_to event_path(@event), alert: 'Event updated.'
     else
-      redirect_to edit_event_path(@event), alert: "Couldn't update event."
+      # redirect_to edit_event_path(@event), alert: "Couldn't update event."
+      render 'edit' # this will render potential error messages
     end
   end
 

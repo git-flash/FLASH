@@ -2,18 +2,16 @@ class AttendanceLog < ApplicationRecord
   belongs_to :user
   belongs_to :event
 
-  # validate :passcode, inclusion: { in: [self.event.passcode], message: 'Passcode does not match' }
-
   validates :user_id, presence: true
   validates :event_id, presence: true
-  validates :user_id, uniqueness: { scope: [:event_id] }
+  validates :user_id, uniqueness: { scope: [:event_id], message: "can't attend the same event twice." }
   validate :same_passcode?
   # validate :is_active?
 
   private
 
   def same_passcode?
-    errors.add(:passcode, 'Passcode does not match.') unless passcode.eql? event.passcode
+    errors.add(:passcode, 'does not match.') unless passcode.eql? event.passcode
   end
 
   # def is_active?
