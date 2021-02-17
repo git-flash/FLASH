@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
 
   scope :by_start, -> { order(start_timestamp: :asc) }
-  scope :current, -> { by_start.where('end_timestamp': Date.current..) }
+  scope :current, -> { by_start.where('end_timestamp': DateTime.current..) }
   # Ex:- scope :active, -> {where(:active => true)}
 
   belongs_to :committee

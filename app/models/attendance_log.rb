@@ -15,6 +15,6 @@ class AttendanceLog < ApplicationRecord
   end
 
   def active?
-    errors.add(:event_id, "no longer active.") unless event.start_timestamp < Date.current && event.end_timestamp > Date.current
+    errors.add(:event_id, "not active.") unless event.start_timestamp < DateTime.current && event.end_timestamp > DateTime.current
   end
 end

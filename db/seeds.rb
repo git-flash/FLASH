@@ -25,8 +25,8 @@ if Rails.env.development?
   User.create!(first_name: "Test", last_name: "User", uin: 100000004, user_type: :base, email: "user@test.com", password: "UserPassword", committee: test_committee)
 
   # seed development events
-  Event.create!(name: 'Old Event', committee_id: Committee.find_by(name: 'Test Committee').id, start_timestamp: Date.yesterday, end_timestamp: Date.yesterday, location: "Test", point_value: 1, passcode: 'test')
+  Event.create!(name: 'Old Event', committee_id: Committee.find_by(name: 'Test Committee').id, start_timestamp: Date.yesterday, end_timestamp: DateTime.current - 1.minute, location: "Test", point_value: 1, passcode: 'test')
   Event.create!(name: 'Social Event', committee_id: Committee.find_by(name: 'Social').id, start_timestamp: Date.today, end_timestamp: Date.tomorrow, location: "HQ", point_value: 1, passcode: 'social')
-  Event.create!(name: 'Fundraising Event', committee_id: Committee.find_by(name: 'Fundraising').id, start_timestamp: Date.tomorrow, end_timestamp: Date.tomorrow, location: "HQ", point_value: 1, passcode: 'funds')
-  Event.create!(name: 'Give Back Event', committee_id: Committee.find_by(name: 'Give Back').id, start_timestamp: Date.tomorrow, end_timestamp: Date.tomorrow, location: "HQ", point_value: 1, passcode: 'giver')
+  Event.create!(name: 'Fundraising Event', committee_id: Committee.find_by(name: 'Fundraising').id, start_timestamp: DateTime.current, end_timestamp: Date.tomorrow, location: "HQ", point_value: 1, passcode: 'funds')
+  Event.create!(name: 'Give Back Event', committee_id: Committee.find_by(name: 'Give Back').id, start_timestamp: DateTime.current + 1.hour, end_timestamp: Date.tomorrow - 12.hours, location: "HQ", point_value: 1, passcode: 'giver')
 end
