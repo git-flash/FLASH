@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   def index
     # Calendar/event view
     # Root path
-    @events = Event.order('start_timestamp ASC')
+    @events = Event.current
   end
 
   def show

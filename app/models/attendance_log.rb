@@ -6,7 +6,7 @@ class AttendanceLog < ApplicationRecord
   validates :event_id, presence: true
   validates :user_id, uniqueness: { scope: [:event_id], message: "can't attend the same event twice." }
   validate :same_passcode?
-  # validate :is_active?
+  validate :active?
 
   private
 
@@ -14,7 +14,7 @@ class AttendanceLog < ApplicationRecord
     errors.add(:passcode, 'does not match.') unless passcode.eql? event.passcode
   end
 
-  # def is_active?
-  #   errors.add(:event_id, "The event isn't active.") unless event.start_timestamp < Date.now and event.end_timestamp > Date.now
-  # end
+  def active?
+    errors.add(:event_id, "no longer active.") unless event.start_timestamp < Date.current && event.end_timestamp > Date.current
+  end
 end
