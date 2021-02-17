@@ -10,8 +10,11 @@ class Event < ApplicationRecord
   validates :name, presence: true
   validates :start_timestamp, presence: true
   validates :end_timestamp, presence: true
-  # add check that the start time is < the end time
+  validate :end_must_be_after_start
   validates :point_value, presence: true
   validates :passcode, presence: true
   
+  def end_must_be_after_start
+    errors.add(:start_timestamp, "can't start after it ends.") unless start_timestamp <= end_timestamp
+  end
 end
