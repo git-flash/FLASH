@@ -1,10 +1,9 @@
-<%= link_to "Back to Event", event_path(@event) %>
+<%= link_to "Back to Event", event_path(@event), class: "btn btn-secondary" %>
 
 <div class="container">
     <h2>Update Event</h2>
-    <%= link_to "Delete Event", delete_event_path(@event) %>
     <%= form_for( @event ) do |f| %>
     <%= render partial: 'form', locals: {f:f} %>
-    <%= f.submit "Update Event", disable_with: 'Updating Event...' %>
+    <%= f.submit "Update Event", disable_with: 'Updating Event...', class: "btn btn-primary" %>
     <% end %>
 </div>
