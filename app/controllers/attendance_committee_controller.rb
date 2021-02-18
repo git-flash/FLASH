@@ -1,9 +1,12 @@
 #CC
 class AttendanceCommitteeController < ApplicationController
     def show
+        puts AttendanceLog.committee_log(params[:id]).inspect
+        @committeeAttendanceLogs = AttendanceLog.committee_log(params[:id])
     end
     
     def index
+        # puts Committee.committee_points.inspect
     end
 end
 
