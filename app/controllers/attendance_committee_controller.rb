@@ -18,16 +18,16 @@ class AttendanceCommitteeController < ApplicationController
             new_commitee = CommitteePoints.new
             new_commitee.committee = com
 
-            new_commitee.social_points = Committee.social_points(com.id)[0].total_points
-            new_commitee.fundraising_points = Committee.fundraising_points(com.id)[0].total_points
-            new_commitee.campus_relations_points = Committee.campus_relations_points(com.id)[0].total_points
-            new_commitee.pr_points = Committee.pr_points(com.id)[0].total_points
-            new_commitee.community_outreach_points = Committee.community_outreach_points(com.id)[0].total_points
-            new_commitee.give_back_points = Committee.give_back_points(com.id)[0].total_points
+            # Add Point Values to New Committee Object
+            new_commitee.social_points = Committee.point_total(com.id, "social")[0].total_points
+            new_commitee.fundraising_points = Committee.point_total(com.id, "fundraising")[0].total_points
+            new_commitee.campus_relations_points = Committee.point_total(com.id, "campus_relations")[0].total_points
+            new_commitee.pr_points = Committee.point_total(com.id, "pr")[0].total_points
+            new_commitee.community_outreach_points = Committee.point_total(com.id, "community_outreach")[0].total_points
+            new_commitee.give_back_points = Committee.point_total(com.id, "give_back")[0].total_points
 
             @committeeRows.push new_commitee
         end
-        
     end
 end
 
