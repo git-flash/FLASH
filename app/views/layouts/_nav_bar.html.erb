@@ -12,6 +12,18 @@
       <li class="nav-item">
         <%= link_to "Committees", committees_path, class: "nav-link" %>
       </li>
+      <% if user_signed_in? %>
+        <% if current_user.check_executive? %>
+          <li class="nav-item">
+            <%= link_to "Committee Attendance", attendance_committee_index_path, class: "nav-link" %>
+          </li>
+        <% end %>
+        <% if current_user.check_staff? && !current_user.check_executive? %>
+          <li class="nav-item">
+            <%= link_to "Committee Attendance", attendance_committee_path(current_user.committee.id), class: "nav-link" %>
+          </li>
+        <% end %>
+      <% end %>
     </ul>
     <ul class="navbar-nav">
       <% if user_signed_in? %>
