@@ -1,1 +1,31 @@
-Hi!
+<div class="container">
+  <h1>Points Log</h1>
+
+  <table class="table mt-4">
+    <thead>
+    <tr>
+      <th>Committee Name</th>
+      <th>Social Points</th>
+      <th>Fundraising Points</th>
+      <th>Campus Relations Points</th>
+      <th>PR Points</th>
+      <th>Community Outreach Points</th>
+      <th>Give Back Points</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @committeeRows.each do |row| %>
+      <tr>
+        <td><a href="/attendance_committee/<%= row.committee.id %>"><%= row.committee.name %></a></td>
+        <td><%= row.social_points %></td>
+        <td><%= row.fundraising_points %></td>
+        <td><%= row.campus_relations_points %></td>
+        <td><%= row.pr_points %></td>
+        <td><%= row.community_outreach_points %></td>
+        <td><%= row.give_back_points %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
