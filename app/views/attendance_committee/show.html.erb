@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Committee Log — <%= @committee.name%></h1>
+
+  <table class="table mt-4">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Event</th>
+      <th>Timestamp</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @committeeAttendanceLogs.each do |log| %>
+      <tr>
+        <td><%= log.first_name + ' ' + log.last_name %></td>
+        <td><%= log.event_name %></td>
+        <td><%= log.time_logged %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Back', attendance_committee_index_path, :class => "btn btn-primary btn-large" %>
+</div>

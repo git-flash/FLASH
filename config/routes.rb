@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'events#index'
 
   resources :committees
+  resources :attendance_committee
 
   resources :events do
     member do
