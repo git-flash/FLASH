@@ -29,10 +29,15 @@ module FLASH
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Add bootstrap error class to forms with errors
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
+      "<div class=\"input-group border border-5 border-danger rounded\">#{html_tag}</div>".html_safe
+    }
   end
 end

@@ -1,0 +1,32 @@
+<%= error_messages_for(f.object) %>
+
+<table class="table">
+    <tr>
+        <th><%= f.label :name %></th>
+        <td class="row pr-5"><%= f.text_field :name, { class: "form-control" } %></td>
+    </tr>
+    <tr>
+        <th><%= f.label :committee_id %></th>
+        <td class="row pr-5"><%= f.select :committee_id, options_for_select(Committee.all.map{|c|[c.name, c.id]}, current_user.committee_id), {}, { class: "form-control", disabled: true }%></td>
+    </tr>
+    <tr>
+        <th><%= f.label :start_timestamp %></th>
+        <td class="row pr-5"><%= f.datetime_select :start_timestamp, { start_year: Date.today.year, end_year: Date.today.year + 1 }, { class: "form-control col" } %></td>
+    </tr>
+    <tr>
+        <th><%= f.label :end_timestamp %></th>
+        <td class="row pr-5"><%= f.datetime_select :end_timestamp, { start_year: Date.today.year, end_year: Date.today.year + 1 }, { class: "form-control col" } %></td>
+    </tr>
+    <tr>
+        <th><%= f.label :location %></th>
+        <td class="row pr-5"><%= f.text_field :location, { class: "form-control" } %></td>
+    </tr>
+    <tr>
+        <th><%= f.label :point_value %></th>
+        <td class="row pr-5"><%= f.number_field :point_value, { class: "form-control" } %></td>
+    </tr>
+    <tr>
+        <th><%= f.label :passcode %></th>
+        <td class="row pr-5"><%= f.text_field :passcode, { class: "form-control" } %></td>
+    </tr>
+</table>

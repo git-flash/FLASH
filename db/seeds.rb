@@ -18,11 +18,11 @@ if Rails.env.development?
   User.create!(first_name: "Test", last_name: "Executive", uin: 100000002, user_type: :executive, email: "exec@test.com", password: "ExecPassword")
   User.create!(first_name: "Test", last_name: "Staff", uin: 100000003, user_type: :staff, email: "staff@test.com", password: "StaffPassword", committee: social_committee)
   test_user1 = User.create!(first_name: "Test", last_name: "User", uin: 100000004, user_type: :base, email: "user@test.com", password: "UserPassword", committee: pr_committee)
-  test_user2 = User.create!(first_name: "Cool", last_name: "User", uin: 100000004, user_type: :base, email: "cool_user@test.com", password: "UserPassword", committee: give_back_committee)
+  test_user2 = User.create!(first_name: "Cool", last_name: "User", uin: 100000005, user_type: :base, email: "cool_user@test.com", password: "UserPassword", committee: give_back_committee)
 
-  test_event1 = Event.create!(name: "Sample Fundriasing Event", start_timestamp: Time.now, end_timestamp: Time.now, location: "HRBB 124", committee: fundraising_committee, point_value: 1, passcode: "1234")
-  test_event2 = Event.create!(name: "Campus Relations Event", start_timestamp: Time.now, end_timestamp: Time.now, location: "HRBB 124", committee: campus_relations_committee, point_value: 1, passcode: "1234")
-  test_event3 = Event.create!(name: "Coomunity Outreach Event", start_timestamp: Time.now, end_timestamp: Time.now, location: "HRBB 124", committee: community_outreach_committee, point_value: 1, passcode: "1234")
+  test_event1 = Event.create!(name: "Sample Fundriasing Event", start_timestamp: DateTime.current, end_timestamp: Date.tomorrow, location: "HRBB 124", committee: fundraising_committee, point_value: 1, passcode: "1234")
+  test_event2 = Event.create!(name: "Campus Relations Event", start_timestamp: DateTime.current, end_timestamp: Date.tomorrow, location: "HRBB 124", committee: campus_relations_committee, point_value: 1, passcode: "1234")
+  test_event3 = Event.create!(name: "Coomunity Outreach Event", start_timestamp: DateTime.current, end_timestamp: Date.tomorrow, location: "HRBB 124", committee: community_outreach_committee, point_value: 1, passcode: "1234")
 
   AttendanceLog.create!(user: test_user1, event: test_event1, passcode: "1234")
   AttendanceLog.create!(user: test_user1, event: test_event2, passcode: "1234")

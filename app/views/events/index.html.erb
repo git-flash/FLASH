@@ -1,2 +1,19 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<div class="container">
+    <h2>Events</h2>
+    <%= link_to "Add New Event", new_event_path, class: "btn btn-primary" %>
+    <table class="table my-2">
+        <tr>
+            <th>Events</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+
+        <% @events.each do |event| %>
+        <tr>
+            <td><%= link_to event.name, event_path(event), class: "btn btn-link" %></td>
+            <td><%= event.start_timestamp.to_s(:long) %></td>
+            <td><%= event.end_timestamp.to_s(:long) %></td>
+        </tr>
+        <% end %>
+    </table>
+</div>

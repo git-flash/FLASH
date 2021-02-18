@@ -31,8 +31,10 @@
     </p>
   <% end %>
 
+  <div class="btn-group">
   <% if user_signed_in? && current_user.check_executive?  %>
-    <%= link_to 'Edit', edit_committee_path(@committee) %>
+    <%= button_to 'Edit', edit_committee_path(@committee), class: "btn btn-primary" %>
   <% end %>
-  <%= link_to 'Back', committees_path %>
+  <%= button_to 'Back', committees_path, class: "btn btn-primary" %>
+  </div>
 </div>

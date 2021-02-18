@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>FLASH</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      crossorigin="anonymous"
-      />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="current_user" data-current-user="<%= current_user.as_json.to_json %>"></div>
     <%= render 'layouts/nav_bar' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
-  </body>
+    <% if notice %>
+    <p class="notice alert alert-warning"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+    <p class="alert alert-warning"><%= alert %></p>
+    <% end %>
+    <div class="container-fluid m-1 m-sm-5">
+        <%= yield %>
+    </div>
+</body>
+
 </html>

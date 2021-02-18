@@ -1,2 +1,42 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<%= link_to "Back to List", events_path, class: "btn btn-secondary" %>
+
+<div class="container">
+    <h2></h2>
+    <div class="links">
+        <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-secondary" %>
+        <%= link_to "Delete Event", delete_event_path(@event), class: "btn btn-danger" %>
+        <%= link_to "Attend Event", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
+    </div>
+    <table class="table my-2">
+        <tr>
+            <th>Name</th>
+            <td><%= strip_tags @event.name %></td>
+        </tr>
+        <tr>
+            <th>Committee</th>
+            <td><%= strip_tags @event.committee.name %></td>
+        </tr>
+        <tr>
+            <th>Start Time</th>
+            <td><%= strip_tags @event.start_timestamp.to_s(:long) %></td>
+        </tr>
+        <tr>
+            <th>End Time</th>
+            <td><%= strip_tags @event.end_timestamp.to_s(:long) %></td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td><%= strip_tags @event.location %></td>
+        </tr>
+        <tr>
+            <th>Point Value</th>
+            <td><%= strip_tags @event.point_value.to_s %></td>
+        </tr>
+        <% if @event.committee_id.eql? current_user.committee_id %>
+        <tr>
+            <th>Passcode</th>
+            <td><%= strip_tags @event.passcode %></td>
+        </tr>
+        <% end %>
+    </table>
+</div>
