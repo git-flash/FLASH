@@ -11,6 +11,8 @@ services:
       - FLASH_DB_PASSWORD_FILE=/run/secrets/postgres-passwd
       - FLASH_DB_HOSTNAME=database
       - FLASH_DB_PORT=5432
+    volumes:
+    - .:/myapp
     secrets:
       - postgres-passwd
     networks:

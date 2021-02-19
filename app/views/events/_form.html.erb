@@ -2,12 +2,12 @@
 
 <table class="table">
     <tr>
-        <th><%= f.label :name %></th>
+        <th><%= f.label :name, "Cool Text" %></th>
         <td class="row pr-5"><%= f.text_field :name, { class: "form-control" } %></td>
     </tr>
     <tr>
         <th><%= f.label :committee_id %></th>
-        <td class="row pr-5"><%= f.select :committee_id, options_for_select(Committee.all.map{|c|[c.name, c.id]}, current_user.committee_id), {}, { class: "form-control", disabled: true }%></td>
+        <td class="row pr-5"><%= f.select :committee_id, options_for_select(Committee.all.map{|c|[c.name, c.id]}, current_user.committee_id), {}, { class: "form-control", disabled: !current_user.check_executive? }%></td>
     </tr>
     <tr>
         <th><%= f.label :start_timestamp %></th>
