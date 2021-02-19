@@ -19,6 +19,8 @@ if Rails.env.development?
   User.create!(first_name: "Test", last_name: "Staff", uin: 100000003, user_type: :staff, email: "staff@test.com", password: "StaffPassword", committee: social_committee)
   test_user1 = User.create!(first_name: "Test", last_name: "User", uin: 100000004, user_type: :base, email: "user@test.com", password: "UserPassword", committee: pr_committee)
   test_user2 = User.create!(first_name: "Cool", last_name: "User", uin: 100000005, user_type: :base, email: "cool_user@test.com", password: "UserPassword", committee: give_back_committee)
+  test_user3 = User.create!(first_name: "Test", last_name: "PendingUser", uin: 100000006, user_type: :base, email: "pending@test.com", password: "PendingPassword")
+
 
   test_event1 = Event.create!(name: "Sample Fundriasing Event", start_timestamp: DateTime.current, end_timestamp: Date.tomorrow, location: "HRBB 124", committee: fundraising_committee, point_value: 1, passcode: "1234")
   test_event2 = Event.create!(name: "Campus Relations Event", start_timestamp: DateTime.current, end_timestamp: Date.tomorrow, location: "HRBB 124", committee: campus_relations_committee, point_value: 1, passcode: "1234")

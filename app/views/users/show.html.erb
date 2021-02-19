@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @user.first_name%>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @user.last_name %>
+</p>
+
+<p>
+  <strong>Uin:</strong>
+  <%= @user.uin %>
+</p>
+
+<p>
+  <strong>Membership Level:</strong>
+  <%= @user.user_type %>
+</p>
+
+<p>
+  <strong>Committee:</strong>
+  <%= @user.committee_id %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user), class:"btn btn-info" %> |
+<%= link_to 'Back', users_path, class:"btn btn-info" %>

@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'events#index'
+  get 'users/pending'
 
   resources :committees
   resources :attendance_committee
+  resources :users
 
   resources :events do
     member do

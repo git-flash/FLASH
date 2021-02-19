@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_002553) do
     t.index ["committee_id"], name: "index_users_on_committee_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uin"], name: "index_users_on_uin", unique: true
   end
 
   add_foreign_key "attendance_logs", "events"

@@ -24,6 +24,21 @@
           </li>
         <% end %>
       <% end %>
+
+      <% if user_signed_in? %>
+        <% if current_user.check_executive? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Members
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Current Members", users_path, class: "dropdown-item" %>
+              <%= link_to "Pending Members", users_pending_path, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+
     </ul>
     <ul class="navbar-nav">
       <% if user_signed_in? %>
