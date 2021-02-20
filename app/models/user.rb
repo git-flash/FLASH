@@ -33,5 +33,5 @@ class User < ApplicationRecord
 
   validates :first_name, length: { minimum: 1 }
   validates :last_name, length: { minimum: 1 }
-  validates :uin, numericality: { only_integer: true, greater_than_or_equal_to: 100000000, less_than_or_equal_to: 999999999 }
+  validates :uin, numericality: { only_integer: true, greater_than_or_equal_to: 100000000, less_than_or_equal_to: 999999999 }, uniqueness: true
 end
