@@ -10,6 +10,11 @@ class UsersController < ApplicationController
   
     # GET /users/1 or /users/1.json
     def show
+      if (@user.committee)
+        redirect_to users_path
+      else
+        redirect_to users_pending_path
+      end
     end
   
     # GET /users/new
@@ -52,9 +57,14 @@ class UsersController < ApplicationController
   
     # DELETE /users/1 or /users/1.json
     def destroy
+      userName = @user.first_name + " " + @user.last_name
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to users_url, notice: "user was successfully destroyed." }
+        if (@pendingCheck)
+          format.html { redirect_to users_pending_url, notice: userName + " was successfully annihilated." }
+        else
+          format.html { redirect_to users_url, notice: userName + " was successfully annihilated." }
+        end
         format.json { head :no_content }
       end
     end

@@ -22,7 +22,7 @@
         <div class="col-sm">
         <table class="table table-striped table-bordered">
 
-            <thead class="table-dark">
+            <thead style="background-color: #488cf6">
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -56,7 +56,17 @@
                     <td><%= user.email %></td>
                     <!--<td>lessthanpercentequals link_to 'Show', user, class:"btn btn-info" percentgreaterthan</td> COMMENT ME OUT-->
                     <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-info" %></td>
-                    <td><%= link_to 'Delete', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td>
+                        <%=
+                            if ((current_user.check_admin? && current_user != user) || !user.check_executive?)
+                                if (@pendingCheck)
+                                    link_to 'Reject', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } 
+                                else
+                                    link_to 'Delete', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } 
+                                end
+                            end
+                        %>
+                    </td>
                 </tr>
                 <% end %>
             <% end %>
