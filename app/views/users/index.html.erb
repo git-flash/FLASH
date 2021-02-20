@@ -1,47 +1,64 @@
-<p id="notice"><%= notice %></p>
+<%= @pendingCheck = false; render  'members' %>
 
-<h1>Current Members</h1>
+<!-- note the below if statement is to remove the commented out ruby code that still runs
+<% if false %>
+  <p id="notice"><%= notice %></p>
 
-<table class="table table-striped table-bordered">
-  <thead class="table-dark">
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>UIN</th>
-      <th>Membership Level</th>
-      <th>Committee</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <h1>Current Members</h1>
+      </div>
+      <div class="col-sm">
+        <%= link_to 'Show Pending Members', users_pending_path, class:"btn btn-success float-right" %>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col-sm">
+        <table class="table table-striped table-bordered">
 
+          <thead class="table-dark">
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>UIN</th>
+              <th>Membership Level</th>
+              <th>Committee</th>
+              <th>Email</th>
+              <th colspan="2"></th>
+            </tr>
+          </thead>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <% if ((user.committee) || (user.user_type == "executive") || (user.user_type == "admin")) %>
-        <tr>
-          <td><%= user.first_name %></td>
-          <td><%= user.last_name %></td>
-          <td><%= user.uin %></td>
-          <td><%= user.user_type %></td>
-          <td>
-            <%=
-              if (user.committee)
-                user.committee.name
-              else
-                user.user_type
-              end
-            %>
-          </td>
-          <td><%= link_to 'Show', user, class:"btn btn-info" %></td>
-          <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-info" %></td>
-          <td><%= link_to 'Delete', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+          <tbody>
+            <% @users.each do |user| %>
+              <% if ((user.committee) || (user.user_type == "executive") || (user.user_type == "admin")) %>
+                <tr>
+                  <td><%= user.first_name %></td>
+                  <td><%= user.last_name %></td>
+                  <td><%= user.uin %></td>
+                  <td><%= user.user_type %></td>
+                  <td>
+                    <%=
+                      if (user.committee)
+                        user.committee.name
+                      else
+                        user.user_type
+                      end
+                    %>
+                  </td>
+                  <td><%= user.email %></td>
+                  <td><%= link_to 'Show', user, class:"btn btn-info" %></td> COMMENT ME OUT
+                  <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-info" %></td>
+                  <td><%= link_to 'Delete', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
 
-<br>
-
-<%= link_to 'Add a Pending Member', users_pending_path, class:"btn btn-success" %>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
+-->

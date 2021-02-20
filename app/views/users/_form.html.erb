@@ -27,13 +27,13 @@
   </div>
 
   <div class="field mb-3">
-    <%= form.label :membership_level %>
-    <%= form.text_field :user_type, class:"form-control" %>
+    <%= form.label :user_type, "Membership Level" %>
+    <%= form.text_field :user_type, class: "form-control" %>
   </div>
 
   <div class="field mb-3">
-    <%= form.label :committee %>
-    <%= form.text_field :committee_id, class:"form-control" %>
+    <%= form.label :committee_id %>
+    <%= form.select :committee_id, options_for_select([["None", nil], *Committee.all.map{|c|[c.name, c.id]}], user.committee_id), class: "form-control" %>
   </div>
 
   <div class="actions">

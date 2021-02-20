@@ -1,7 +1,7 @@
 #HG
 class UsersController < ApplicationController
     before_action :set_user, only: %i[ show edit update destroy ]
-    before_action :confirm_exec, only: %i[ show edit update destroy ]
+    before_action :confirm_exec
 
     # GET /users or /users.json
     def index
@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   
     # GET /users/new
     def new
+      redirect_to root_path
       @user = User.new
     end
   
