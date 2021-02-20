@@ -4,10 +4,9 @@
   <h2><%= @committee.name %></h2>
 
   <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == @committee.id)) %>
-    <p>
-      <strong>Users:</strong>
-      <table class="table">
-        <thead>
+    <strong>Users:</strong>
+    <table class="table">
+      <thead>
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
@@ -15,8 +14,8 @@
           <th>User Type</th>
           <th>Email</th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <% @committee.users.each do |user| %>
           <tr>
             <td><%= user.first_name %></td>
@@ -26,15 +25,14 @@
             <td><%= user.email %></td>
           </tr>
         <% end %>
-        </tbody>
-      </table>
-    </p>
+      </tbody>
+    </table>
   <% end %>
 
   <div class="btn-group">
-  <% if user_signed_in? && current_user.check_executive?  %>
-    <%= button_to 'Edit', edit_committee_path(@committee), class: "btn btn-primary" %>
-  <% end %>
-  <%= button_to 'Back', committees_path, class: "btn btn-primary" %>
+    <% if user_signed_in? && current_user.check_executive? %>
+      <%= button_to 'Edit', edit_committee_path(@committee), class: "btn btn-primary" %>
+    <% end %>
+    <%= button_to 'Back', committees_path, class: "btn btn-primary" %>
   </div>
 </div>
