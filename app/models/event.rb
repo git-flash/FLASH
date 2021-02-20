@@ -8,12 +8,12 @@ class Event < ApplicationRecord
   has_many :users, through: :attendance_logs, source: :attendance_logs_table_foreign_key_to_objects_table
   has_many :users, through: :rsvps, source: :rsvps_table_foreign_key_to_objects_table
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1 }
   validates :start_timestamp, presence: true
   validates :end_timestamp, presence: true
   validate :end_must_be_after_start
   validates :point_value, presence: true
-  validates :passcode, presence: true
+  validates :passcode, presence: true, length: { minimum: 1 }
   
   def end_must_be_after_start
     errors.add(:start_timestamp, "can't start after it ends.") unless start_timestamp <= end_timestamp

@@ -1,35 +1,46 @@
 <div class="container">
-  <h1>Committees</h1>
+  <div class="row">
+    <div class="col">
+      <h1>Committees</h1>
+    </div>
+    <div class="col">
+      <% if user_signed_in? && current_user.check_executive? %>
+        <%= button_to "New", new_committee_path, class: "btn btn-primary float-right" %>
+      <% end %>
+    </div>
+  </div>
 
-  <% if user_signed_in? && current_user.check_executive? %>
-    <p>
-      <%= button_to "New", new_committee_path, class: "btn btn-primary" %>
-    </p>
-  <% end %>
+  <div class="row">
+    <div class="col">
+      <table class="table mr-1 table-striped table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Number of Users</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
 
-  <table class="table mr-1">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="1"></th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @committees.each do |committee| %>
-      <tr>
-        <td><%= committee.name %></td>
-        <td class="btn-group mr-1">
-          <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == committee.id)) %>
-            <%= button_to 'View', committee, method: :get, class: "btn btn-secondary" %>
-          <% end %>
-          <% if user_signed_in? && current_user.check_executive? %>
-            <%= button_to 'Edit', edit_committee_path(committee), class: "btn btn-secondary" %>
-            <%= button_to 'Delete', committee, method: :delete, data: { confirm: "Are you sure you wish to delete " + committee.name + "?" }, class: "btn btn-danger" %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+        <tbody>
+        <% @committees.each do |committee| %>
+          <tr>
+            <td><%= committee.name %></td>
+            <td><%= committee.users.length %></td>
+            <td>
+              <div class="btn-group float-right">
+                <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == committee.id)) %>
+                  <%= button_to 'View', committee, method: :get, class: "btn btn-secondary mr-1" %>
+                <% end %>
+                <% if user_signed_in? && current_user.check_executive? %>
+                  <%= button_to 'Edit', edit_committee_path(committee), class: "btn btn-secondary mr-1" %>
+                  <%= button_to 'Delete', committee, method: :delete, data: { confirm: "Are you sure you wish to delete " + committee.name + "?" }, class: "btn btn-danger mr-1" %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
