@@ -6,30 +6,25 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <%= link_to "Home", root_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Committees", committees_path, class: "nav-link" %>
-      </li>
       <% if user_signed_in? %>
       <li class="nav-item">
           <%= link_to "User Attendance", attendance_user_index_path, class: "nav-link" %>
         </li> 
+        <li class="nav-item active">
+          <%= link_to "Events", root_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Committees", committees_path, class: "nav-link" %>
+        </li>
         <% if current_user.check_executive? %>
           <li class="nav-item">
             <%= link_to "Committee Attendance", attendance_committee_index_path, class: "nav-link" %>
           </li>
-          
-          <% end %>
+        <% end %>
         <% if current_user.check_staff? && !current_user.check_executive? %>
           <li class="nav-item">
             <%= link_to "Committee Attendance", attendance_committee_path(current_user.committee.id), class: "nav-link" %>
-          
-        </li> 
-        <% end %>
-        <% if !current_user.check_staff? && !current_user.check_executive? && !current_user.check_admin? %>
-        
+          </li>
         <% end %>
       <% end %>
 
@@ -64,3 +59,6 @@
     </ul>
   </div>
 </nav>
+
+
+

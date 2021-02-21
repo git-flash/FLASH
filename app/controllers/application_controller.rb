@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :uin, :user_type])
   end
 
+  protected def after_sign_out_path_for(resource_or_scope)
+    new_user_session_url
+  end
+
   protected
 
   def confirm_logged_in
