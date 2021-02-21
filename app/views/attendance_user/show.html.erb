@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>User Log</h1>
+
+  <table class="table mt-4">
+    <thead>
+    <tr>
+      <th>Event</th>
+      <th>Timestamp</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @userAttendanceLogs.each do |log| %>
+      <tr>
+        <td><%= log.event_name %></td>
+        <td><%= log.time_logged %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Back', attendance_user_index_path, :class => "btn btn-primary btn-large" %>
+</div>

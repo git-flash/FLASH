@@ -34,4 +34,16 @@ class User < ApplicationRecord
   validates :first_name, length: { minimum: 1 }
   validates :last_name, length: { minimum: 1 }
   validates :uin, numericality: { only_integer: true, greater_than_or_equal_to: 100000000, less_than_or_equal_to: 999999999 }, uniqueness: true
+
+  scope :points_for_committee, ->(user, point_committee) {
+    select("SUM(events.point_value) as total_points")  
+      .joins("INNER JOIN attendance_logs ON attendance_logs.user_id = users.id")
+      .joins("INNER JOIN events ON attendance_logs.event_id = events.id")
+      .where("events.committee_id = ?", point_committee.id)
+      .where("users.id = ?", user.id)
+  }
+
+  scope :freshman, -> (){
+    where("users.user_type < ?", user_types[:staff])
+  }
 end

@@ -16,6 +16,13 @@ class AttendanceLog < ApplicationRecord
       .where("committees.id = ?", committee_id) 
     }
 
+    scope :user_log, ->(user_id) { 
+    select("users.first_name as first_name, users.last_name as last_name, events.name as event_name, attendance_logs.created_at as time_logged")  
+      .joins("INNER JOIN events ON events.id = attendance_logs.event_id")
+      .joins("INNER JOIN users ON users.id = attendance_logs.user_id")
+      .where("users.id = ?", user_id) 
+    }
+
   private
 
   def same_passcode?

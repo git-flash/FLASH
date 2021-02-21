@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :committees
   resources :attendance_committee
   resources :users
+  resources :attendance_user
 
   resources :events do
     member do
