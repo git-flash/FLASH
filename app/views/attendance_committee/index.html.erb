@@ -17,7 +17,7 @@
     <tbody>
     <% @committeeRows.each do |row| %>
       <tr>
-        <td><%= row.committee.name %></a></td>
+        <td><a href="/attendance_committee/<%= row.committee.id %>"><%= row.committee.name %></a></td>
         <td><%= row.social_points %></td>
         <td><%= row.fundraising_points %></td>
         <td><%= row.campus_relations_points %></td>
