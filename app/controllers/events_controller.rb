@@ -1,6 +1,9 @@
 #MR
 class EventsController < ApplicationController
-  before_action :confirm_logged_in, only: [:index, :show]
+  before_action :confirm_logged_in, only: [:show]
+  before_action only: [:index] do
+    confirm_logged_in('Please Log In')
+  end
   before_action :confirm_staff, only: [:new, :create, :edit, :update, :delete, :destroy]
 
   def index

@@ -12,32 +12,32 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def confirm_logged_in
-    redirect_to_login unless user_signed_in?
+  def confirm_logged_in(message = nil)
+    redirect_to_login(message) unless user_signed_in?
   end
 
-  def confirm_staff
-    redirect_to_home unless user_signed_in? && current_user.check_staff?
+  def confirm_staff(message = nil)
+    redirect_to_home(message) unless user_signed_in? && current_user.check_staff?
   end
 
-  def confirm_event_staff(event)
-    redirect_to_home unless user_signed_in? && current_user.check_staff? && (current_user.committee_id.eql? event.committee_id)
+  def confirm_event_staff(event, message = nil)
+    redirect_to_home(message) unless user_signed_in? && current_user.check_staff? && (current_user.committee_id.eql? event.committee_id)
   end
 
-  def confirm_exec
-    redirect_to_home unless user_signed_in? && current_user.check_executive?
+  def confirm_exec(message = nil)
+    redirect_to_home(message) unless user_signed_in? && current_user.check_executive?
   end
 
-  def confirm_admin
-    redirect_to_home unless user_signed_in? && current_user.check_admin?
+  def confirm_admin(message = nil)
+    redirect_to_home(message) unless user_signed_in? && current_user.check_admin?
   end
 
-  def redirect_to_home
-    redirect_to root_path, alert: 'You do not have permissions'
+  def redirect_to_home(message = nil)
+    redirect_to root_path, alert: message == nil ? 'You do not have permissions' : message
   end
 
-  def redirect_to_login
-    redirect_to new_user_session_path, alert: 'You do not have permissions'
+  def redirect_to_login(message = nil)
+    redirect_to new_user_session_path, alert: message == nil ? 'You do not have permissions' : message
   end
     
 end
