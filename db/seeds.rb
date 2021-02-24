@@ -13,6 +13,8 @@ pr_committee = Committee.create!(name: "Public Relations")                   # C
 community_outreach_committee = Committee.create!(name: "Community Outreach") # Committee Id 5
 give_back_committee = Committee.create!(name: "Give Back")                   # Committee Id 6
 
+User.create!(first_name: "Temp", last_name: "Admin", uin: 100000000, user_type: :admin, email: "temp@admin.com", password: "TempPassword")
+
 if Rails.env.development?
   User.create!(first_name: "Test", last_name: "Admin", uin: 100000001, user_type: :admin, email: "admin@test.com", password: "AdminPassword")
   User.create!(first_name: "Test", last_name: "Executive", uin: 100000002, user_type: :executive, email: "exec@test.com", password: "ExecPassword")
