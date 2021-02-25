@@ -1,19 +1,24 @@
 class User < ApplicationRecord
+  # The types that a user can be
   enum user_type: { base: 0, staff: 10, executive: 20, admin: 30 }
   after_initialize :set_default_user_type, :if => :new_record?
 
+  # Sets the current user to base if unassigned
   private def set_default_user_type
     self.user_type ||= :base
   end
 
+  # @return true if admin or greater, false otherwise
   def check_admin?
     self.admin?
   end
 
+  # @return true if exec or greater, false otherwise
   def check_executive?
     self.executive? || self.check_admin?
   end
 
+  # @return true if staff or greater, false otherwise
   def check_staff?
     self.staff? || self.check_executive?
   end
@@ -48,6 +53,7 @@ class User < ApplicationRecord
     attended_events.sum(:point_value)
   end
 
+  # @return all base users
   scope :freshman, -> () {
     where(user_type: :base)
   }
