@@ -2,6 +2,7 @@
 class CommitteesController < ApplicationController
   before_action :set_committee, only: [:show, :edit, :update, :destroy]
   before_action :confirm_exec, only: [:new, :create, :update, :edit, :destroy]
+  before_action :confirm_logged_in
 
   def index
     @committees = Committee.all
