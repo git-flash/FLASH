@@ -3,6 +3,19 @@ class User < ApplicationRecord
   enum user_type: { base: 0, staff: 10, executive: 20, admin: 30 }
   after_initialize :set_default_user_type, :if => :new_record?
 
+  # @return [String] The user type printed nicely
+  def user_type_pretty
+    if self.base?
+      "Base"
+    elsif self.staff?
+      "Staff"
+    elsif self.executive?
+      "Executive"
+    elsif self.admin?
+      "Admin"
+    end
+  end
+
   # Sets the current user to base if unassigned
   private def set_default_user_type
     self.user_type ||= :base
