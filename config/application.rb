@@ -36,8 +36,10 @@ module FLASH
     config.generators.system_tests = nil
 
     # Add bootstrap error class to forms with errors
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+      # rubocop:disable Rails/OutputSafety
       "<div class=\"input-group border border-5 border-danger rounded\">#{html_tag}</div>".html_safe
+      # rubocop:enable Rails/OutputSafety
     }
   end
 end

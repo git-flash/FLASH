@@ -22,6 +22,10 @@ jobs:
           ruby-version: 3.0.0
       - name: Install RuboCop
         run: gem install rubocop
+      - name: Install RuboCop-Rails
+        run: gem install rubocop-rails
+      - name: Install RuboCop-Rspec
+        run: gem install rubocop-rspec
       - name: Run RuboCop
         run: rubocop
 #      - name: Install gems
