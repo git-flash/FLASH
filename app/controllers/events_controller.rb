@@ -24,7 +24,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.committee_id = current_user.committee_id
+    @event.committee_id = current_user.committee_id unless current_user.check_executive?
     if @event.save
       # Redirect the user to the events page if the event is saved correctly
       redirect_to events_path, :alert => 'Event created.'
@@ -37,12 +37,12 @@ class EventsController < ApplicationController
   def edit
     # Edit event if >staff
     @event = Event.find(params[:id])
-    confirm_event_staff(@event)
+    confirm_event_staff(@event) unless current_user.check_executive?
   end
 
   def update
     @event = Event.find(params[:id])
-    confirm_event_staff(@event)
+    confirm_event_staff(@event) unless current_user.check_executive?
     if @event.update(event_params)
       # Redirect the user to the event's page if the event is updated correctly
       redirect_to event_path(@event), :alert => 'Event updated.'
@@ -55,19 +55,23 @@ class EventsController < ApplicationController
   def delete
     # Delete event if >staff
     @event = Event.find(params[:id])
-    confirm_event_staff(@event)
+    confirm_event_staff(@event) unless current_user.check_executive?
   end
 
   def destroy
     @event = Event.find(params[:id])
-    confirm_event_staff(@event)
+    confirm_event_staff(@event) unless current_user.check_executive?
     @event.destroy
     redirect_to events_path, :alert => 'Event deleted'
   end
 
   # @return [ActionController::Parameters] This is a list of trusted parameters to pass to the event model.
   private def event_params
-    params.require(:event).permit(:name, :start_timestamp, :end_timestamp, :location, :point_value, :passcode)
+    if current_user.check_executive?
+      params.require(:event).permit(:name, :committee_id, :start_timestamp, :end_timestamp, :location, :point_value, :passcode)
+    else
+      params.require(:event).permit(:name, :start_timestamp, :end_timestamp, :location, :point_value, :passcode)
+    end
   end
 
 end
