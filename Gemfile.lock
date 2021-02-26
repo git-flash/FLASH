@@ -66,6 +66,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.7.2)
       msgpack (~> 1.0)
+    brakeman (5.0.0)
     builder (3.2.4)
     byebug (11.1.3)
     concurrent-ruby (1.1.8)
@@ -222,6 +223,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootsnap (>= 1.4.4)
+  brakeman
   byebug
   devise
   jbuilder (~> 2.7)
