@@ -12,12 +12,15 @@ class AttendanceLogsController < ApplicationController
     @log = AttendanceLog.new(attendance_log_params)
     @log.user_id = current_user.id
     if @log.save
+      # Redirect the user to the events page if the log is saved correctly
       redirect_to events_path, :alert => 'Attendance logged.'
     else
+      # Otherwise, render attendance_logs#new with the appropriate errors
       render 'new'
     end
   end
 
+  # @return [ActionController::Parameters] This is a list of trusted parameters to pass to the attendance log model.
   private def attendance_log_params
     params.require(:attendance_log).permit(:passcode, :event_id)
   end
