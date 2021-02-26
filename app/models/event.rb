@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :committee
-  has_many :attendance_logs
-  has_many :rsvps
+  has_many :attendance_logs, :dependent => :destroy
+  has_many :rsvps, :dependent => :destroy
   has_many :attendants, :class_name => 'User', :through => :attendance_logs, :source => :user
   has_many :rsvp_users, :class_name => 'User', :through => :rsvps, :source => :user
 

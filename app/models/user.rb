@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   # The types that a user can be
-  enum user_type: { base: 0, staff: 10, executive: 20, admin: 30 }
+  enum :user_type => { :base => 0, :staff => 10, :executive => 20, :admin => 30 }
   after_initialize :set_default_user_type, :if => :new_record?
 
   # @return [String] The user type printed nicely
@@ -44,21 +44,21 @@ class User < ApplicationRecord
          :rememberable,
          :validatable,
          :trackable,
-         stretches: 12
-  belongs_to :committee, optional: true
-  has_many :attendance_logs
-  has_many :rsvps
-  has_many :attended_events, class_name: 'Event', through: :attendance_logs, source: :event
-  has_many :rsvp_events, class_name: 'Event', through: :rsvps, source: :event
+         :stretches => 12
+  belongs_to :committee, :optional => true
+  has_many :attendance_logs, :dependent => :destroy
+  has_many :rsvps, :dependent => :destroy
+  has_many :attended_events, :class_name => 'Event', :through => :attendance_logs, :source => :event
+  has_many :rsvp_events, :class_name => 'Event', :through => :rsvps, :source => :event
 
-  validates :first_name, length: { minimum: 1 }
-  validates :last_name, length: { minimum: 1 }
-  validates :uin, numericality: { only_integer: true, greater_than_or_equal_to: 100000000, less_than_or_equal_to: 999999999 }, uniqueness: true
+  validates :first_name, :length => { :minimum => 1 }
+  validates :last_name, :length => { :minimum => 1 }
+  validates :uin, :numericality => { :only_integer => true, :greater_than_or_equal_to => 100000000, :less_than_or_equal_to => 999999999 }, :uniqueness => true
 
   # @param [Committee] point_committee
   # @return [Integer] the points this user has for a certain committee
   def points_for_committee(point_committee)
-    attended_events.where(committee: point_committee).sum(:point_value)
+    attended_events.where(:committee => point_committee).sum(:point_value)
   end
 
   # @return [Integer] The total points for this user
@@ -68,6 +68,6 @@ class User < ApplicationRecord
 
   # @return all base users
   scope :freshman, -> () {
-    where(user_type: :base)
+    where(:user_type => :base)
   }
 end
