@@ -46,24 +46,28 @@ class User < ApplicationRecord
          :trackable,
          stretches: 12
   belongs_to :committee, optional: true
-  has_many :events, through: :rsvps, source: :rsvps_table_foreign_key_to_events_table
-  has_many :events, through: :attendance_logs, source: :attendance_logs_table_foreign_key_to_events_table
+  has_many :attendance_logs
+  has_many :rsvps
+  has_many :attended_events, class_name: 'Event', through: :attendance_logs, source: :event
+  has_many :rsvp_events, class_name: 'Event', through: :rsvps, source: :event
 
   validates :first_name, length: { minimum: 1 }
   validates :last_name, length: { minimum: 1 }
   validates :uin, numericality: { only_integer: true, greater_than_or_equal_to: 100000000, less_than_or_equal_to: 999999999 }, uniqueness: true
 
-  # @return points for a user for a specific committee
-  scope :points_for_committee, ->(user, point_committee) {
-    select("SUM(events.point_value) as total_points")  
-      .joins("INNER JOIN attendance_logs ON attendance_logs.user_id = users.id")
-      .joins("INNER JOIN events ON attendance_logs.event_id = events.id")
-      .where("events.committee_id = ?", point_committee.id)
-      .where("users.id = ?", user.id)
-  }
+  # @param [Committee] point_committee
+  # @return [Integer] the points this user has for a certain committee
+  def points_for_committee(point_committee)
+    attended_events.where(committee: point_committee).sum(:point_value)
+  end
+
+  # @return [Integer] The total points for this user
+  def total_points
+    attended_events.sum(:point_value)
+  end
 
   # @return all base users
   scope :freshman, -> () {
-    where("users.user_type < ?", user_types[:staff])
+    where(user_type: :base)
   }
 end

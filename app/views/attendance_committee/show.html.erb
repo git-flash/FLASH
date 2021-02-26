@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Committee Log — <%= @committee.name%></h1>
+  <h1>Committee Log — <%= @committee.name %></h1>
 
   <table class="table mt-4">
     <thead>
@@ -11,11 +11,11 @@
     </thead>
 
     <tbody>
-    <% @committeeAttendanceLogs.each do |log| %>
+    <% @committee.user_attendance_logs.each do |log| %>
       <tr>
-        <td><%= log.first_name + ' ' + log.last_name %></td>
-        <td><%= log.event_name %></td>
-        <td><%= log.time_logged %></td>
+        <td><%= log.user.first_name + ' ' + log.user.last_name %></td>
+        <td><%= log.event.name %></td>
+        <td><%= log.created_at %></td>
       </tr>
     <% end %>
     </tbody>
