@@ -61,6 +61,18 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     confirm_event_staff(@event) unless current_user.check_executive?
+
+    # destroy event logs
+    @event.attendance_logs.each do |log|
+      log.destroy
+    end
+
+    # destroy event RSVPs
+    @event.rsvps.each do |rsvp|
+      rsvp.destroy
+    end
+
+    # destroy event
     @event.destroy
     redirect_to events_path, :alert => 'Event deleted'
   end
