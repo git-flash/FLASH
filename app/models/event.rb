@@ -10,7 +10,7 @@ class Event < ApplicationRecord
   # @return [ActiveRecord::Relation] This is a list of all events that haven't ended yet.
   scope :current, -> { by_start.where(:end_timestamp => DateTime.current..) }
   # @return [ActiveRecord::Relation] This is a list of all events that are over.
-  scope :past, -> { by_start.where(:start_timestamp => ..DateTime.current) }
+  scope :past, -> { by_start.where(start_timestamp.lt(DateTime.current)) }
   
   validates :name, :presence => true, :length => { :minimum => 1 }
   validates :start_timestamp, :presence => true
