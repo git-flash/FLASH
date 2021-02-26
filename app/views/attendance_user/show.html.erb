@@ -10,10 +10,10 @@
     </thead>
 
     <tbody>
-    <% @userAttendanceLogs.each do |log| %>
+    <% @user.attendance_logs.each do |log| %>
       <tr>
-        <td><%= log.event_name %></td>
-        <td><%= log.time_logged %></td>
+        <td><%= log.event.name %></td>
+        <td><%= log.created_at %></td>
       </tr>
     <% end %>
     </tbody>
