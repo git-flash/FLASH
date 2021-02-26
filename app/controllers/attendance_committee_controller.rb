@@ -9,9 +9,9 @@ class AttendanceCommitteeController < ApplicationController
         attr_accessor :committee, :social_points, :fundraising_points, :campus_relations_points, :pr_points, :community_outreach_points, :give_back_points
       end
 
+    # Shows points for all committees as index, only >exec
     def index
-        # Shows points for all committees as index, only >exec
-        @committee_rows = [];
+        @committee_rows = []
 
         committee_list = Committee.all
 
@@ -31,9 +31,8 @@ class AttendanceCommitteeController < ApplicationController
         end
     end
 
+    # Shows points and logs for committee, only >exec, or >staff for committee
     def show
-        # Shows points and logs for committee, only >exec, or >staff for committee
-
         # If a staff user, ensure they can only access their committee
         if (!current_user.check_executive?) && (current_user.committee.id.to_i != params[:id].to_i)
             redirect_to root_path, alert: "You do not have permissions"
