@@ -2,18 +2,21 @@
     <h2>Events</h2>
     <%= link_to "Add New Event", new_event_path, class: "btn btn-primary" %>
     <table class="table my-2">
-        <tr>
-            <th>Events</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-        </tr>
-
-        <% @events.each do |event| %>
-        <tr>
-            <td><%= link_to event.name, event_path(event), class: "btn btn-link" %></td>
-            <td><%= event.start_timestamp.to_s(:long) %></td>
-            <td><%= event.end_timestamp.to_s(:long) %></td>
-        </tr>
-        <% end %>
+        <thead>
+            <tr>
+                <th>Events</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @events.each do |event| %>
+            <tr>
+                <td><%= link_to event.name, event_path(event), class: "btn btn-link" %></td>
+                <td><%= event.start_timestamp.to_s(:long) %></td>
+                <td><%= event.end_timestamp.to_s(:long) %></td>
+            </tr>
+            <% end %>
+        </tbody>
     </table>
 </div>
