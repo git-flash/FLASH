@@ -1,12 +1,12 @@
 class Event < ApplicationRecord
+  belongs_to :committee
+  has_many :attendance_logs
+  has_many :rsvps
+  has_many :attendants, class_name: 'User', through: :attendance_logs, source: :user
+  has_many :rsvp_users, class_name: 'User', through: :rsvps, source: :user
 
   scope :by_start, -> { order(start_timestamp: :asc) }
   scope :current, -> { by_start.where('end_timestamp': DateTime.current..) }
-  # Ex:- scope :active, -> {where(:active => true)}
-
-  belongs_to :committee
-  has_many :users, through: :attendance_logs, source: :attendance_logs_table_foreign_key_to_objects_table
-  has_many :users, through: :rsvps, source: :rsvps_table_foreign_key_to_objects_table
 
   validates :name, presence: true, length: { minimum: 1 }
   validates :start_timestamp, presence: true
