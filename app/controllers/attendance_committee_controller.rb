@@ -36,6 +36,31 @@ class AttendanceCommitteeController < ApplicationController
       end
 
       @committee = Committee.find(params[:id])
+      @committee_points = 0
+
+      unless @committee.points_of_type(Committee.find_by_name("Social")).nil?
+        @committee_points += @committee.points_of_type(Committee.find_by_name("Social"))
+      end
+
+      unless @committee.points_of_type(Committee.find_by_name("Fundraising")).nil?
+        @committee_points += @committee.points_of_type(Committee.find_by_name("Fundraising"))
+      end
+
+      unless @committee.points_of_type(Committee.find_by_name("Campus Relations")).nil?
+        @committee_points += @committee.points_of_type(Committee.find_by_name("Campus Relations"))
+      end
+
+      unless @committee.points_of_type(Committee.find_by_name("Public Relations")).nil?
+        @committee_points += @committee.points_of_type(Committee.find_by_name("Public Relations"))
+      end
+
+      unless @committee.points_of_type(Committee.find_by_name("Community Outreach")).nil?
+        @committee_points += @committee.points_of_type(Committee.find_by_name("Community Outreach"))
+      end
+
+      unless @committee.points_of_type(Committee.find_by_name("Give Back")).nil?
+        @committee_points += @committee.points_of_type(Committee.find_by_name("Give Back"))
+      end
     else
       redirect_to root_path, alert: "You do not have permissions"
     end
