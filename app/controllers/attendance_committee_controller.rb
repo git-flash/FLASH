@@ -3,7 +3,8 @@ class AttendanceCommitteeController < ApplicationController
   before_action only: [:index] do
     confirm_logged_in('Please Log In')
   end
-  before_action :confirm_staff, only: [:index, :show]
+  before_action :confirm_staff, only: [:show]
+  before_action :confirm_exec, only: [:index]
   
   class CommitteePoints
     attr_accessor :committee, :social_points, :fundraising_points, :campus_relations_points, :pr_points, :community_outreach_points, :give_back_points
@@ -11,23 +12,23 @@ class AttendanceCommitteeController < ApplicationController
 
   # Shows points for all committees as index, only >exec
   def index
-    @committeeRows = []
+    @committee_rows = []
 
     committeeList = Committee.all
 
     committeeList.each do |com|
-      new_commitee = CommitteePoints.new
-      new_commitee.committee = com
+      new_committee = CommitteePoints.new
+      new_committee.committee = com
 
       # Add Point Values to New Committee Object
-      new_commitee.social_points = com.points_of_type(Committee.find_by_name("Social"))
-      new_commitee.fundraising_points = com.points_of_type(Committee.find_by_name("Fundraising"))
-      new_commitee.campus_relations_points = com.points_of_type(Committee.find_by_name("Campus Relations"))
-      new_commitee.pr_points = com.points_of_type(Committee.find_by_name("Public Relations"))
-      new_commitee.community_outreach_points = com.points_of_type(Committee.find_by_name("Community Outreach"))
-      new_commitee.give_back_points = com.points_of_type(Committee.find_by_name("Give Back"))
+      new_committee.social_points = com.points_of_type(Committee.find_by_name("Social"))
+      new_committee.fundraising_points = com.points_of_type(Committee.find_by_name("Fundraising"))
+      new_committee.campus_relations_points = com.points_of_type(Committee.find_by_name("Campus Relations"))
+      new_committee.pr_points = com.points_of_type(Committee.find_by_name("Public Relations"))
+      new_committee.community_outreach_points = com.points_of_type(Committee.find_by_name("Community Outreach"))
+      new_committee.give_back_points = com.points_of_type(Committee.find_by_name("Give Back"))
 
-      @committeeRows.push new_commitee
+      @committee_rows.push new_committee
     end
   end
 
@@ -37,6 +38,17 @@ class AttendanceCommitteeController < ApplicationController
     if (!current_user.check_executive?) && (current_user.committee.id.to_i != params[:id].to_i)
       redirect_to root_path, alert: "You do not have permissions"
     end
+
     @committee = Committee.find(params[:id])
+    @committee_points_row = CommitteePoints.new
+    @committee_points_row.committee = @committee
+
+    # Add Point Values to committee points object
+    @committee_points_row.social_points = @committee.points_of_type(Committee.find_by_name("Social"))
+    @committee_points_row.fundraising_points = @committee.points_of_type(Committee.find_by_name("Fundraising"))
+    @committee_points_row.campus_relations_points = @committee.points_of_type(Committee.find_by_name("Campus Relations"))
+    @committee_points_row.pr_points = @committee.points_of_type(Committee.find_by_name("Public Relations"))
+    @committee_points_row.community_outreach_points = @committee.points_of_type(Committee.find_by_name("Community Outreach"))
+    @committee_points_row.give_back_points = @committee.points_of_type(Committee.find_by_name("Give Back"))
   end
 end
