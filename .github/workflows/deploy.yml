@@ -1,0 +1,21 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  deploy_dev:
+    if: ${{ github.ref == 'refs/heads/dev' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Dev Website
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_DEV_API_KEY}}
+          heroku_app_name: "flashpoint8"
+          heroku_email: "bbetter9101@gmail.com"
+          branch: "dev"
