@@ -4,16 +4,20 @@ class CommitteesController < ApplicationController
   before_action :confirm_exec, only: [:new, :create, :update, :edit, :destroy]
   before_action :confirm_logged_in
 
+  # Shows all committees to all logged in users
   def index
     @committees = Committee.all
   end
 
+  # Shows a specific committee to logged in users
   def show; end
 
+  # Creates a new committee, can only be done bby >execs
   def new
     @committee = new
   end
 
+  # Creates a new committee, can only be done bby >execs
   def create
     @committee = Committee.new(committee_params)
 
@@ -28,6 +32,7 @@ class CommitteesController < ApplicationController
     end
   end
 
+  # Changes a committee, can only be done bby >execs
   def update
     respond_to do |format|
       if @committee.update(committee_params)
@@ -40,8 +45,10 @@ class CommitteesController < ApplicationController
     end
   end
 
+  # Changes a committee, can only be done bby >execs
   def edit; end
 
+  # Deletes a committee, can only be done bby >execs
   def destroy
     @committee.destroy
     respond_to do |format|
@@ -50,10 +57,12 @@ class CommitteesController < ApplicationController
     end
   end
 
+  # Sets the committee to the param
   private def set_committee
     @committee = Committee.find(params[:id])
   end
 
+  # Gets the committee param
   private def committee_params
     params.require(:committee).permit(:name)
   end
