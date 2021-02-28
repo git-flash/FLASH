@@ -11,11 +11,11 @@ class UsersController < ApplicationController
     end
   
     # GET /users/1 or /users/1.json
+    # if the user being shown has a committee then this redirects to the current members page
+    # otherwise they will be sent to the pending members page
+    # this is just a workaround to prevent this show method from being used without
+    # removing its potential future use
     def show
-      # if the user being shown has a committee then this redirects to the current members page
-      # otherwise they will be sent to the pending members page
-      # this is just a workaround to prevent this show method from being used without
-      # removing its potential future use
       if (@user.committee)
         redirect_to users_path
       else
@@ -24,10 +24,9 @@ class UsersController < ApplicationController
     end
   
     # GET /users/new
+    # redirect people to the events page if they are trying 
     def new
-      # redirect people to the events page if they are trying 
       redirect_to root_path
-      #@user = User.new this controller should not make a new user as users should be either seeded or made by sign up
     end
   
     # GET /users/1/edit
@@ -36,18 +35,6 @@ class UsersController < ApplicationController
   
     # POST /users or /users.json
     def create
-      # this method should never be called for the members pages
-      # @user = User.new(user_params)
-  
-      # respond_to do |format|
-      #   if @user.save
-      #     format.html { redirect_to @user, notice: "user was successfully created." }
-      #     format.json { render :show, status: :created, location: @user }
-      #   else
-      #     format.html { render :new, status: :unprocessable_entity }
-      #     format.json { render json: @user.errors, status: :unprocessable_entity }
-      #   end
-      # end
     end
   
     # PATCH/PUT /users/1 or /users/1.json
