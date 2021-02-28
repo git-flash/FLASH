@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     # Calendar/event view
     # Root path
     # Scope your query to the dates being shown:
-    start_date = params.fetch(:start_timestamp, Date.today).to_date
+    start_date = params.fetch(:start_timestamp, Time.zone.today).to_date
     @events = Event.where(:start_timestamp => start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
   end
 
@@ -64,23 +64,16 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     confirm_event_staff(@event) unless current_user.check_executive?
 
-    # destroy event logs
-    @event.attendance_logs.each do |log|
-      log.destroy
-    end
-
-    # destroy event RSVPs
-    @event.rsvps.each do |rsvp|
-      rsvp.destroy
-    end
-
     # destroy event
     @event.destroy
     redirect_to events_path, :alert => 'Event deleted'
   end
 
+  private
+
   # @return [ActionController::Parameters] This is a list of trusted parameters to pass to the event model.
-  private def event_params
+  #noinspection RubyYardReturnMatch
+  def event_params
     if current_user.check_executive?
       params.require(:event).permit(:name, :committee_id, :start_timestamp, :end_timestamp, :location, :point_value, :passcode)
     else
