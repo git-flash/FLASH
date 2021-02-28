@@ -4,9 +4,9 @@ TS_ROUTES_FILENAME = 'app/javascript/generated/routes.ts'
 
 namespace :ts do
   desc "Generate #{TS_ROUTES_FILENAME}"
-  task routes: :environment do
+  task :routes => :environment do
     Rails.logger.info("Generating #{TS_ROUTES_FILENAME}")
-    source = TsRoutes.generate(exclude: [/admin/, /debug/])
+    source = TsRoutes.generate(:exclude => [/admin/, /debug/])
 
     dirname = File.dirname(TS_ROUTES_FILENAME)
     FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
