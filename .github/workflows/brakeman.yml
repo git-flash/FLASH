@@ -1,0 +1,21 @@
+name: Brakeman
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+  pull_request:
+    branches:
+      - master
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Brakeman
+        uses: artplan1/brakeman-action@v1.2.1
+        with:
+          flags: "--color"
