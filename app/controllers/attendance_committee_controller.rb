@@ -1,46 +1,54 @@
 class AttendanceCommitteeController < ApplicationController
+  before_action :confirm_logged_in, :only => %i[index show]
+  before_action :only => [:index] do
+    confirm_logged_in('Please Log In')
+  end
+  before_action :confirm_staff, :only => [:show]
+  before_action :confirm_exec, :only => [:index]
+
   class CommitteePoints
     attr_accessor :committee, :social_points, :fundraising_points, :campus_relations_points, :pr_points, :community_outreach_points, :give_back_points
   end
 
+  # Shows points for all committees as index, only >exec
   def index
-    if user_signed_in? && current_user.check_executive?
-      @committeeRows = [];
+    @committee_rows = []
 
-      committeeList = Committee.all
+    committee_list = Committee.all
 
-      committeeList.each do |com|
-        new_commitee = CommitteePoints.new
-        new_commitee.committee = com
+    committee_list.each do |com|
+      new_committee = CommitteePoints.new
+      new_committee.committee = com
 
-        # Add Point Values to New Committee Object
-        new_commitee.social_points = com.points_of_type(Committee.find_by_name("Social"))
-        new_commitee.fundraising_points = com.points_of_type(Committee.find_by_name("Fundraising"))
-        new_commitee.campus_relations_points = com.points_of_type(Committee.find_by_name("Campus Relations"))
-        new_commitee.pr_points = com.points_of_type(Committee.find_by_name("Public Relations"))
-        new_commitee.community_outreach_points = com.points_of_type(Committee.find_by_name("Community Outreach"))
-        new_commitee.give_back_points = com.points_of_type(Committee.find_by_name("Give Back"))
+      # Add Point Values to New Committee Object
+      new_committee.social_points = com.points_of_type(Committee.find_by(:name => "Social"))
+      new_committee.fundraising_points = com.points_of_type(Committee.find_by(:name => "Fundraising"))
+      new_committee.campus_relations_points = com.points_of_type(Committee.find_by(:name => "Campus Relations"))
+      new_committee.pr_points = com.points_of_type(Committee.find_by(:name => "Public Relations"))
+      new_committee.community_outreach_points = com.points_of_type(Committee.find_by(:name => "Community Outreach"))
+      new_committee.give_back_points = com.points_of_type(Committee.find_by(:name => "Give Back"))
 
-        @committeeRows.push new_commitee
-      end
-    else
-      redirect_to root_path, alert: "You do not have permissions"
+      @committee_rows.push new_committee
     end
   end
 
+  # Shows points and logs for committee, only >exec, or >staff for committee
   def show
-    if user_signed_in? && current_user.check_staff?
-      # If a staff user, ensure they can only access their committee
-      if (!current_user.check_executive?) && (current_user.committee.id.to_i != params[:id].to_i)
-        redirect_to root_path, alert: "You do not have permissions"
-      end
-
-      @committee = Committee.find(params[:id])
-    else
-      redirect_to root_path, alert: "You do not have permissions"
+    # If a staff user, ensure they can only access their committee
+    if (!current_user.check_executive?) && (current_user.committee.id.to_i != params[:id].to_i)
+      redirect_to root_path, :alert => "You do not have permissions"
     end
+
+    @committee = Committee.find(params[:id])
+    @committee_points_row = CommitteePoints.new
+    @committee_points_row.committee = @committee
+
+    # Add Point Values to committee points object
+    @committee_points_row.social_points = @committee.points_of_type(Committee.find_by(:name => "Social"))
+    @committee_points_row.fundraising_points = @committee.points_of_type(Committee.find_by(:name => "Fundraising"))
+    @committee_points_row.campus_relations_points = @committee.points_of_type(Committee.find_by(:name => "Campus Relations"))
+    @committee_points_row.pr_points = @committee.points_of_type(Committee.find_by(:name => "Public Relations"))
+    @committee_points_row.community_outreach_points = @committee.points_of_type(Committee.find_by(:name => "Community Outreach"))
+    @committee_points_row.give_back_points = @committee.points_of_type(Committee.find_by(:name => "Give Back"))
   end
 end
-
-# ../attendance/committee/{id}  Shows points and logs for committee, only >exec, or >staff for committee
-# ../attendance/committee       Shows points for all committees as index, only >exec

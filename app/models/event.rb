@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :committee
-  has_many :attendance_logs
-  has_many :rsvps
+  has_many :attendance_logs, :dependent => :destroy
+  has_many :rsvps, :dependent => :destroy
   has_many :attendants, :class_name => 'User', :through => :attendance_logs, :source => :user
   has_many :rsvp_users, :class_name => 'User', :through => :rsvps, :source => :user
 
@@ -10,7 +10,7 @@ class Event < ApplicationRecord
   # @return [ActiveRecord::Relation] This is a list of all events that haven't ended yet.
   scope :current, -> { by_start.where(:end_timestamp => DateTime.current..) }
   # @return [ActiveRecord::Relation] This is a list of all events that are over.
-  scope :past, -> { by_start.where(:start_timestamp => ..DateTime.current) }
+  scope :past, -> { by_start.where(start_timestamp.lt(DateTime.current)) }
   
   validates :name, :presence => true, :length => { :minimum => 1 }
   validates :start_timestamp, :presence => true
