@@ -39,3 +39,6 @@ app/javascript/generated
 
 # VS Code
 .vscode
+
+# SimpleCov
+/coverage

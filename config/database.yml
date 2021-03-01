@@ -80,6 +80,41 @@ test:
   <<: *default
   database: flash_test
 
+
+  username: <%=
+  ENV['FLASH_DB_USERNAME'] ||
+    if ENV.has_key?('FLASH_DB_USERNAME_FILE')
+      File.read(ENV['FLASH_DB_USERNAME_FILE']).to_str
+    else
+      'rails_user'
+    end
+  %>
+
+  # The password associated with the postgres role (username).
+  password: <%= ENV['FLASH_DB_PASSWORD'] || File.read(ENV['FLASH_DB_PASSWORD_FILE'] || 'secrets/postgres-passwd').to_str %>
+
+  # Connect on a TCP socket. Omitted by default since the client uses a
+  # domain socket that doesn't need configuration. Windows does not have
+  # domain sockets, so uncomment these lines.
+  host: <%=
+  ENV['FLASH_DB_HOSTNAME'] ||
+    if ENV.has_key?('FLASH_DB_HOSTNAME_FILE')
+      File.read(ENV['FLASH_DB_HOSTNAME_FILE']).to_str
+    else
+      'localhost'
+    end
+  %>
+
+  # The TCP port the server listens on. Defaults to 5432.
+  # If your server runs on a different port number, change accordingly.
+  port: <%=
+  ENV['FLASH_DB_PORT'] ||
+    if ENV.has_key?('FLASH_DB_PORT_FILE')
+      File.read(ENV['FLASH_DB_PORT_FILE']).to_str
+    else
+      '5432'
+    end
+  %>
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
