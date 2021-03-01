@@ -41,7 +41,7 @@
                     <td><%= user.first_name %></td>
                     <td><%= user.last_name %></td>
                     <td><%= user.uin %></td>
-                    <td><%= user.user_type_pretty %></td>
+                    <td><%= user.user_type %></td>
                     <td>
                     <%=
                         if (@pendingCheck)
@@ -49,7 +49,7 @@
                         elsif (user.committee)
                             user.committee.name
                         else
-                            user.user_type_pretty
+                            user.user_type
                         end
                     %>
                     </td>

@@ -1,5 +1,5 @@
 class Rsvp < ApplicationRecord
-  enum :rsvp_option => { :going => 0, :not_going => 1 }
+  enum rsvp_option: [:going, :not_going]
 
   belongs_to :user
   belongs_to :event

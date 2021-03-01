@@ -5,24 +5,26 @@
     <thead>
     <tr>
       <th>Freshman UIN</th>
-      <% Committee.all.each do |committee| %>
-        <th><%= committee.name %></th>
-      <% end %>
+      <%Committee.all.each do |committee| %>
+        <th><%=committee.name %></th>
+      <%end%>
     </tr>
     </thead>
-    <tbody>
 
+    <tbody>
+    
+    
     <% User.freshman.each do |usr| %>
       <tr>
-        <% if current_user.check_executive? %>
-          <td><a href="/attendance_user/<%= usr.id %>"><%= usr.first_name + " " + usr.last_name %></td>
-        <% else %>
-          <td><a href="/attendance_user/<%= usr.id %>"><%= usr.uin %></td>
+      <% if current_user.check_executive? %>  
+      <td><a href="/attendance_user/<%= usr.id %>"><%= usr.first_name + " " +usr.last_name %></td>
+      <% else%> 
+      <td><a href="/attendance_user/<%= usr.id %>"><%= usr.uin %></td>
+      <% end%> 
+       <%Committee.all.each do |committee| %>
+            <td><%=@userRow[usr][committee]%></td>
         <% end %>
-        <% Committee.all.each do |committee| %>
-          <td><%= usr.points_for_committee(committee) %></td>
-        <% end %>
-      </tr>
+    </tr>
     <% end %>
     </tbody>
   </table>

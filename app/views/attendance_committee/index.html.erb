@@ -15,7 +15,7 @@
     </thead>
 
     <tbody>
-    <% @committee_rows.each do |row| %>
+    <% @committeeRows.each do |row| %>
       <tr>
         <td><a href="/attendance_committee/<%= row.committee.id %>"><%= row.committee.name %></a></td>
         <td><%= row.social_points %></td>

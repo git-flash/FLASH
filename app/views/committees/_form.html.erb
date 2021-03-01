@@ -1,5 +1,5 @@
 <%= form_with(model: committee) do |form| %>
-  <% if committee.errors.any? %>
+  <% if committee.error.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(committee.errors.count, "error") %> prohibited this committee form being saved</h2>
 

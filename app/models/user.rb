@@ -1,37 +1,19 @@
 class User < ApplicationRecord
-  # The types that a user can be
-  enum :user_type => { :base => 0, :staff => 10, :executive => 20, :admin => 30 }
+  enum user_type: {base: 0, staff: 10, executive: 20, admin: 30}
   after_initialize :set_default_user_type, :if => :new_record?
 
-  # @return [String] The user type printed nicely
-  def user_type_pretty
-    if self.base?
-      "Base"
-    elsif self.staff?
-      "Staff"
-    elsif self.executive?
-      "Executive"
-    elsif self.admin?
-      "Admin"
-    end
-  end
-
-  # Sets the current user to base if unassigned
   private def set_default_user_type
     self.user_type ||= :base
   end
 
-  # @return true if admin or greater, false otherwise
   def check_admin?
     self.admin?
   end
 
-  # @return true if exec or greater, false otherwise
   def check_executive?
     self.executive? || self.check_admin?
   end
 
-  # @return true if staff or greater, false otherwise
   def check_staff?
     self.staff? || self.check_executive?
   end
@@ -44,30 +26,24 @@ class User < ApplicationRecord
          :rememberable,
          :validatable,
          :trackable,
-         :stretches => 12
-  belongs_to :committee, :optional => true
-  has_many :attendance_logs, :dependent => :destroy
-  has_many :rsvps, :dependent => :destroy
-  has_many :attended_events, :class_name => 'Event', :through => :attendance_logs, :source => :event
-  has_many :rsvp_events, :class_name => 'Event', :through => :rsvps, :source => :event
+         stretches: 12
+  belongs_to :committee, optional: true
+  has_many :events, through: :rsvps, source: :rsvps_table_foreign_key_to_events_table
+  has_many :events, through: :attendance_logs, source: :attendance_logs_table_foreign_key_to_events_table
 
-  validates :first_name, :length => { :minimum => 1 }
-  validates :last_name, :length => { :minimum => 1 }
-  validates :uin, :numericality => { :only_integer => true, :greater_than_or_equal_to => 100000000, :less_than_or_equal_to => 999999999 }, :uniqueness => true
+  validates :first_name, length: { minimum: 1 }
+  validates :last_name, length: { minimum: 1 }
+  validates :uin, numericality: { only_integer: true, greater_than_or_equal_to: 100000000, less_than_or_equal_to: 999999999 }, uniqueness: true
 
-  # @param [Committee] point_committee
-  # @return [Integer] the points this user has for a certain committee
-  def points_for_committee(point_committee)
-    attended_events.where(:committee => point_committee).sum(:point_value)
-  end
+  scope :points_for_committee, ->(user, point_committee) {
+    select("SUM(events.point_value) as total_points")  
+      .joins("INNER JOIN attendance_logs ON attendance_logs.user_id = users.id")
+      .joins("INNER JOIN events ON attendance_logs.event_id = events.id")
+      .where("events.committee_id = ?", point_committee.id)
+      .where("users.id = ?", user.id)
+  }
 
-  # @return [Integer] The total points for this user
-  def total_points
-    attended_events.sum(:point_value)
-  end
-
-  # @return all base users
-  scope :freshman, -> () {
-    where(:user_type => :base)
+  scope :freshman, -> (){
+    where("users.user_type < ?", user_types[:staff])
   }
 end

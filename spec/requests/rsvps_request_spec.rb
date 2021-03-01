@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Rsvps", :type => :request do
+RSpec.describe "Rsvps", type: :request do
 
   describe "GET /index" do
     it "returns http success" do
