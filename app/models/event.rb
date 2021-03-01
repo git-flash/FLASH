@@ -7,8 +7,8 @@ class Event < ApplicationRecord
 
   # @param [DateTime] start_date
   # @return [ActiveRecord::Relation] This is a list of all events for a given month.
-  scope :month, ->(start_date) {
-    where(:start_timestamp => ..start_date.end_of_month.end_of_week).and(where(:end_timestamp => start_date.beginning_of_month.beginning_of_week..))
+  scope :month, lambda { |start_date|
+    where(:start_timestamp => start_date.change(:year => 1000)..start_date.end_of_month.end_of_week).and(where(:end_timestamp => start_date.beginning_of_month.beginning_of_week..))
   }
   
   validates :name, :presence => true, :length => { :minimum => 1 }
