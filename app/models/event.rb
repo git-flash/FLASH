@@ -11,6 +11,7 @@ class Event < ApplicationRecord
   scope :current, -> { by_start.where(:end_timestamp => DateTime.current..) }
   # @return [ActiveRecord::Relation] This is a list of all events that are over.
   scope :past, -> { by_start.where(start_timestamp.lt(DateTime.current)) }
+  scope :month, ->(start_date) { Event.where(:start_timestamp => start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week + 1.day) }
   
   validates :name, :presence => true, :length => { :minimum => 1 }
   validates :start_timestamp, :presence => true
