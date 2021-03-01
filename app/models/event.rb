@@ -5,8 +5,11 @@ class Event < ApplicationRecord
   has_many :attendants, :class_name => 'User', :through => :attendance_logs, :source => :user
   has_many :rsvp_users, :class_name => 'User', :through => :rsvps, :source => :user
 
+  # @param [DateTime] start_date
   # @return [ActiveRecord::Relation] This is a list of all events for a given month.
-  scope :month, ->(start_date) { Event.where(:start_timestamp => start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week + 30.hours) }
+  scope :month, ->(start_date) {
+    where(:start_timestamp => ..start_date.end_of_month.end_of_week).and(where(:end_timestamp => start_date.beginning_of_month.beginning_of_week..))
+  }
   
   validates :name, :presence => true, :length => { :minimum => 1 }
   validates :start_timestamp, :presence => true
