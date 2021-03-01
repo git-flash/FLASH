@@ -3,8 +3,7 @@
 <div class="container">
     <h2>Delete Book</h2>
     <%= form_for( @event , method: 'delete') do |f| %>
-    <p>Are you sure you want to delete event: <b><%= @event.name %></b></p>
-    <p>And all of its attendance logs and RSVPs?</p>
+    <p><%= "Are you sure you want to delete event: #{@event.name}" %></p>
     <%= f.submit "Delete Event", disable_with: 'Deleting Event...', class: "btn btn-danger" %>
     <% end %>
 </div>

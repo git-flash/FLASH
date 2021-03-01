@@ -1,12 +1,31 @@
 #ST
 class AttendanceUserController < ApplicationController
-  before_action :confirm_logged_in
 
-  def index; end
+    def index
+        if user_signed_in?
+            @userRow = {};
 
-  def show
-    @user = User.find(params[:id])
-  end
+            User.freshman.each do |usr|
+                freshman = {}
+            
+                Committee.all.each do |committee|
+                    freshman[committee] = User.points_for_committee(usr, committee)[0].total_points
+                end
+                @userRow[usr] = freshman
+            end
+        else
+            redirect_to root_path, alert: "Please sign in first"
+        end
+    end 
+
+    def show
+        if user_signed_in?
+            @user = User.find(params[:id])
+            @userAttendanceLogs = AttendanceLog.user_log(params[:id])
+        else
+            redirect_to root_path, alert: "Please sign in first"
+        end
+    end
 end
 
 # ../attendance/user/{id}       Shows Points and logs for specific user, only actual user or >staff

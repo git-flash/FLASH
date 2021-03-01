@@ -1,27 +1,46 @@
-# MR
+#MR
 class AttendanceLogsController < ApplicationController
   before_action :confirm_logged_in
+
+  # def index
+  # end
+
+  # def show
+  # end
 
   def new
     # takes a query parameter of eid from events#show
     # and populates a hidden form field in attendance_logs#new
-    @log = AttendanceLog.new(:event_id => params[:eid])
+    @log = AttendanceLog.new(event_id: params[:eid])
   end
 
   def create
     @log = AttendanceLog.new(attendance_log_params)
     @log.user_id = current_user.id
     if @log.save
-      # Redirect the user to the events page if the log is saved correctly
-      redirect_to events_path, :alert => 'Attendance logged.'
+      redirect_to events_path, alert: 'Attendance logged.'
     else
-      # Otherwise, render attendance_logs#new with the appropriate errors
+      # redirect_to new_attendance_log_path(eid: @log.event_id), alert: "Couldn't log attendance."
       render 'new'
     end
   end
 
-  # @return [ActionController::Parameters] This is a list of trusted parameters to pass to the attendance log model.
-  private def attendance_log_params
+  # def delete
+  # end
+
+  private
+
+  def attendance_log_params
     params.require(:attendance_log).permit(:passcode, :event_id)
   end
+
 end
+
+# ../attendance/user      ST
+# ../attendance/committee CC
+# ../attendance           MR
+
+# ../attendance                 Shows all attendance >exec
+# ../attendance/{id}            Shows specific attendance, >exec or >staff for specific committee, or specific user
+# ../attendance/delete/{id}     >exec or >staff for specific committee or specific user
+# ../attendance/new             >exec or specefic user
