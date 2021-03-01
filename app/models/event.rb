@@ -6,7 +6,7 @@ class Event < ApplicationRecord
   has_many :rsvp_users, :class_name => 'User', :through => :rsvps, :source => :user
 
   # @return [ActiveRecord::Relation] This is a list of all events for a given month.
-  scope :month, ->(start_date) { Event.where(:start_timestamp => start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week + 1.day) }
+  scope :month, ->(start_date) { Event.where(:start_timestamp => start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week + 30.hours) }
   
   validates :name, :presence => true, :length => { :minimum => 1 }
   validates :start_timestamp, :presence => true
@@ -17,5 +17,15 @@ class Event < ApplicationRecord
   
   def end_must_be_after_start
     errors.add(:start_timestamp, "can't start after it ends.") unless start_timestamp <= end_timestamp
+  end
+
+  # @return [boolean] whether or not an event is active
+  def active?
+    start_timestamp < DateTime.current && end_timestamp > DateTime.current
+  end
+
+  # @return [boolean] whether or not an event is active
+  def in_future?
+    start_timestamp > DateTime.current
   end
 end
