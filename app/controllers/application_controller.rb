@@ -21,9 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def confirm_event_staff(event, message = nil)
-    unless user_signed_in? && current_user.check_staff? && (current_user.committee_id.eql? event.committee_id)
-      redirect_to_home(message)
-    end
+    redirect_to_home(message) unless user_signed_in? && current_user.check_staff? && (current_user.committee_id.eql? event.committee_id)
   end
 
   protected def confirm_exec(message = nil)
