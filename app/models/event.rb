@@ -11,14 +11,14 @@ class Event < ApplicationRecord
   scope :current, -> { by_start.where(:end_timestamp => DateTime.current..) }
   # @return [ActiveRecord::Relation] This is a list of all events that are over.
   scope :past, -> { by_start.where(start_timestamp.lt(DateTime.current)) }
-  
+
   validates :name, :presence => true, :length => { :minimum => 1 }
   validates :start_timestamp, :presence => true
   validates :end_timestamp, :presence => true
   validate :end_must_be_after_start
   validates :point_value, :presence => true
   validates :passcode, :presence => true, :length => { :minimum => 1 }
-  
+
   def end_must_be_after_start
     errors.add(:start_timestamp, "can't start after it ends.") unless start_timestamp <= end_timestamp
   end
