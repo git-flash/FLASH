@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     # Root path
     # Scope your query to the dates being shown:
     start_date = params.fetch(:start_date, Time.zone.today).to_date
+    start_date = Time.zone.now.change(:year => start_date.year, :month => start_date.month, :day => start_date.day)
     @events = Event.month(start_date)
   end
 
