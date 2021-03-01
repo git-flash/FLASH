@@ -1,5 +1,33 @@
 <div class="container">
-  <h1>Committee Log — <%= @committee.name%></h1>
+  <h1>Committee Log — <%= @committee.name %></h1>
+
+  <h2 class="mt-4">Total points</h2>
+
+  <table class="table mt-4">
+    <thead>
+    <tr>
+      <th>Social Points</th>
+      <th>Fundraising Points</th>
+      <th>Campus Relations Points</th>
+      <th>PR Points</th>
+      <th>Community Outreach Points</th>
+      <th>Give Back Points</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><%= @committee_points_row.social_points %></td>
+        <td><%= @committee_points_row.fundraising_points %></td>
+        <td><%= @committee_points_row.campus_relations_points %></td>
+        <td><%= @committee_points_row.pr_points %></td>
+        <td><%= @committee_points_row.community_outreach_points %></td>
+        <td><%= @committee_points_row.give_back_points %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="mt-4">Committee Log</h2>
 
   <table class="table mt-4">
     <thead>
@@ -11,11 +39,11 @@
     </thead>
 
     <tbody>
-    <% @committeeAttendanceLogs.each do |log| %>
+    <% @committee.user_attendance_logs.each do |log| %>
       <tr>
-        <td><%= log.first_name + ' ' + log.last_name %></td>
-        <td><%= log.event_name %></td>
-        <td><%= log.time_logged %></td>
+        <td><%= log.user.first_name + ' ' + log.user.last_name %></td>
+        <td><%= log.event.name %></td>
+        <td><%= log.created_at %></td>
       </tr>
     <% end %>
     </tbody>

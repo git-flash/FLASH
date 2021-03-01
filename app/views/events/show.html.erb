@@ -8,35 +8,37 @@
         <%= link_to "Attend Event", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
     </div>
     <table class="table my-2">
-        <tr>
-            <th>Name</th>
-            <td><%= strip_tags @event.name %></td>
-        </tr>
-        <tr>
-            <th>Committee</th>
-            <td><%= strip_tags @event.committee.name %></td>
-        </tr>
-        <tr>
-            <th>Start Time</th>
-            <td><%= strip_tags @event.start_timestamp.to_s(:long) %></td>
-        </tr>
-        <tr>
-            <th>End Time</th>
-            <td><%= strip_tags @event.end_timestamp.to_s(:long) %></td>
-        </tr>
-        <tr>
-            <th>Location</th>
-            <td><%= strip_tags @event.location %></td>
-        </tr>
-        <tr>
-            <th>Point Value</th>
-            <td><%= strip_tags @event.point_value.to_s %></td>
-        </tr>
-        <% if @event.committee_id.eql? current_user.committee_id %>
-        <tr>
-            <th>Passcode</th>
-            <td><%= strip_tags @event.passcode %></td>
-        </tr>
-        <% end %>
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td><%= strip_tags @event.name %></td>
+            </tr>
+            <tr>
+                <th>Committee</th>
+                <td><%= strip_tags @event.committee.name %></td>
+            </tr>
+            <tr>
+                <th>Start Time</th>
+                <td><%= strip_tags @event.start_timestamp.to_s(:long) %></td>
+            </tr>
+            <tr>
+                <th>End Time</th>
+                <td><%= strip_tags @event.end_timestamp.to_s(:long) %></td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td><%= strip_tags @event.location %></td>
+            </tr>
+            <tr>
+                <th>Point Value</th>
+                <td><%= strip_tags @event.point_value.to_s %></td>
+            </tr>
+            <% if @event.committee_id.eql? current_user.committee_id %>
+            <tr>
+                <th>Passcode</th>
+                <td><%= strip_tags @event.passcode %></td>
+            </tr>
+            <% end %>
+        </tbody>
     </table>
 </div>

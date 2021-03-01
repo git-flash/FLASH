@@ -5,7 +5,7 @@ services:
     build: .
     ports:
       - 3000:3000
-    command: -b 0.0.0.0 -p 3000 -e development
+    command: rails server -b 0.0.0.0 -p 3000 -e development
     environment:
       - FLASH_DB_USERNAME=super
       - FLASH_DB_PASSWORD_FILE=/run/secrets/postgres-passwd
@@ -29,7 +29,7 @@ services:
       - POSTGRES_USER=super
       - POSTGRES_DB=flash_development
     volumes:
-#      - flash-pg-db:/var/lib/postgresql/data
+      #      - flash-pg-db:/var/lib/postgresql/data
       - /var/run/postgresql:/var/run/postgresql
     secrets:
       - postgres-passwd

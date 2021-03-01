@@ -36,3 +36,9 @@ yarn-debug.log*
 .yarn-integrity
 
 app/javascript/generated
+
+# VS Code
+.vscode
+
+# SimpleCov
+/coverage
