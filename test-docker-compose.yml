@@ -5,12 +5,13 @@ services:
     build: .
     ports:
       - 3000:3000
-    command: rails server -b 0.0.0.0 -p 3000 -e development
+    command: rspec
     environment:
       - FLASH_DB_USERNAME=super
       - FLASH_DB_PASSWORD_FILE=/run/secrets/postgres-passwd
       - FLASH_DB_HOSTNAME=database
       - FLASH_DB_PORT=5432
+      - RAILS_ENV=test
     volumes:
       - .:/myapp # Comment this out to disable live updating
     secrets:
@@ -27,7 +28,7 @@ services:
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-passwd
       - POSTGRES_USER=super
-      - POSTGRES_DB=flash_development
+      - POSTGRES_DB=flash_test
     volumes:
       #      - flash-pg-db:/var/lib/postgresql/data
       - /var/run/postgresql:/var/run/postgresql
