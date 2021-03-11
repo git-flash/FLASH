@@ -7,7 +7,11 @@ class AttendanceCommitteeController < ApplicationController
   before_action :confirm_exec, :only => [:index]
 
   class CommitteePoints
-    attr_accessor :committee, :social_points, :fundraising_points, :campus_relations_points, :pr_points, :community_outreach_points, :give_back_points
+    attr_accessor :committee_name, :points
+  end
+
+  class AttendanceCommitteePoints
+    attr_accessor :committee, :committee_points_list, :total_points
   end
 
   # Shows points for all committees as index, only >exec
@@ -16,18 +20,29 @@ class AttendanceCommitteeController < ApplicationController
 
     committee_list = Committee.all
 
+    # For each committee, create an object to contain points held in each subcommittee
     committee_list.each do |com|
-      new_committee = CommitteePoints.new
+      new_committee = AttendanceCommitteePoints.new
       new_committee.committee = com
+      committee_points_list = [];
+      total_points = 0;
 
+      # Loop through each committee, and determine how many points com has in each committee
+      committee_list.each do |com_points|
+        committee_points_entry = CommitteePoints.new
+
+        committee_points_entry.committee_name = com_points.name
+        committee_points_entry.points = com.points_of_type(Committee.find_by(:name => com_points.name))
+
+        total_points += committee_points_entry.points;
+
+        committee_points_list.push committee_points_entry
+      end
+      
+      new_committee.committee_points_list = committee_points_list
+      new_committee.total_points = total_points
+      
       # Add Point Values to New Committee Object
-      new_committee.social_points = com.points_of_type(Committee.find_by(:name => "Social"))
-      new_committee.fundraising_points = com.points_of_type(Committee.find_by(:name => "Fundraising"))
-      new_committee.campus_relations_points = com.points_of_type(Committee.find_by(:name => "Campus Relations"))
-      new_committee.pr_points = com.points_of_type(Committee.find_by(:name => "Public Relations"))
-      new_committee.community_outreach_points = com.points_of_type(Committee.find_by(:name => "Community Outreach"))
-      new_committee.give_back_points = com.points_of_type(Committee.find_by(:name => "Give Back"))
-
       @committee_rows.push new_committee
     end
   end
