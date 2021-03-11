@@ -7,7 +7,7 @@
     <th>Committee</th>
     <% @committee_rows.each do |row| %>
         <% row.committee_points_list.each do |point_row| %>
-          <th><%= point_row.committee_name %> Points</td>
+          <th><%= point_row.committee_name %> Points</th>
         <% end %>
         <% break %>
     <% end %>

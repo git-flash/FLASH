@@ -55,15 +55,25 @@ class AttendanceCommitteeController < ApplicationController
     end
 
     @committee = Committee.find(params[:id])
-    @committee_points_row = CommitteePoints.new
+    @committee_points_row = AttendanceCommitteePoints.new
     @committee_points_row.committee = @committee
+    committee_points_list = []
+    total_points = 0
 
     # Add Point Values to committee points object
-    @committee_points_row.social_points = @committee.points_of_type(Committee.find_by(:name => "Social"))
-    @committee_points_row.fundraising_points = @committee.points_of_type(Committee.find_by(:name => "Fundraising"))
-    @committee_points_row.campus_relations_points = @committee.points_of_type(Committee.find_by(:name => "Campus Relations"))
-    @committee_points_row.pr_points = @committee.points_of_type(Committee.find_by(:name => "Public Relations"))
-    @committee_points_row.community_outreach_points = @committee.points_of_type(Committee.find_by(:name => "Community Outreach"))
-    @committee_points_row.give_back_points = @committee.points_of_type(Committee.find_by(:name => "Give Back"))
+    # Loop through each committee, and determine how many points com has in each committee
+    Committee.all.each do |com_points|
+      committee_points_entry = CommitteePoints.new
+
+      committee_points_entry.committee_name = com_points.name
+      committee_points_entry.points = @committee.points_of_type(Committee.find_by(:name => com_points.name))
+
+      total_points += committee_points_entry.points;
+
+      committee_points_list.push committee_points_entry
+    end
+
+    @committee_points_row.committee_points_list = committee_points_list
+    @committee_points_row.total_points = total_points
   end
 end
