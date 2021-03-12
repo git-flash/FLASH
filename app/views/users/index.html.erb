@@ -1,1 +1,32 @@
 <%= @pendingCheck = false; render  'members' %>
+<div class="container">
+  
+
+<h1>Current Member Points</h1>
+
+  <table class="table mt-4">
+    <thead>
+    <tr>
+      <th>Freshman UIN</th>
+      <% Committee.all.each do |committee| %>
+        <th><%= committee.name %></th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+
+    <% User.freshman.each do |usr| %>
+      <tr>
+        <% if current_user.check_executive || current_user.check_staff? %>
+          <td><a href="/user/<%= usr.id %>"><%= usr.first_name + " " + usr.last_name %></td>
+        <% else %>
+          <td><a href="/user/<%= usr.id %>"><%= usr.uin %></td>
+        <% end %>
+        <% Committee.all.each do |committee| %>
+          <td><%= usr.points_for_committee(committee) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

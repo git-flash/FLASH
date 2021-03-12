@@ -35,6 +35,10 @@ class User < ApplicationRecord
   def check_staff?
     self.staff? || self.check_executive?
   end
+ # @return true if base, false otherwise
+  def check_freshman?
+    self.base? 
+  end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
