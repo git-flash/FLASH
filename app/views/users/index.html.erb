@@ -2,7 +2,8 @@
 <div class="container">
   
 
-<h1>Current Member Points</h1>
+<div class="container">
+  <h1>Points Log</h1>
 
   <table class="table mt-4">
     <thead>
@@ -15,16 +16,25 @@
     </thead>
     <tbody>
 
-    <% User.freshman.each do |usr| %>
+    <% User.freshman.each do |freshman| %>
       <tr>
-        <% if current_user.check_executive || current_user.check_staff? %>
-          <td><a href="/user/<%= usr.id %>"><%= usr.first_name + " " + usr.last_name %></td>
-        <% else %>
-          <td><a href="/user/<%= usr.id %>"><%= usr.uin %></td>
+        <% if current_user.check_executive? || current_user.check_admin? %>
+          <td><a href="/attendance_user/<%= freshman.id %>"><%= freshman.first_name + " " + freshman.last_name %></td>     
+          <% Committee.all.each do |committee| %>
+            <td><%= freshman.points_for_committee(committee) %></td>
+          <% end %>        
+        <% elsif current_user.check_staff? && (current_user.committee_id == freshman.committee_id) %>
+          <td><a href="/attendance_user/<%= freshman.id %>"><%= freshman.first_name + " " + freshman.last_name %></td>
+          <% Committee.all.each do |committee| %>
+            <td><%= freshman.points_for_committee(committee) %></td>
+          <% end %>
+        <% elsif current_user.check_freshman? && (current_user.committee_id == freshman.committee_id) %>
+          <td><a href="/attendance_user/<%= freshman.id %>"><%= freshman.uin %></td>
+          <% Committee.all.each do |committee| %>
+            <td><%= freshman.points_for_committee(committee) %></td>
+          <% end %> 
         <% end %>
-        <% Committee.all.each do |committee| %>
-          <td><%= usr.points_for_committee(committee) %></td>
-        <% end %>
+        
       </tr>
     <% end %>
     </tbody>
