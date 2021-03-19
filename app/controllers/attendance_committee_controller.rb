@@ -15,9 +15,9 @@ class AttendanceCommitteeController < ApplicationController
   end
 
   # Shows points for all committees as index, only >exec
+  # rubocop:disable Metrics/MethodLength
   def index
     @committee_rows = []
-
     committee_list = Committee.all
 
     # For each committee, create an object to contain points held in each subcommittee
@@ -33,19 +33,19 @@ class AttendanceCommitteeController < ApplicationController
 
         committee_points_entry.committee_name = com_points.name
         committee_points_entry.points = com.points_of_type(Committee.find_by(:name => com_points.name))
-
         total_points += committee_points_entry.points;
 
         committee_points_list.push committee_points_entry
       end
-      
+
       new_committee.committee_points_list = committee_points_list
       new_committee.total_points = total_points
-      
+
       # Add Point Values to New Committee Object
       @committee_rows.push new_committee
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # Shows points and logs for committee, only >exec, or >staff for committee
   def show
