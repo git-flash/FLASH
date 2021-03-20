@@ -16,25 +16,30 @@ class User < ApplicationRecord
     end
   end
 
-  # Sets the current user to base if unassigned
-  private def set_default_user_type
-    self.user_type ||= :base
-  end
+# Sets the current user to base if unassigned
+private def set_default_user_type
+  self.user_type ||= :base
+end
 
-  # @return true if admin or greater, false otherwise
-  def check_admin?
-    self.admin?
-  end
+# @return true if admin or greater, false otherwise
+def check_admin?
+  self.admin?
+end
 
-  # @return true if exec or greater, false otherwise
-  def check_executive?
-    self.executive? || self.check_admin?
-  end
+# @return true if exec or greater, false otherwise
+def check_executive?
+  self.executive? || self.check_admin?
+end
 
-  # @return true if staff or greater, false otherwise
-  def check_staff?
-    self.staff? || self.check_executive?
-  end
+# @return true if staff or greater, false otherwise
+def check_staff?
+  self.staff? || self.check_executive?
+end
+
+# @return true if base, false otherwise
+def check_freshman?
+  self.base? 
+end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
