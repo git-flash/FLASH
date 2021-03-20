@@ -4,13 +4,14 @@
   <table class="table mt-4">
     <thead>
     <tr>
-      <th>Committee Name</th>
-      <th>Social Points</th>
-      <th>Fundraising Points</th>
-      <th>Campus Relations Points</th>
-      <th>PR Points</th>
-      <th>Community Outreach Points</th>
-      <th>Give Back Points</th>
+    <th>Committee</th>
+    <% @committee_rows.each do |row| %>
+        <% row.committee_points_list.each do |point_row| %>
+          <th><%= point_row.committee_name %> Points</th>
+        <% end %>
+        <% break %>
+    <% end %>
+      <th>Total Points</th>
     </tr>
     </thead>
 
@@ -18,12 +19,10 @@
     <% @committee_rows.each do |row| %>
       <tr>
         <td><a href="/attendance_committee/<%= row.committee.id %>"><%= row.committee.name %></a></td>
-        <td><%= row.social_points %></td>
-        <td><%= row.fundraising_points %></td>
-        <td><%= row.campus_relations_points %></td>
-        <td><%= row.pr_points %></td>
-        <td><%= row.community_outreach_points %></td>
-        <td><%= row.give_back_points %></td>
+        <% row.committee_points_list.each do |point_row| %>
+          <td><%= point_row.points %></td>
+        <% end %>
+        <td><%= row.total_points %></td>
       </tr>
     <% end %>
     </tbody>
