@@ -18,9 +18,17 @@ User.create!(:first_name => "Temp", :last_name => "Admin", :uin => 100000000, :u
 if Rails.env.development?
   User.create!(:first_name => "Test", :last_name => "Admin", :uin => 100000001, :user_type => :admin, :email => "admin@test.com", :password => "AdminPassword")
   User.create!(:first_name => "Test", :last_name => "Executive", :uin => 100000002, :user_type => :executive, :email => "exec@test.com", :password => "ExecPassword")
-  User.create!(:first_name => "Test", :last_name => "Staff", :uin => 100000003, :user_type => :staff, :email => "staff@test.com", :password => "StaffPassword", :committee => social_committee)
-  test_user1 = User.create!(:first_name => "Test", :last_name => "User", :uin => 100000004, :user_type => :base, :email => "user@test.com", :password => "UserPassword", :committee => pr_committee)
-  test_user2 = User.create!(:first_name => "Cool", :last_name => "User", :uin => 100000005, :user_type => :base, :email => "cool_user@test.com", :password => "UserPassword", :committee => give_back_committee)
+  User.create!(:first_name => "Test", :last_name => "Staff", :uin => 100000003, :user_type => :staff, :email => "staff@test.com", :password => "StaffPassword", :committee => pr_committee)
+
+  # CR Committee
+  User.create!(:first_name => "CR", :last_name => "Mentor", :uin => 100000007, :user_type => :staff, :email => "CRMentor@test.com", :password => "CRMentorPassword", :committee => campus_relations_committee)
+  User.create!(:first_name => "CR", :last_name => "Freshman1", :uin => 100000008, :user_type => :base, :email => "CRFreshman1@test.com", :password => "CRFreshman1Password", :committee => campus_relations_committee)
+  User.create!(:first_name => "CR", :last_name => "Freshman2", :uin => 100000009, :user_type => :base, :email => "CRFreshman2@test.com", :password => "CRFreshman2Password", :committee => campus_relations_committee)
+  User.create!(:first_name => "CR", :last_name => "Freshman3", :uin => 100000010, :user_type => :base, :email => "CRFreshman3@test.com", :password => "CRFreshman3Password", :committee => campus_relations_committee)
+
+
+  test_user1 = User.create!(:first_name => "PR", :last_name => "User", :uin => 100000004, :user_type => :base, :email => "user@test.com", :password => "UserPassword", :committee => pr_committee)
+  test_user2 = User.create!(:first_name => "GB", :last_name => "User", :uin => 100000005, :user_type => :base, :email => "cool_user@test.com", :password => "UserPassword", :committee => give_back_committee)
   test_user3 = User.create!(:first_name => "Test", :last_name => "PendingUser", :uin => 100000006, :user_type => :base, :email => "pending@test.com", :password => "PendingPassword")
 
 
