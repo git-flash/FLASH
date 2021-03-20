@@ -8,27 +8,35 @@
       <% Committee.all.each do |committee| %>
         <th><%= committee.name %></th>
       <% end %>
+      <th>Total Points</th>
     </tr>
     </thead>
     <tbody>
 
     <% User.freshman.each do |freshman| %>
       <tr>
+      <% total_points_for_freshman = 0%>
         <% if current_user.check_executive? || current_user.check_admin? %>
           <td><a href="/attendance_user/<%= freshman.id %>"><%= freshman.first_name + " " + freshman.last_name %></td>     
           <% Committee.all.each do |committee| %>
             <td><%= freshman.points_for_committee(committee) %></td>
-          <% end %>        
+            <% total_points_for_freshman += freshman.points_for_committee(committee)%>
+          <% end %> 
+          <td><%= total_points_for_freshman %></td>       
         <% elsif current_user.check_staff? && (current_user.committee_id == freshman.committee_id) %>
           <td><a href="/attendance_user/<%= freshman.id %>"><%= freshman.first_name + " " + freshman.last_name %></td>
           <% Committee.all.each do |committee| %>
             <td><%= freshman.points_for_committee(committee) %></td>
+            <% total_points_for_freshman += freshman.points_for_committee(committee)%>
           <% end %>
+          <td><%= total_points_for_freshman %></td>      
         <% elsif current_user.check_freshman? && (current_user.committee_id == freshman.committee_id) %>
           <td><a href="/attendance_user/<%= freshman.id %>"><%= freshman.uin %></td>
           <% Committee.all.each do |committee| %>
             <td><%= freshman.points_for_committee(committee) %></td>
+            <% total_points_for_freshman += freshman.points_for_committee(committee)%>
           <% end %> 
+          <td><%= total_points_for_freshman %></td>      
         <% end %>
         
       </tr>
