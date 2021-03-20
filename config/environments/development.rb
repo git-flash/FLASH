@@ -1,6 +1,18 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.mail_sender = 'no-reply@password_recovery.com'
+  config.action_mailer.default_url_options = { :host => 'smtp.sendgrid.net' }
+  config.action_mailer.smtp_settings = {
+    :address => 'smtp.sendgrid.net',
+    :port => '587',
+    :authentication => :plain,
+    :username => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'heroku.com',
+    :enable_starttls_auto => true
+  }
+
   config.web_console.whitelisted_ips = %w[172.22.0.0/16 172.18.0.0/16 127.0.0.0/16]
   # Settings specified here will take precedence over those in config/application.rb.
 
