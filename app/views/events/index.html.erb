@@ -1,3 +1,4 @@
+
 <div class="container">
     <h2>Events</h2>
     <%= link_to "Add New Event", new_event_path, class: "btn btn-primary" %>
@@ -5,7 +6,7 @@
     <%= date.day %>
     <% events.each do |event| %>
     <div>
-        <%= link_to event.name, event_path(event) %>
+        <%= link_to event.name.truncate(15), event_path(event) %>
     </div>
     <% end %>
     <% end %>

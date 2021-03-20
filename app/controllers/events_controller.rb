@@ -10,8 +10,9 @@ class EventsController < ApplicationController
     # Calendar/event view
     # Root path
     # Scope your query to the dates being shown:
-    start_date = params.fetch(:start_timestamp, Time.zone.today).to_date
-    @events = Event.where(:start_timestamp => start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+    start_date = params.fetch(:start_date, Time.zone.today).to_date
+    start_date = Time.zone.now.change(:year => start_date.year, :month => start_date.month, :day => start_date.day)
+    @events = Event.month(start_date)
   end
 
   def show
