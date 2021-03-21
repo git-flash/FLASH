@@ -4,10 +4,48 @@ class CommitteesController < ApplicationController
   before_action :confirm_exec, :only => [:new, :create, :update, :edit, :destroy]
   before_action :confirm_logged_in
 
+  class CommitteePoints
+    attr_accessor :committee_name, :points
+  end
+
+  class AttendanceCommitteePoints
+    attr_accessor :committee, :committee_points_list, :total_points
+  end
+
   # Shows all committees to all logged in users
+  # rubocop:disable Metrics/MethodLength
   def index
     @committees = Committee.all
+
+    @committee_rows = []
+    committee_list = Committee.all
+
+    # For each committee, create an object to contain points held in each subcommittee
+    committee_list.each do |com|
+      new_committee = AttendanceCommitteePoints.new
+      new_committee.committee = com
+      committee_points_list = []
+      total_points = 0
+
+      # Loop through each committee, and determine how many points com has in each committee
+      committee_list.each do |com_points|
+        committee_points_entry = CommitteePoints.new
+
+        committee_points_entry.committee_name = com_points.name
+        committee_points_entry.points = com.points_of_type(Committee.find_by(:name => com_points.name))
+        total_points += committee_points_entry.points
+
+        committee_points_list.push committee_points_entry
+      end
+
+      new_committee.committee_points_list = committee_points_list
+      new_committee.total_points = total_points
+
+      # Add Point Values to New Committee Object
+      @committee_rows.push new_committee
+    end
   end
+  # rubocop:enable  Metrics/MethodLength
 
   # Shows a specific committee to logged in users
   def show; end
