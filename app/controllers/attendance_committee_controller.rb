@@ -14,8 +14,13 @@ class AttendanceCommitteeController < ApplicationController
     attr_accessor :committee, :committee_points_list, :total_points
   end
 
+  class UserAttendancePoints
+    attr_accessor :user, :user_points_list, :total_points
+  end
+
   # Shows points for all committees as index, only >exec
   # rubocop:disable Metrics/MethodLength
+  # rubocop:disable  Metrics/AbcSize
   def index
     @committee_rows = []
     committee_list = Committee.all
@@ -45,7 +50,6 @@ class AttendanceCommitteeController < ApplicationController
       @committee_rows.push new_committee
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   # Shows points and logs for committee, only >exec, or >staff for committee
   def show
@@ -75,5 +79,33 @@ class AttendanceCommitteeController < ApplicationController
 
     @committee_points_row.committee_points_list = committee_points_list
     @committee_points_row.total_points = total_points
+
+    @user_rows = []
+
+    @committee.users.each do |com_user|
+      new_user_row = UserAttendancePoints.new
+      new_user_row.user = com_user
+      user_total_points = 0
+      user_points_list = []
+
+      Committee.all.each do |com_points|
+        user_points_entry = CommitteePoints.new
+
+        user_points_entry.committee_name = com_points.name
+        user_points_entry.points = com_user.points_for_committee(Committee.find_by(:name => com_points.name))
+
+        user_total_points += user_points_entry.points;
+
+        user_points_list.push user_points_entry
+      end
+
+      new_user_row.user_points_list = user_points_list
+      new_user_row.total_points = user_total_points
+
+      # Add Point Values to New Committee Object
+      @user_rows.push new_user_row
+    end
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable  Metrics/AbcSize
 end

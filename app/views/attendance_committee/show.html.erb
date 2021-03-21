@@ -27,17 +27,22 @@
     <thead>
     <tr>
       <th>Name</th>
-      <th>Event</th>
-      <th>Timestamp</th>
+      <% @user_rows.each do |row| %>
+        <% row.user_points_list.each do |point_row| %>
+          <th><%= point_row.committee_name %> Points</th>
+        <% end %>
+        <% break %>
+    <% end %>
     </tr>
     </thead>
 
     <tbody>
-    <% @committee.user_attendance_logs.each do |log| %>
+    <% @user_rows.each do |row| %>
       <tr>
-        <td><%= log.user.first_name + ' ' + log.user.last_name %></td>
-        <td><%= log.event.name %></td>
-        <td><%= log.created_at %></td>
+        <td><%= row.user.first_name + ' ' + row.user.last_name %></td>
+        <% row.user_points_list.each do |point_row| %>
+          <td><%= point_row.points %></td>
+        <% end %>
       </tr>
     <% end %>
     </tbody>
