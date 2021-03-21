@@ -1,4 +1,5 @@
 #BE
+# rubocop:disable Metrics/ClassLength
 class CommitteesController < ApplicationController
   before_action :set_committee, :only => [:show, :edit, :update, :destroy]
   before_action :confirm_exec, :only => [:new, :create, :update, :edit, :destroy]
@@ -10,6 +11,10 @@ class CommitteesController < ApplicationController
 
   class AttendanceCommitteePoints
     attr_accessor :committee, :committee_points_list, :total_points
+  end
+
+  class UserAttendancePoints
+    attr_accessor :user, :user_points_list, :total_points
   end
 
   # Shows all committees to all logged in users
@@ -50,9 +55,7 @@ class CommitteesController < ApplicationController
   # Shows a specific committee to logged in users
   def show
     # If a staff user, ensure they can only access their committee
-    if (!current_user.check_executive?) && (current_user.committee.id.to_i != params[:id].to_i)
-      redirect_to root_path, :alert => "You do not have permissions"
-    end
+    redirect_to root_path, :alert => "You do not have permissions" if !current_user.check_executive? && (current_user.committee.id.to_i != params[:id].to_i)
 
     @committee = Committee.find(params[:id])
     @committee_points_row = AttendanceCommitteePoints.new
@@ -68,7 +71,7 @@ class CommitteesController < ApplicationController
       committee_points_entry.committee_name = com_points.name
       committee_points_entry.points = @committee.points_of_type(Committee.find_by(:name => com_points.name))
 
-      total_points += committee_points_entry.points;
+      total_points += committee_points_entry.points
 
       committee_points_list.push committee_points_entry
     end
@@ -90,7 +93,7 @@ class CommitteesController < ApplicationController
         user_points_entry.committee_name = com_points.name
         user_points_entry.points = com_user.points_for_committee(Committee.find_by(:name => com_points.name))
 
-        user_total_points += user_points_entry.points;
+        user_total_points += user_points_entry.points
 
         user_points_list.push user_points_entry
       end
@@ -160,3 +163,4 @@ class CommitteesController < ApplicationController
     params.require(:committee).permit(:name)
   end
 end
+# rubocop:enable Metrics/ClassLength
