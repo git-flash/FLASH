@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Events</h2>
-    <%= link_to "Add New Event", new_event_path, class: "btn btn-primary" %>
+    <%= link_to "Add New Event", new_event_path, class: "btn btn-success" %>
     <%= month_calendar(attribute: :start_timestamp, end_attribute: :end_timestamp, events: @events) do |date, events| %>
     <%= date.day %>
     <% events.each do |event| %>
