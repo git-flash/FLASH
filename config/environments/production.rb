@@ -2,8 +2,8 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = { :host => 'smtp.sendgrid.net' }
-  config.action_mailer.smtp_settings = {
+  config.action_mailer.default_url_options = { :host => 'flash-point.herokuapp.com', :protocol => 'https' }
+  ActionMailer::Base.smtp_settings = {
     :address => 'smtp.sendgrid.net',
     :port => '587',
     :authentication => :plain,
@@ -12,6 +12,7 @@ Rails.application.configure do
     :domain => 'heroku.com',
     :enable_starttls_auto => true
   }
+  config.action_mailer.delivery_method = :smtp
 
   # Code is not reloaded between requests.
   config.cache_classes = true
