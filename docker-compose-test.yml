@@ -11,7 +11,7 @@ services:
       - FLASH_DB_PASSWORD_FILE=/run/secrets/postgres-passwd
       - FLASH_DB_HOSTNAME=database
       - FLASH_DB_PORT=5432
-      - RAILS_ENV=test
+      - FLASH_ENV=test
     volumes:
       - .:/myapp # Comment this out to disable live updating
     secrets:
