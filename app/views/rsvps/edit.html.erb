@@ -1,2 +1,10 @@
-<h1>Rsvps#edit</h1>
-<p>Find me in app/views/rsvps/edit.html.erb</p>
+<%= link_to "Back to Event", event_path(id: @rsvp.event_id), class: "btn btn-secondary" %>
+
+<div class="container">
+    <h2>Edit RSVP</h2>
+
+    <%= form_for( @rsvp ) do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <%= f.submit "Update RSVP", disable_with: 'Updating RSVP...', class: 'btn btn-primary' %>
+    <% end %>
+</div>
