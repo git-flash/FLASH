@@ -3,9 +3,12 @@
 <div class="container">
     <h2></h2>
     <div class="links">
+        <% if (@event.committee_id.eql? current_user.committee_id) || current_user.check_executive? %>
         <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-secondary" %>
         <%= link_to "Delete Event", delete_event_path(@event), class: "btn btn-danger" %>
-        <%= link_to "Attend Event", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
+        <% end %>
+        <%= link_to "RSVP", new_rsvp_path(eid: @event.id), class: "btn btn-primary" %>
+        <%= link_to "Attend", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
     </div>
     <table class="table my-2">
         <tbody>
@@ -33,7 +36,7 @@
                 <th>Point Value</th>
                 <td><%= strip_tags @event.point_value.to_s %></td>
             </tr>
-            <% if @event.committee_id.eql? current_user.committee_id %>
+            <% if (@event.committee_id.eql? current_user.committee_id) || current_user.check_executive? %>
             <tr>
                 <th>Passcode</th>
                 <td><%= strip_tags @event.passcode %></td>

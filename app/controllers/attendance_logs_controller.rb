@@ -20,8 +20,10 @@ class AttendanceLogsController < ApplicationController
     end
   end
 
+  private
+
   # @return [ActionController::Parameters] This is a list of trusted parameters to pass to the attendance log model.
-  private def attendance_log_params
+  def attendance_log_params
     params.require(:attendance_log).permit(:passcode, :event_id)
   end
 end

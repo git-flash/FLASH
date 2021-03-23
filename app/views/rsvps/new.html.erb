@@ -1,2 +1,10 @@
-<h1>Rsvps#new</h1>
-<p>Find me in app/views/rsvps/new.html.erb</p>
+<%= link_to "Back to Event", event_path(id: @rsvp.event_id), class: "btn btn-secondary" %>
+
+<div class="container">
+    <h2>RSVP</h2>
+
+    <%= form_for( @rsvp ) do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <%= f.submit "RSVP", disable_with: 'RSVPing Event...', class: 'btn btn-primary' %>
+    <% end %>
+</div>
