@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  validates :first_name, :presence => true, :allow_blank => false
+  validates :last_name, :presence => true, :allow_blank => false
+  
   # The types that a user can be
   enum :user_type => { :base => 0, :staff => 10, :executive => 20, :admin => 30 }
   after_initialize :set_default_user_type, :if => :new_record?
