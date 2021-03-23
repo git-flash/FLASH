@@ -27,7 +27,7 @@ services:
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-passwd
       - POSTGRES_USER=super
-      - POSTGRES_DB=flash_development
+      - POSTGRES_DB=flash_test
     volumes:
       #      - flash-pg-db:/var/lib/postgresql/data
       - /var/run/postgresql:/var/run/postgresql
