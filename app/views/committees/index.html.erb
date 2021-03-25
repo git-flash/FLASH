@@ -17,39 +17,43 @@
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Number of Users</th>
-          <% @committee_rows.each do |row| %>
+          <% if user_signed_in? && current_user.check_executive? %>
+            <% @committee_rows.each do |row| %>
               <% row.committee_points_list.each do |point_row| %>
                 <th><%= point_row.committee_name %> Points</th>
               <% end %>
               <% break %>
+            <% end %>
+            <th>Total Points</th>
           <% end %>
-          <th>Total Points</th>
           <th scope="col"></th>
         </tr>
         </thead>
 
         <tbody>
-          <% @committee_rows.each do |row| %>
-            <tr>
-              <td><%= row.committee.name %></td>
-              <td><%= row.committee.users.length %></td>
-                <% row.committee_points_list.each do |point_row| %>
-                    <td><%= point_row.points %></td>
+        <% @committee_rows.each do |row| %>
+          <tr>
+            <td><%= row.committee.name %></td>
+            <td><%= row.committee.users.length %></td>
+            <% if user_signed_in? && current_user.check_executive? %>
+              <% row.committee_points_list.each do |point_row| %>
+                <td><%= point_row.points %></td>
+              <% end %>
+              <td><%= row.total_points %></td>
+            <% end %>
+            <td>
+              <div class="btn-group float-right">
+                <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == row.committee.id)) %>
+                  <%= button_to 'View', row.committee, method: :get, class: "btn btn-info mr-1" %>
                 <% end %>
-                <td><%= row.total_points %></td>
-              <td>
-                <div class="btn-group float-right">
-                  <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == row.committee.id)) %>
-                    <%= button_to 'View', row.committee, method: :get, class: "btn btn-info mr-1" %>
-                  <% end %>
-                  <% if user_signed_in? && current_user.check_executive? %>
-                    <%= button_to 'Edit', edit_committee_path(row.committee), method: :get, class: "btn btn-info mr-1" %>
-                    <%= button_to 'Delete', row.committee, method: :delete, data: { confirm: "Are you sure you wish to delete " + row.committee.name + "?" }, class: "btn btn-danger mr-1" %>
-                  <% end %>
-                </div>
-              </td>
-            </tr>
-          <% end %>
+                <% if user_signed_in? && current_user.check_executive? %>
+                  <%= button_to 'Edit', edit_committee_path(row.committee), method: :get, class: "btn btn-info mr-1" %>
+                  <%= button_to 'Delete', row.committee, method: :delete, data: { confirm: "Are you sure you wish to delete " + row.committee.name + "?" }, class: "btn btn-danger mr-1" %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
         </tbody>
       </table>
     </div>
