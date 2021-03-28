@@ -13,7 +13,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected def confirm_logged_in(message = nil)
-    redirect_to_login(message) unless user_signed_in?
+    if user_signed_in?
+      redirect_to_login("You must be confirmed to see this page") unless current_user.check_confirmed?
+    else
+      redirect_to_login(message)
+    end
   end
 
   protected def confirm_staff(message = nil)

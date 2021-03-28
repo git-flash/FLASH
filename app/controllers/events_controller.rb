@@ -2,7 +2,7 @@
 class EventsController < ApplicationController
   before_action :confirm_logged_in, :only => [:show]
   before_action :only => [:index] do
-    confirm_logged_in('Please Log In')
+    confirm_logged_in('Please Log In') unless user_signed_in?
   end
   before_action :confirm_staff, :only => [:new, :create, :edit, :update, :delete, :destroy]
 

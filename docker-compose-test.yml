@@ -5,7 +5,7 @@ services:
     build: .
     ports:
       - 3000:3000
-    command: rspec
+    command: rspec spec/
     environment:
       - FLASH_DB_USERNAME=super
       - FLASH_DB_PASSWORD_FILE=/run/secrets/postgres-passwd
