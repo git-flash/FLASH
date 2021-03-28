@@ -18,7 +18,7 @@ class EventsController < ApplicationController
   def show
     # View event details
     @event = Event.find(params[:id])
-    @user_rsvp_esits = Rsvp.exists?(:user_id => current_user.id, :event_id => params[:id])
+    @user_rsvp_exists = Rsvp.exists?(:user_id => current_user.id, :event_id => params[:id])
   end
 
   def new
