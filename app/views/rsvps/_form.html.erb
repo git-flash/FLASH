@@ -4,7 +4,7 @@
     <%= f.hidden_field :event_id %>
     <tr>
         <th><%= f.label :rsvp_option %></th>
-        <td><%= f.select :rsvp_option, options_for_select(Rsvp.rsvp_options.map{ |key, value| [key.humanize, key] }), {}, { class: "form-control" }%></td>
+        <td><%= f.select :rsvp_option, options_for_select(Rsvp.rsvp_options.map{ |key, value| [key.humanize, key] }, @rsvp.rsvp_option), {}, { class: "form-control" }%></td>
     </tr>
 
 </table>
