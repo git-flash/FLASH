@@ -23,6 +23,10 @@ class User < ApplicationRecord
   private def set_default_user_type
     self.user_type ||= :base
   end
+  
+  def check_confirmed?
+    self.check_staff? || (self.check_freshman? && !self.committee.nil?)
+  end
 
   # @return true if admin or greater, false otherwise
   def check_admin?
