@@ -21,10 +21,10 @@ class CommitteesController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def index
-    @committees = Committee.all
+    @committees = Committee.all.order(:name)
 
     @committee_rows = []
-    committee_list = Committee.all
+    committee_list = Committee.all.order(:name)
 
     # For each committee, create an object to contain points held in each subcommittee
     committee_list.each do |com|
@@ -65,7 +65,7 @@ class CommitteesController < ApplicationController
 
     # Add Point Values to committee points object
     # Loop through each committee, and determine how many points com has in each committee
-    Committee.all.each do |com_points|
+    Committee.all.order(:name).each do |com_points|
       committee_points_entry = CommitteePoints.new
 
       committee_points_entry.committee_name = com_points.name
@@ -87,7 +87,7 @@ class CommitteesController < ApplicationController
       user_total_points = 0
       user_points_list = []
 
-      Committee.all.each do |com_points|
+      Committee.all.order(:name).each do |com_points|
         user_points_entry = CommitteePoints.new
 
         user_points_entry.committee_name = com_points.name
