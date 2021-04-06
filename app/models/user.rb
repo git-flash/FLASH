@@ -18,6 +18,8 @@ class User < ApplicationRecord
       "Admin"
     end
   end
+  
+  #hides the user instead of destroying the user
 
   # Sets the current user to base if unassigned
   private def set_default_user_type
@@ -77,6 +79,7 @@ class User < ApplicationRecord
   def total_points
     attended_events.sum(:point_value)
   end
+
 
   # @return all base users
   scope :freshman, -> () {

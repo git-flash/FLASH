@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   root 'events#index'
   get 'users/pending'
 
+
   resources :committees
   resources :attendance_committee
-  resources :users
+  #resources :users
   resources :attendance_user
+  
 
   resources :events do
     member do
@@ -18,6 +20,12 @@ Rails.application.routes.draw do
     member do
       get :delete
     end
+  end
+
+  resources :users do
+    member do
+      get :soft_delete
+    end 
   end
 
   resources :attendance_logs do

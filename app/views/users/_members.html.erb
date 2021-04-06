@@ -60,9 +60,9 @@
                         <%=
                             if ((current_user.check_admin? && current_user != user) || !user.check_executive?)
                                 if (@pendingCheck)
-                                    link_to 'Reject', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } 
-                                else
                                     link_to 'Delete', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } 
+                                else
+                                    link_to 'Remove', soft_delete_user_path(user), class:"btn btn-danger", data: { confirm: 'Are you sure?' } 
                                 end
                             end
                         %>
