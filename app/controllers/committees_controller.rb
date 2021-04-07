@@ -24,7 +24,13 @@ class CommitteesController < ApplicationController
     @committees = Committee.all.order(:name)
 
     @committee_rows = []
-    committee_list = Committee.all.order(:name)
+    committee_list = []
+
+    if current_user.check_staff? && !current_user.check_executive?
+      committee_list.push Committee.find_by(:name => current_user.committee.name)
+    else
+      committee_list = Committee.all
+    end
 
     # For each committee, create an object to contain points held in each subcommittee
     committee_list.each do |com|
