@@ -9,7 +9,7 @@ Rails.application.configure do
     :address => 'smtp.gmail.com',
     :port => 587,
     :authentication => :plain,
-    :username => 'tamuflashpoint@gmail.com',
+    :user_name => 'tamuflashpoint@gmail.com',
     :password => ENV['GMAIL_PASSWORD'],
     :openssl_verify_mode => 'none'
   }
