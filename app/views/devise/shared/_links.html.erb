@@ -7,7 +7,7 @@
 <%# end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' && controller_name != 'sessions' %>
-  <%= button_to "Forgot your password?", new_password_path(resource_name), class: "btn btn-secondary" %><br/>
+  <%= link_to "Forgot your password?", new_password_path(resource_name), class: "btn btn-secondary" %><br/>
 <% end %>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
