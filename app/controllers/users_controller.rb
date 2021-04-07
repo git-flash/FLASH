@@ -55,11 +55,12 @@ class UsersController < ApplicationController
   def soft_delete
     @user = User.find(params[:id])
     userName = @user.first_name + " " + @user.last_name
-    @user.update(:committee_id => nil)
+      
+    @user.update(:committee_id => nil, :user_type => :base )
     
     respond_to do |format|
       if(@user.committee_id == nil)
-        format.html { redirect_to users_url, :notice => userName + " was successfully removed from current members." }
+        format.html { redirect_to users_url, :notice => userName + " was successfully removed from current members and was sent back to pending members with default values (Base member with TBD Committee)." }
         format.json { head :no_content }
       end
     end 
