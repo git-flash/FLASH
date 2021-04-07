@@ -4,8 +4,14 @@ set -e
 sleep 1
 
 rm -f /myapp/tmp/pids/server.pid
-rails db:migrate
-rails db:seed
+if [ "$FLASH_ENV" == "test" ]
+then
+  echo "testing"
+else
+  rails db:migrate
+  rails db:seed
+fi
+
 rails ts:routes
 
 exec "$@"

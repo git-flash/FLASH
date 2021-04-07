@@ -5,3 +5,6 @@ require:
 
 AllCops:
   NewCops: enable
+
+Layout/EndOfLine:
+   Enabled: False

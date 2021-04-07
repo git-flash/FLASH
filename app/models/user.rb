@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  validates :first_name, :presence => true, :allow_blank => false
+  validates :last_name, :presence => true, :allow_blank => false
+  
   # The types that a user can be
   enum :user_type => { :base => 0, :staff => 10, :executive => 20, :admin => 30 }
   after_initialize :set_default_user_type, :if => :new_record?
@@ -20,6 +23,10 @@ class User < ApplicationRecord
   private def set_default_user_type
     self.user_type ||= :base
   end
+  
+  def check_confirmed?
+    self.check_staff? || (self.check_freshman? && !self.committee.nil?)
+  end
 
   # @return true if admin or greater, false otherwise
   def check_admin?
@@ -34,6 +41,11 @@ class User < ApplicationRecord
   # @return true if staff or greater, false otherwise
   def check_staff?
     self.staff? || self.check_executive?
+  end
+
+  # @return true if base, false otherwise
+  def check_freshman?
+    self.base? 
   end
 
   # Include default devise modules. Others available are:

@@ -5,6 +5,25 @@
 
   <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == @committee.id)) %>
     <strong>Users:</strong>
+    
+    <table class="table mt-4">
+      <thead>
+      <tr>
+        <% @committee_points_row.committee_points_list.each do |point_row| %>
+          <th><%= point_row.committee_name %> Points</th>
+        <% end %>
+      </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+        <% @committee_points_row.committee_points_list.each do |point_row| %>
+          <td><%= point_row.points %></td>
+        <% end %>
+        </tr>
+      </tbody>
+    </table>
+
     <table class="table">
       <thead>
         <tr>
@@ -27,7 +46,32 @@
         <% end %>
       </tbody>
     </table>
-  <% end %>
+
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <% @user_rows.each do |row| %>
+            <% row.user_points_list.each do |point_row| %>
+              <th><%= point_row.committee_name %> Points</th>
+            <% end %>
+            <% break %>
+        <% end %>
+        </tr>
+      </thead>
+
+        <tbody>
+          <% @user_rows.each do |row| %>
+            <tr>
+              <td><%= row.user.first_name + ' ' + row.user.last_name %></td>
+              <% row.user_points_list.each do |point_row| %>
+                <td><%= point_row.points %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
 
   <div class="btn-group">
     <% if user_signed_in? && current_user.check_executive? %>

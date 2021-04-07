@@ -1,16 +1,112 @@
 #BE
+# rubocop:disable Metrics/ClassLength
 class CommitteesController < ApplicationController
   before_action :set_committee, :only => [:show, :edit, :update, :destroy]
   before_action :confirm_exec, :only => [:new, :create, :update, :edit, :destroy]
   before_action :confirm_logged_in
 
+  class CommitteePoints
+    attr_accessor :committee_name, :points
+  end
+
+  class AttendanceCommitteePoints
+    attr_accessor :committee, :committee_points_list, :total_points
+  end
+
+  class UserAttendancePoints
+    attr_accessor :user, :user_points_list, :total_points
+  end
+
   # Shows all committees to all logged in users
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def index
     @committees = Committee.all
+
+    @committee_rows = []
+    committee_list = Committee.all
+
+    # For each committee, create an object to contain points held in each subcommittee
+    committee_list.each do |com|
+      new_committee = AttendanceCommitteePoints.new
+      new_committee.committee = com
+      committee_points_list = []
+      total_points = 0
+
+      # Loop through each committee, and determine how many points com has in each committee
+      committee_list.each do |com_points|
+        committee_points_entry = CommitteePoints.new
+
+        committee_points_entry.committee_name = com_points.name
+        committee_points_entry.points = com.points_of_type(Committee.find_by(:name => com_points.name))
+        total_points += committee_points_entry.points
+
+        committee_points_list.push committee_points_entry
+      end
+
+      new_committee.committee_points_list = committee_points_list
+      new_committee.total_points = total_points
+
+      # Add Point Values to New Committee Object
+      @committee_rows.push new_committee
+    end
   end
 
   # Shows a specific committee to logged in users
-  def show; end
+  def show
+    # If a staff user, ensure they can only access their committee
+    redirect_to root_path, :alert => "You do not have permissions" if !current_user.check_executive? && (current_user.committee.id.to_i != params[:id].to_i)
+
+    @committee = Committee.find(params[:id])
+    @committee_points_row = AttendanceCommitteePoints.new
+    @committee_points_row.committee = @committee
+    committee_points_list = []
+    total_points = 0
+
+    # Add Point Values to committee points object
+    # Loop through each committee, and determine how many points com has in each committee
+    Committee.all.each do |com_points|
+      committee_points_entry = CommitteePoints.new
+
+      committee_points_entry.committee_name = com_points.name
+      committee_points_entry.points = @committee.points_of_type(Committee.find_by(:name => com_points.name))
+
+      total_points += committee_points_entry.points
+
+      committee_points_list.push committee_points_entry
+    end
+
+    @committee_points_row.committee_points_list = committee_points_list
+    @committee_points_row.total_points = total_points
+
+    @user_rows = []
+
+    @committee.users.each do |com_user|
+      new_user_row = UserAttendancePoints.new
+      new_user_row.user = com_user
+      user_total_points = 0
+      user_points_list = []
+
+      Committee.all.each do |com_points|
+        user_points_entry = CommitteePoints.new
+
+        user_points_entry.committee_name = com_points.name
+        user_points_entry.points = com_user.points_for_committee(Committee.find_by(:name => com_points.name))
+
+        user_total_points += user_points_entry.points
+
+        user_points_list.push user_points_entry
+      end
+
+      new_user_row.user_points_list = user_points_list
+      new_user_row.total_points = user_total_points
+
+      # Add Point Values to New Committee Object
+      @user_rows.push new_user_row
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable  Metrics/AbcSize
 
   # Creates a new committee, can only be done bby >execs
   def new
@@ -67,3 +163,4 @@ class CommitteesController < ApplicationController
     params.require(:committee).permit(:name)
   end
 end
+# rubocop:enable Metrics/ClassLength

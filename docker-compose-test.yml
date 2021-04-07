@@ -1,0 +1,50 @@
+version: '3.1'
+
+services:
+  flash:
+    build: .
+    ports:
+      - 3000:3000
+    command: rspec spec/
+    environment:
+      - FLASH_DB_USERNAME=super
+      - FLASH_DB_PASSWORD_FILE=/run/secrets/postgres-passwd
+      - FLASH_DB_HOSTNAME=database
+      - FLASH_DB_PORT=5432
+      - FLASH_ENV=test
+    volumes:
+      - .:/myapp # Comment this out to disable live updating
+    secrets:
+      - postgres-passwd
+    networks:
+      flash_network:
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13.1-alpine
+    ports:
+      - 10258:5432
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-passwd
+      - POSTGRES_USER=super
+      - POSTGRES_DB=flash_test
+    volumes:
+      #      - flash-pg-db:/var/lib/postgresql/data
+      - /var/run/postgresql:/var/run/postgresql
+    secrets:
+      - postgres-passwd
+    networks:
+      flash_network:
+        aliases:
+          - database
+
+#volumes:
+#  flash-pg-db:
+
+secrets:
+  postgres-passwd:
+    file: ./secrets/postgres-passwd
+
+networks:
+  flash_network:
