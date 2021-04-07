@@ -22,8 +22,7 @@ class UsersController < ApplicationController
     else
       redirect_to users_pending_path  
     end
-  end
-  
+  end  
 
   # GET /users/new
   # redirect people to the events page if they are trying
@@ -56,10 +55,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     userName = @user.first_name + " " + @user.last_name
       
-    @user.update(:committee_id => nil, :user_type => :base )
+    @user.update(:committee_id => nil, :user_type => :base)
     
     respond_to do |format|
-      if(@user.committee_id == nil)
+      if (@user.committee_id.nil?)
         format.html { redirect_to users_url, :notice => userName + " was successfully removed from current members and was sent back to pending members with default values (Base member with TBD Committee)." }
         format.json { head :no_content }
       end
@@ -68,13 +67,11 @@ class UsersController < ApplicationController
  
   end
 
-
-
   # DELETE /users/1 or /users/1.json
   def destroy
     # userName contains currently selected member's first name and last name
     userName = @user.first_name + " " + @user.last_name
-    @user.delete
+    @user.destroy
     respond_to do |format|
       # this check redirects to the current member or pending member page based on whichever page called destroy
       if @pendingCheck
@@ -101,7 +98,6 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :uin, :user_type, :committee_id)
   end
-
 end
 
 # ../users              Shows a list of users, >exec
