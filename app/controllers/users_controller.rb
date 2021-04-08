@@ -6,8 +6,6 @@ class UsersController < ApplicationController
   # this before action confirms the user logged in is an executive member or higher
   before_action :confirm_exec
 
-
-
   # GET /users or /users.json
   def index
     @users = User.all
