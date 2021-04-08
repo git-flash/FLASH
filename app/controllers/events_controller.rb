@@ -23,7 +23,7 @@ class EventsController < ApplicationController
 
   def new
     # Create event if >staff
-    @event = Event.new(:point_value => 1)
+    @event = Event.new(:point_value => 1, :start_timestamp => params[:start_date], :end_timestamp => params[:start_date])
   end
 
   def create

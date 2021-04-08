@@ -3,16 +3,17 @@
     <h1>Waiting to be confirmed by Executive</h1>
     <% else %>
     <h2>Events</h2>
-    <% if current_user.check_staff? %>
-    <%= link_to "Add New Event", new_event_path, class: "btn btn-success" %>
-    <% end %>
     <%= month_calendar(attribute: :start_timestamp, end_attribute: :end_timestamp, events: @events) do |date, events| %>
-    <%= date.day %>
-    <% events.each do |event| %>
-    <div>
-        <%= link_to event.name.truncate(15), event_path(event) %>
+    <div class="d-flex flex-column justify-content-around align-items-stretch" <% if current_user.check_staff? %> style="cursor:pointer;" onclick="location.href='<%= new_event_path(start_date: date) %>'" <% end %>>
+        <%= date.day %>
+        <div class="d-flex justify-content-center">
+            <% if events.any? %>
+            <%= pluralize(events.size, 'Event') %>
+            <% else %>
+            <br>
+            <% end %>
+        </div>
     </div>
-    <% end %>
     <% end %>
     <% end %>
 </div>
