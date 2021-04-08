@@ -45,9 +45,17 @@
                 <th>Passcode</th>
                 <td><%= strip_tags @event.passcode %></td>
             </tr>
+            <tr>
+                <th>RSVPs</th>
+                <td><%= strip_tags @event.rsvps.size.to_s %></td>
+            </tr>
+            <tr>
+                <th>Attendees</th>
+                <td><%= strip_tags @event.attendance_logs.size.to_s %></td>
+            </tr>
             <% end %>
         </tbody>
     </table>
 </div>
 
- <%= javascript_pack_tag 'datatables.js' %>
+<%= javascript_pack_tag 'datatables.js' %>
