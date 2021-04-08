@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>User Log</h1>
+  <h1>Attendance Record</h1>
 <% if current_user.check_executive? || current_user.check_staff? || (current_user.check_freshman? && current_user.committee_id == @user.committee_id)%> 
   <table class="table mt-4">
     <thead>
