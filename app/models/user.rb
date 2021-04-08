@@ -19,7 +19,6 @@ class User < ApplicationRecord
     end
   end
   
-  # hides the user instead of destroying the user
 
   # Sets the current user to base if unassigned
   private def set_default_user_type
