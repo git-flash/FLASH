@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
+  as :users do
+    # get 'users/sign_in', :to => 'devise/sessions#new', :as => :registration
+  end
   root 'events#index'
   get 'users/pending'
 

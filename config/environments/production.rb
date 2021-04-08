@@ -2,7 +2,17 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = { :host => 'smtp.sendgrid.net' }
+  config.action_mailer.default_url_options = { :host => "#{ENV['HEROKU_APP_NAME']}.herokuapp.com", :method => "https" }
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :authentication => :plain,
+    :user_name => 'tamuflashpoint@gmail.com',
+    :password => ENV['GMAIL_PASSWORD'],
+    :openssl_verify_mode => 'none'
+  }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
