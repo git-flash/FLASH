@@ -1,0 +1,29 @@
+<%= link_to "Back to Calendar", events_path, class: "btn btn-secondary" %>
+
+<div class="container">
+    <h2><%= params[:date].to_s %></h2>
+    <% if current_user.check_staff? %>
+    <%= link_to "Add New Event", new_event_path(start_date: params[:date]), class: "btn btn-success" %>
+    <% end %>
+    <table class="table my-2">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Committee</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+
+            <% @events.each do |event| %>
+            <tr>
+                <td><%= link_to (strip_tags event.name), event_path(event) %></td>
+                <td><%= strip_tags event.committee.name %></td>
+                <td><%= strip_tags event.start_timestamp.to_s(:long) %></td>
+                <td><%= strip_tags event.end_timestamp.to_s(:long) %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+
+<%= javascript_pack_tag 'datatables.js' %>

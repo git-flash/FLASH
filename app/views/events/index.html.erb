@@ -4,7 +4,7 @@
     <% else %>
     <h2>Events</h2>
     <%= month_calendar(attribute: :start_timestamp, end_attribute: :end_timestamp, events: @events) do |date, events| %>
-    <div class="d-flex flex-column justify-content-around align-items-stretch" <% if current_user.check_staff? %> style="cursor:pointer;" onclick="location.href='<%= new_event_path(start_date: date) %>'" <% end %>>
+    <div class="d-flex flex-column justify-content-around align-items-stretch" style="cursor:pointer;" onclick="location.href='<%= index_day_events_path(date: date) %>'" title="Go to events for <%= date %>">
         <%= date.day %>
         <div class="d-flex justify-content-center">
             <% if events.any? %>
