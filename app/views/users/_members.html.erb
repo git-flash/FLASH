@@ -30,7 +30,7 @@
                 <th>Membership Level</th>
                 <th>Committee</th>
                 <th>Email</th>
-                <th colspan="2"></th>
+                <th></th>
             </tr>
             </thead>
 
@@ -55,8 +55,7 @@
                     </td>
                     <td><%= user.email %></td>
                     <!--<td>lessthanpercentequals link_to 'Show', user, class:"btn btn-info" percentgreaterthan</td> COMMENT ME OUT-->
-                    <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-info" %></td>
-                    <td>
+                    <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-info" %>
                         <%=
                             if ((current_user.check_admin? && current_user != user) || !user.check_executive?)
                                 if (@pendingCheck)
