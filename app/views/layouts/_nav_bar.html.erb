@@ -11,9 +11,11 @@
         <li class="nav-item active">
           <%= link_to "Events", root_path, class: "nav-link" %>
         </li>
+        <% if !current_user.check_executive? %>
         <li class="nav-item">
           <%= link_to "Freshman Attendance", attendance_user_index_path, class: "nav-link" %>
         </li> 
+        <% end %>
         <li class="nav-item">
           <%= link_to "Committees", committees_path, class: "nav-link" %>
         </li>

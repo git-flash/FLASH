@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
   resources :committees
   resources :attendance_committee
-  resources :users
   resources :attendance_user
 
   resources :events do
@@ -20,6 +19,12 @@ Rails.application.routes.draw do
   resources :rsvps do
     member do
       get :delete
+    end
+  end
+
+  resources :users do
+    member do
+      get :soft_delete
     end
   end
 
