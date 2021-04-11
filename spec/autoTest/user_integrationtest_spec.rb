@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Creating a user and checking if they land in the events page', :type => :feature do
+RSpec.describe 'Verify users can login', :type => :feature do
   describe 'successful' do
     it 'has valid inputs and can be routed to events' do # sunny day
       visit new_user_session_path
