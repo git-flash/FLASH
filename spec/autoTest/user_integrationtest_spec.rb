@@ -23,7 +23,7 @@ RSpec.describe 'Verify users can signup', :type => :feature do
       fill_in 'last_name', :with => "Doe"
       fill_in 'uin', :with => "999009999"
       click_button "Sign up"
-      expect(page).to have_content("Welcome! You have signed up successfully.") # Meant to test for false positive with broken create function
+      expect(page).to have_content("Welcome! You have signed up successfully.") # Meant to test for bad signup
     end
   end
 end
