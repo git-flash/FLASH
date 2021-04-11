@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable RSpec/MultipleExpectations
 RSpec.describe Committee, :type => :model do
   it "is valid committee" do
     test_committee = described_class.new(:name => '')
@@ -9,3 +10,4 @@ RSpec.describe Committee, :type => :model do
     expect(test_committee).to be_valid
   end
 end
+# rubocop:enable RSpec/MultipleExpectations
