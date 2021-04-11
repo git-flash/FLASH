@@ -116,7 +116,7 @@ class CommitteesController < ApplicationController
 
   # Creates a new committee, can only be done bby >execs
   def new
-    @committee = new
+    @committee = Committee.new
   end
 
   # Creates a new committee, can only be done bby >execs
