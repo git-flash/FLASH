@@ -1,9 +1,9 @@
-<%= link_to "Back to List", events_path, class: "btn btn-secondary" %>
+<%= link_to "Back to Calendar", events_path, class: "btn btn-secondary" %>
 
 <div class="container">
     <h2></h2>
     <div class="links">
-        <% if (@event.committee_id.eql? current_user.committee_id) && current_user.check_staff? %>
+        <% if ((@event.committee_id.eql? current_user.committee_id) && current_user.check_staff?) || current_user.check_executive? %>
         <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-secondary" %>
         <% end %>
         <% if current_user.check_executive? %>
@@ -49,7 +49,7 @@
             </tr>
             <tr>
                 <th>RSVPs</th>
-                <td><%= strip_tags @event.rsvps.size.to_s %></td>
+                <td><%= "#{pluralize(@rsvp_yes_count, 'yes')} and #{pluralize(@rsvp_maybe_count, 'maybe')}" %></td>
             </tr>
             <tr>
                 <th>Attendees</th>
