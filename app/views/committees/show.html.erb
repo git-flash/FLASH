@@ -75,9 +75,9 @@
 
   <div class="btn-group">
     <% if user_signed_in? && current_user.check_executive? %>
-      <%= button_to 'Edit', edit_committee_path(@committee), method: :get, class: "btn btn-primary mr-1" %>
+      <%= link_to 'Edit', edit_committee_path(@committee), class: "btn btn-primary mr-1" %>
     <% end %>
-    <%= button_to 'Back', committees_path, method: :get, class: "btn btn-primary mr-1" %>
+    <%= link_to 'Back', committees_path, class: "btn btn-primary mr-1" %>
   </div>
 </div>
 
