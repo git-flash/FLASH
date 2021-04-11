@@ -6,13 +6,15 @@
     <%= link_to "Add New Event", new_event_path(start_date: params[:date]), class: "btn btn-success" %>
     <% end %>
     <table class="table my-2">
-        <tbody>
+        <thead>
             <tr>
                 <th>Name</th>
                 <th>Committee</th>
                 <th>Start Time</th>
                 <th>End Time</th>
             </tr>
+        </thead>
+        <tbody>
 
             <% @events.each do |event| %>
             <tr>
