@@ -31,4 +31,4 @@ RSpec.describe 'Verify users can signup', :type => :feature do
 end
 
 # rubocop:enable RSpec/MultipleDescribes
-# rubocop:disable RSpec/ExampleLength
+# rubocop:enable RSpec/ExampleLength
