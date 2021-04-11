@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable RSpec/MultipleDescribes
 RSpec.describe 'Verify users can login', :type => :feature do
   describe 'successful' do
     it 'has valid inputs and can be routed to events' do # sunny day
@@ -14,7 +15,7 @@ end
 
 RSpec.describe 'Verify users can signup', :type => :feature do
   describe 'successful' do
-    it 'has valid inputs and is redirected to waiting page' do # sunny day
+    it 'has valid inputs' do # sunny day
       visit new_user_session_path
       fill_in 'email', :with => "test_signup@admin.com"
       fill_in 'password', :with => "123456"
@@ -27,3 +28,4 @@ RSpec.describe 'Verify users can signup', :type => :feature do
     end
   end
 end
+# rubocop:enable RSpec/MultipleDescribes

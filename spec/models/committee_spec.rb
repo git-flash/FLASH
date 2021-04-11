@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Committee, :type => :model do
-  describe "is valid committee" do
+  it "is valid committee" do
     test_committee = described_class.new(:name => '')
     expect(test_committee).not_to be_valid
 
