@@ -1,7 +1,8 @@
 # HG
 class UsersController < ApplicationController
   # this before action sets the capabilities of the user
-  before_action :set_user, :only => %i[show edit update destroy]
+  before_action :set_user, :only => %i[show edit update destroy soft_delete]
+
   # this before action confirms the user logged in is an executive member or higher
   before_action :confirm_exec
 
@@ -19,9 +20,9 @@ class UsersController < ApplicationController
     if @user.committee
       redirect_to users_path
     else
-      redirect_to users_pending_path
+      redirect_to users_pending_path  
     end
-  end
+  end  
 
   # GET /users/new
   # redirect people to the events page if they are trying
@@ -47,6 +48,23 @@ class UsersController < ApplicationController
         format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  # Removes from 'Current Members' and puts in 'Pending Members'
+  def soft_delete
+    @user = User.find(params[:id])
+    userName = @user.first_name + " " + @user.last_name
+      
+    @user.update(:committee_id => nil, :user_type => :base)
+    
+    respond_to do |format|
+      if (@user.committee_id.nil?)
+        format.html { redirect_to users_url, :notice => userName + " was successfully removed from current members and was sent back to pending members with default values (Base member with TBD Committee)." }
+        format.json { head :no_content }
+      end
+    end 
+      
+ 
   end
 
   # DELETE /users/1 or /users/1.json

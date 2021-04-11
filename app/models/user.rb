@@ -18,6 +18,7 @@ class User < ApplicationRecord
       "Admin"
     end
   end
+  
 
   # Sets the current user to base if unassigned
   private def set_default_user_type
