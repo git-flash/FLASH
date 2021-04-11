@@ -15,7 +15,7 @@ end
 
 RSpec.describe 'Verify users can signup', :type => :feature do
   describe 'successful' do
-    it 'has valid inputs' do 
+    it 'has valid inputs' do
       visit new_user_session_path
       fill_in 'email', :with => "test_signup@admin.com"
       fill_in 'password', :with => "123456"
