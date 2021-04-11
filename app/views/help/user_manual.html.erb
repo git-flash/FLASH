@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <div class="container" style="border-style:solid dashed; border-width:thick; background-color:beige;">
+        <head>
+            <title>User Manual</title>
+        </head>
+
+        <body>
+            <div style="text-align:center;">
+                <h1><b>User Manual</b></h1>
+                <% if current_user.check_admin? %>
+                    <h2>How does the website work for admins?</h2>
+                <% elsif current_user.check_executive? && !current_user.check_admin? %>
+                    <h2>How does the website work for executive members?</h2>
+                <% elsif current_user.check_staff? && !current_user.check_executive? %>
+                    <h2>How does the website work for staff members?</h2>
+                <% else %>
+                    <h2>How does the website work for freshman?</h2>
+                <% end %>
+            </div>
+            <hr style="border-top:5px double"/>
+            <div style="text-align:left">
+                <h3><b>Events</b></h3>
+                <p>Purpose: The events page allows you to create and manage events for all users</p>
+                <p>Actions: "Add New Event", "Previous/Next", "Clicking a Day"</p>
+            </div>
+        </body>
+    </div>
+</html> 

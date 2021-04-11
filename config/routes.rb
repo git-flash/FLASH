@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   end
   root 'events#index'
   get 'users/pending'
+  get 'help/contact'
+  get 'help/user_manual'
 
   resources :committees
   resources :attendance_committee
