@@ -291,6 +291,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   sass-rails (>= 6)
+  selenium-webdriver
   simple_calendar (~> 2.4)
   simplecov
   spring

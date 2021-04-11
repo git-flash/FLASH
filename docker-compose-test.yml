@@ -12,14 +12,18 @@ services:
       - FLASH_DB_HOSTNAME=database
       - FLASH_DB_PORT=5432
       - FLASH_ENV=test
+      - HUB_URL=http://chrome:4444/wd/hub
     volumes:
       - .:/myapp # Comment this out to disable live updating
     secrets:
       - postgres-passwd
     networks:
       flash_network:
+        aliases:
+          - flash
     depends_on:
       - postgres
+      - chrome
 
   postgres:
     image: postgres:13.1-alpine
@@ -38,6 +42,16 @@ services:
       flash_network:
         aliases:
           - database
+
+  chrome:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444
+      - 5900:5900
+    networks:
+      flash_network:
+        aliases:
+          - chrome
 
 #volumes:
 #  flash-pg-db:

@@ -57,6 +57,7 @@ class User < ApplicationRecord
          :rememberable,
          :validatable,
          :trackable,
+         :confirmable,
          :stretches => 12
   belongs_to :committee, :optional => true
   has_many :attendance_logs, :dependent => :destroy
