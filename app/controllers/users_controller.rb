@@ -8,7 +8,6 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    console
     @users = User.active
   end
 
@@ -85,7 +84,6 @@ class UsersController < ApplicationController
   end
 
   def pending
-    console
     @users = User.pending
   end
 
