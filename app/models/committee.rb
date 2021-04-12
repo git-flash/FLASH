@@ -10,11 +10,18 @@ class Committee < ApplicationRecord
   # @param [Committee] point_committee
   # @return [Integer] the total points for a certain type of committee
   def points_of_type(point_committee)
-    user_attended_events.where(:committee => point_committee).sum(:point_value)
+    users
+      .where(:user_type => :base)
+      .joins(:attended_events)
+      .where(:committee => point_committee)
+      .sum(:point_value)
   end
 
   # @return [Integer] the total points for this committee
   def total_points
-    user_attended_events.sum(:point_value)
+    users
+      .where(:user_type => :base)
+      .joins(:attended_events)
+      .sum(:point_value)
   end
 end

@@ -1,13 +1,15 @@
 <div class="container">
-  <h1>Committee Viewer</h1>
+  <div style="text-align:center;">
+    <h1><b>Committee Viewer</b></h1>
+    <h2><%= @committee.name %></h2>
+  </div>
+  <br/>
 
-  <h2><%= @committee.name %></h2>
+  <% if user_signed_in? && (current_user.check_executive? || current_user.committee_id == @committee.id) %>
+    <h3><u>Total Points Gathered From Each Committee</u></h3>
 
-  <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == @committee.id)) %>
-    <strong>Users:</strong>
-    
-    <table class="table mt-4">
-      <thead>
+    <table class="table mt-4 table-striped table-bordered table-hover">
+      <thead style="background-color: #488cf6">
       <tr>
         <% @committee_points_row.committee_points_list.each do |point_row| %>
           <th><%= point_row.committee_name %> Points</th>
@@ -16,67 +18,85 @@
       </thead>
 
       <tbody>
-        <tr>
+      <tr>
         <% @committee_points_row.committee_points_list.each do |point_row| %>
           <td><%= point_row.points %></td>
         <% end %>
-        </tr>
+      </tr>
       </tbody>
     </table>
+    <br/>
 
-    <table class="table">
-      <thead>
+    <% if current_user.check_staff? %>
+      <h3><u>Committee Members</u></h3>
+      <table class="table table-striped table-bordered table-hover">
+        <thead style="background-color: #488cf6">
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
+          <% if current_user.check_staff? %>
+            <th>Name</th>
+          <% end %>
           <th>UIN</th>
           <th>User Type</th>
           <th>Email</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <% @committee.users.each do |user| %>
           <tr>
-            <td><%= user.first_name %></td>
-            <td><%= user.last_name %></td>
+            <% if current_user.check_staff? %>
+              <td><%= user.first_name + ' ' + user.last_name %></td>
+            <% end %>
             <td><%= user.uin %></td>
             <td><%= user.user_type %></td>
             <td><%= user.email %></td>
           </tr>
         <% end %>
-      </tbody>
-    </table>
-
-    <table class="table mt-4">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <% @user_rows.each do |row| %>
-            <% row.user_points_list.each do |point_row| %>
-              <th><%= point_row.committee_name %> Points</th>
-            <% end %>
-            <% break %>
-        <% end %>
-        </tr>
-      </thead>
-
-        <tbody>
-          <% @user_rows.each do |row| %>
-            <tr>
-              <td><%= row.user.first_name + ' ' + row.user.last_name %></td>
-              <% row.user_points_list.each do |point_row| %>
-                <td><%= point_row.points %></td>
-              <% end %>
-            </tr>
-          <% end %>
         </tbody>
       </table>
+      <br/>
     <% end %>
+
+    <h3><u>Point Breakdown By Freshman</u></h3>
+    <table class="table mt-4 table-striped table-bordered table-hover">
+      <thead style="background-color: #488cf6">
+      <tr>
+        <% if current_user.check_staff? %>
+          <th>Name</th>
+        <% else %>
+          <th>UIN</th>
+        <% end %>
+        <% @user_rows.each do |row| %>
+          <% row.user_points_list.each do |point_row| %>
+            <th><%= point_row.committee_name %> Points</th>
+          <% end %>
+          <% break %>
+        <% end %>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @user_rows.each do |row| %>
+        <tr>
+          <% if current_user.check_staff? %>
+            <td><%= row.user.first_name + ' ' + row.user.last_name %></td>
+          <% else %>
+            <td><%= row.user.uin %></td>
+          <% end %>
+          <% row.user_points_list.each do |point_row| %>
+            <td><%= point_row.points %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
   <div class="btn-group">
     <% if user_signed_in? && current_user.check_executive? %>
-      <%= button_to 'Edit', edit_committee_path(@committee), method: :get, class: "btn btn-primary mr-1" %>
+      <%= link_to 'Edit', edit_committee_path(@committee), class: "btn btn-primary mr-1" %>
     <% end %>
-    <%= button_to 'Back', committees_path, method: :get, class: "btn btn-primary mr-1" %>
+    <%= link_to 'Back', committees_path, class: "btn btn-primary mr-1" %>
   </div>
 </div>
+
+<%= javascript_pack_tag 'datatables.js' %>

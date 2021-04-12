@@ -6,7 +6,7 @@
         </div>
         <div class="col-sm">
             <%=
-            if (@user.committee_id || @user.check_executive?)
+            if @user.committee_id || @user.check_executive?
                 link_to 'Back', users_path, class:"btn btn-info float-right" 
             else
                 link_to 'Back', users_pending_path, class:"btn btn-info float-right"

@@ -1,10 +1,13 @@
-<%= link_to "Back to List", events_path, class: "btn btn-secondary" %>
+<%= link_to "Back to Calendar", events_path, class: "btn btn-secondary" %>
+<%= link_to "Back", :back, class: "btn btn-secondary" %>
 
 <div class="container">
     <h2></h2>
     <div class="links">
-        <% if (@event.committee_id.eql? current_user.committee_id) || current_user.check_executive? %>
+        <% if ((@event.committee_id.eql? current_user.committee_id) && current_user.check_staff?) || current_user.check_executive? %>
         <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-secondary" %>
+        <% end %>
+        <% if current_user.check_executive? %>
         <%= link_to "Delete Event", delete_event_path(@event), class: "btn btn-danger" %>
         <% end %>
         <% if (@user_rsvp_exists) %>
@@ -40,12 +43,22 @@
                 <th>Point Value</th>
                 <td><%= strip_tags @event.point_value.to_s %></td>
             </tr>
-            <% if (@event.committee_id.eql? current_user.committee_id) || current_user.check_executive? %>
+            <% if ((@event.committee_id.eql? current_user.committee_id) && current_user.check_staff?) || current_user.check_executive? %>
             <tr>
                 <th>Passcode</th>
                 <td><%= strip_tags @event.passcode %></td>
+            </tr>
+            <tr>
+                <th>RSVPs</th>
+                <td><%= "#{pluralize(@rsvp_yes_count, 'yes')} and #{pluralize(@rsvp_maybe_count, 'maybe')}" %></td>
+            </tr>
+            <tr>
+                <th>Attendees</th>
+                <td><%= strip_tags @event.attendance_logs.size.to_s %></td>
             </tr>
             <% end %>
         </tbody>
     </table>
 </div>
+
+<%= javascript_pack_tag 'datatables.js' %>

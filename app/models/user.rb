@@ -18,6 +18,7 @@ class User < ApplicationRecord
       "Admin"
     end
   end
+  
 
   # Sets the current user to base if unassigned
   private def set_default_user_type
@@ -56,6 +57,7 @@ class User < ApplicationRecord
          :rememberable,
          :validatable,
          :trackable,
+         :confirmable,
          :stretches => 12
   belongs_to :committee, :optional => true
   has_many :attendance_logs, :dependent => :destroy
@@ -81,5 +83,17 @@ class User < ApplicationRecord
   # @return all base users
   scope :freshman, -> () {
     where(:user_type => :base)
+  }
+  
+  scope :pending, -> () {
+    where(:user_type => :base).or(where(:user_type => :staff)).where(:committee_id => nil)
+  }
+
+  scope :active, -> () {
+    where.not(:committee_id => nil).or(where(:user_type => :executive..))
+  }
+
+  scope :non_base, -> () {
+    where.not(:user_type => :base)
   }
 end
