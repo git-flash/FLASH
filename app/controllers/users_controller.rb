@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.active
   end
 
   # GET /users/1 or /users/1.json
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
   end
 
   def pending
-    @users = User.all
+    @users = User.pending
   end
 
   private
