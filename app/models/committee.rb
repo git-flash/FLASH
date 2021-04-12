@@ -13,7 +13,7 @@ class Committee < ApplicationRecord
     users
       .where(:user_type => :base)
       .joins(:attended_events)
-      .where(committee: point_committee)
+      .where(:committee => point_committee)
       .sum(:point_value)
   end
 
