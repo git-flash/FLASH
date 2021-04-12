@@ -10,6 +10,14 @@
                 <div style="text-align:center;">
                     <h1><b>User Manual</b></h1>
                     <h2>How does the website work for admins?</h2>
+                    <i>
+                        <p>Special Admin Traits:</p>
+                            <ul>
+                                <li>Admins have access to everything the website can do</li>
+                                <li>Admins are the only people that can delete other admins</li>
+                                <li>Admins are the only people that can change someone's role to executive or admin</li>
+                            </ul>
+                    </i>
                 </div>
                 <hr style="border-top:5px double"/>
                 <div style="text-align:left">
@@ -65,7 +73,13 @@
                     <p><u>Actions: What can you do with the committees page?</u></p>
                     <ul>
                         <li>"Create a Committee" - You can create a committee by clicking "Create a Committee"</li>
-                        <li>"View a Committee" - You can view a committee's information by clicking "View" on the committee you wish to see</li>
+                        <li>"View a Committee" - You can view a committee's information by clicking "View" on the committee you wish to see. This will display 3 tables
+                            <ol>
+                                <li>The first table displays the total points earned by which committee events</li>
+                                <li>The second table displays all the members of the current committee</li>
+                                <li>The third table breaks each member's points down by which committe events they attended</li>
+                            </ol>
+                        </li>
                         <li>"Edit a Committee" - You can edit an existing committee by either...
                             <ol>
                                 <li>Clicking "Edit" on the committee you want to change</li>
@@ -75,6 +89,37 @@
                         </li>
                         <li>"Delete an Committee" - You can delete a committee by clicking "Delete"</li>
                     </ul>
+
+                    <h3><b>Members</b></h3>
+                    <p><u>Purpose: The member pages allows you to accept pending users and manage current ones</u></p>
+                    <p><u>Actions: What can you do with the pending/current member pages</u></p>
+                    <ol>
+                        <li><i>Pending Members</i>
+                            <ul>
+                                <li>"Accept a Member" - You can accept members by either..."
+                                    <ol>
+                                        <li>Assigning a member a committee</li>
+                                        OR
+                                        <li>If they are an admin or executive, then you accept them by changing their membership level accordingly and leaving committee set to none</li>
+                                    </ol>
+                                </li>
+                                <li>"Edit a Member" - You can edit a member's information by clicking "Edit"</li>
+                                <li>"Delete an Member" - You can delete a member by clicking "Delete" and this will PERMANENTLY delete a member</li>
+                            </ul>
+                        </li>
+                        <li><i>Current Members</i>
+                            <ul>
+                                <li>There are 2 tables
+                                    <ol>
+                                        <li>The first table displays all the information on current members</li>
+                                        <li>The second table breaks down the scores of current members<li>
+                                    </ol>
+                                </li>
+                                <li>"Edit a Member" - You can edit a member's information by clicking "Edit", Note: setting a member's committee to None will place them in Pending, and the same goes for setting an Executive or Admin to staff or freshman</li>
+                                <li>"Remove an Member" - You can remove a member by clicking "Remove", and this will send them back to pending where they will lose access but still retain attendance/point records</li>
+                            </ul>
+                        </li>
+                    </ol>
                 </div>
             <% elsif current_user.check_executive? && !current_user.check_admin? %>
                 <h2>How does the website work for executive members?</h2>
