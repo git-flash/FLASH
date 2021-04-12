@@ -84,4 +84,12 @@ class User < ApplicationRecord
   scope :freshman, -> () {
     where(:user_type => :base)
   }
+  
+  scope :pending, -> () {
+    where(:user_type => :base).or(where(:user_type => :staff)).where(:committee_id => nil)
+  }
+
+  scope :active, -> () {
+    where.not(:committee_id => nil).or(where(:user_type => :executive..))
+  }
 end
