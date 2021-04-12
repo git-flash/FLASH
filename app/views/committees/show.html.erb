@@ -27,32 +27,34 @@
     </table>
     <br/>
 
-    <h3><u>Committee Members</u></h3>
-    <table class="table table-striped table-bordered table-hover">
-      <thead style="background-color: #488cf6">
-      <tr>
-        <% if current_user.check_staff? %>
-          <th>Name</th>
-        <% end %>
-        <th>UIN</th>
-        <th>User Type</th>
-        <th>Email</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @committee.users.each do |user| %>
+    <% if current_user.check_staff? %>
+      <h3><u>Committee Members</u></h3>
+      <table class="table table-striped table-bordered table-hover">
+        <thead style="background-color: #488cf6">
         <tr>
           <% if current_user.check_staff? %>
-            <td><%= user.first_name + ' ' + user.last_name %></td>
+            <th>Name</th>
           <% end %>
-          <td><%= user.uin %></td>
-          <td><%= user.user_type %></td>
-          <td><%= user.email %></td>
+          <th>UIN</th>
+          <th>User Type</th>
+          <th>Email</th>
         </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <br/>
+        </thead>
+        <tbody>
+        <% @committee.users.each do |user| %>
+          <tr>
+            <% if current_user.check_staff? %>
+              <td><%= user.first_name + ' ' + user.last_name %></td>
+            <% end %>
+            <td><%= user.uin %></td>
+            <td><%= user.user_type %></td>
+            <td><%= user.email %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <br/>
+    <% end %>
 
     <h3><u>Point Breakdown By Member</u></h3>
     <table class="table mt-4 table-striped table-bordered table-hover">
