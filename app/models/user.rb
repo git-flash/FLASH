@@ -92,4 +92,8 @@ class User < ApplicationRecord
   scope :active, -> () {
     where.not(:committee_id => nil).or(where(:user_type => :executive..))
   }
+
+  scope :non_base, -> () {
+    where.not(:user_type => :base)
+  }
 end
