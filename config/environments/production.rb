@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = { :host => "#{ENV['HEROKU_APP_NAME']}.herokuapp.com", :method => "https" }
+  config.action_mailer.default_url_options = { :host => "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com", :method => "https" }
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
