@@ -1,13 +1,14 @@
 <div class="container">
-  <h1>Committee Viewer</h1>
-
-  <h2><%= @committee.name %></h2>
+  <div style="text-align:center;">
+    <h1><b>Committee Viewer</b></h1>
+    <h2><%= @committee.name %></h2>
+  </div><br/>
 
   <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == @committee.id)) %>
-    <strong>Users:</strong>
+    <h3><u>Total Points Gathered From Each Committee</u></h3>
     
-    <table class="table mt-4">
-      <thead>
+    <table class="table mt-4 table-striped table-bordered table-hover">
+      <thead style="background-color: #488cf6">
       <tr>
         <% @committee_points_row.committee_points_list.each do |point_row| %>
           <th><%= point_row.committee_name %> Points</th>
@@ -22,10 +23,11 @@
         <% end %>
         </tr>
       </tbody>
-    </table>
+    </table><br/>
 
-    <table class="table">
-      <thead>
+    <h3><u>Committee Members</u></h3>
+    <table class="table table-striped table-bordered table-hover">
+      <thead style="background-color: #488cf6">
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
@@ -45,10 +47,11 @@
           </tr>
         <% end %>
       </tbody>
-    </table>
+    </table><br/>
 
-    <table class="table mt-4">
-      <thead>
+    <h3><u>Point Breakdown By Member</u></h3>
+    <table class="table mt-4 table-striped table-bordered table-hover">
+      <thead style="background-color: #488cf6">
         <tr>
           <th>Name</th>
           <% @user_rows.each do |row| %>

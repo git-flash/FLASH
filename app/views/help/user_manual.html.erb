@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <div class="container" style="border-style:solid dashed; border-width:thick; background-color:beige;">
+        <head>
+            <title>User Manual</title>
+        </head>
+
+        <body>
+            <% if current_user.check_admin? %>
+                <div style="text-align:center;">
+                    <h1><b>User Manual</b></h1>
+                    <h2>How does the website work for admins?</h2>
+                    <i>
+                        <p>Special Admin Traits:</p>
+                            <ul>
+                                <li>Admins have access to everything the website can do</li>
+                                <li>Admins are the only people that can delete other admins</li>
+                                <li>Admins are the only people that can change someone's role to executive or admin</li>
+                            </ul>
+                    </i>
+                </div>
+                <hr style="border-top:5px double"/>
+                <div style="text-align:left">
+                    <h3><b>Events</b></h3>
+                    <p><u>Purpose: The events page allows you to create and manage events</u></p>
+                    <p><u>Actions: What can you do with the events page?</u></p>
+                    <ul>
+                        <li>"Create an Event" - You can create an event by either...
+                            <ol>
+                                <li>Clicking a day with no events which will direct you to a form to create an event</li>
+                                OR
+                                <li>Clicking a day with events, and then clicking the "Add New Event" button</li>
+                            </ol>
+                        </li>
+                        <li>"View an Event" - You can view an event's information by...
+                            <ol>
+                                <li>Clicking the day the event is scheduled</li>
+                                <li>Then, click the specific event you wish to view</li>
+                            </ol>
+                        </li>
+                        <li>"Edit an Event" - You can edit an existing event by...
+                            <ol>
+                                <li>Clicking the day the event is scheduled</li>
+                                <li>Then, click the specific event you wish to edit</li>
+                                <li>Then, click "Edit Event"</li>
+                            </ol>
+                        </li>
+                        <li>"Delete an Event" - You can delete an event by...
+                            <ol>
+                                <li>Clicking the day the event is scheduled</li>
+                                <li>Then, click the specific event you wish to delete</li>
+                                <li>Then, click "Delete Event"</li>
+                            </ol>
+                        </li>
+                        <li>"RSVP for an Event" - You can let the event planners know you will be attending an event by RSVPing. You can RSVP for an event by...
+                            <ol>
+                                <li>Clicking the day the event is scheduled</li>
+                                <li>Then, click the specific event you wish to RSVP for</li>
+                                <li>Then, click "RSVP" and pick an option</li>
+                            </ol>
+                        </li>
+                        <li>"Attend an Event" - You can get points for attending an event by entering the passcode for an event. You can attend an event by...
+                            <ol>
+                                <li>Clicking the day the event is scheduled</li>
+                                <li>Then, click the specific event you wish to attend</li>
+                                <li>Then, click "Attend" and submit the passcode provided for the event</li>
+                            </ol>
+                        </li>
+                    </ul>
+
+                    <h3><b>Committees</b></h3>
+                    <p><u>Purpose: The committees page allows you to create and manage committees</u></p>
+                    <p><u>Actions: What can you do with the committees page?</u></p>
+                    <ul>
+                        <li>"Create a Committee" - You can create a committee by clicking "Create a Committee"</li>
+                        <li>"View a Committee" - You can view a committee's information by clicking "View" on the committee you wish to see. This will display 3 tables
+                            <ol>
+                                <li>The first table displays the total points earned by which committee events</li>
+                                <li>The second table displays all the members of the current committee</li>
+                                <li>The third table breaks each member's points down by which committe events they attended</li>
+                            </ol>
+                        </li>
+                        <li>"Edit a Committee" - You can edit an existing committee by either...
+                            <ol>
+                                <li>Clicking "Edit" on the committee you want to change</li>
+                                OR
+                                <li>Clicking "View" then "Edit" on the committee you want to change</li>
+                            </ol>
+                        </li>
+                        <li>"Delete an Committee" - You can delete a committee by clicking "Delete"</li>
+                    </ul>
+
+                    <h3><b>Members</b></h3>
+                    <p><u>Purpose: The member pages allows you to accept pending users and manage current ones</u></p>
+                    <p><u>Actions: What can you do with the pending/current member pages</u></p>
+                    <ol>
+                        <li><i>Pending Members</i>
+                            <ul>
+                                <li>"Accept a Member" - You can accept members by either..."
+                                    <ol>
+                                        <li>Assigning a member a committee</li>
+                                        OR
+                                        <li>If they are an admin or executive, then you accept them by changing their membership level accordingly and leaving committee set to none</li>
+                                    </ol>
+                                </li>
+                                <li>"Edit a Member" - You can edit a member's information by clicking "Edit"</li>
+                                <li>"Delete an Member" - You can delete a member by clicking "Delete" and this will PERMANENTLY delete a member</li>
+                            </ul>
+                        </li>
+                        <li><i>Current Members</i>
+                            <ul>
+                                <li>There are 2 tables
+                                    <ol>
+                                        <li>The first table displays all the information on current members</li>
+                                        <li>The second table breaks down the scores of current members<li>
+                                    </ol>
+                                </li>
+                                <li>"Edit a Member" - You can edit a member's information by clicking "Edit", Note: setting a member's committee to None will place them in Pending, and the same goes for setting an Executive or Admin to staff or freshman</li>
+                                <li>"Remove an Member" - You can remove a member by clicking "Remove", and this will send them back to pending where they will lose access but still retain attendance/point records</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            <% elsif current_user.check_executive? && !current_user.check_admin? %>
+                <h2>How does the website work for executive members?</h2>
+            <% elsif current_user.check_staff? && !current_user.check_executive? %>
+                <h2>How does the website work for staff members?</h2>
+            <% else %>
+                <h2>How does the website work for freshman?</h2>
+            <% end %>
+        </body>
+    </div>
+</html> 
