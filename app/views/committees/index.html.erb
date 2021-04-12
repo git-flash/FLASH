@@ -43,10 +43,10 @@
               <% end %>
               <td><%= row.total_points %></td>
             <% end %>
-            <% if user_signed_in? && current_user.check_staff? %>
+            <% if user_signed_in? %>
               <td>
                 <div class="btn-group float-right">
-                  <% if user_signed_in? && (current_user.check_executive? || (current_user.check_staff? && current_user.committee_id == row.committee.id)) %>
+                  <% if user_signed_in? && (current_user.check_executive? || current_user.committee_id == row.committee.id) %>
                     <%= link_to 'View', row.committee, class: "btn btn-info mr-1" %>
                   <% end %>
                   <% if user_signed_in? && current_user.check_executive? %>
