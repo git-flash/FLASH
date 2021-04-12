@@ -87,7 +87,7 @@ class CommitteesController < ApplicationController
 
     @user_rows = []
 
-    @committee.users.each do |com_user|
+    @committee.users.non_base do |com_user|
       new_user_row = UserAttendancePoints.new
       new_user_row.user = com_user
       user_total_points = 0
