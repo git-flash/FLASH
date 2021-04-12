@@ -15,6 +15,6 @@ class Committee < ApplicationRecord
 
   # @return [Integer] the total points for this committee
   def total_points
-    user_attended_events.sum(:point_value)
+    users.where(:user_type => :base).attended_events.sum(:point_value)
   end
 end
