@@ -60,6 +60,7 @@ class CommitteesController < ApplicationController
 
   # Shows a specific committee to logged in users
   def show
+    console
     # If a staff user, ensure they can only access their committee
     redirect_to root_path, :alert => "You do not have permissions" if !current_user.check_executive? && (current_user.committee.id.to_i != params[:id].to_i)
 
@@ -75,7 +76,7 @@ class CommitteesController < ApplicationController
       committee_points_entry = CommitteePoints.new
 
       committee_points_entry.committee_name = com_points.name
-      committee_points_entry.points = @committee.points_of_type(Committee.find_by(:name => com_points.name))
+      committee_points_entry.points = @committee.points_of_type(com_points)
 
       total_points += committee_points_entry.points
 
@@ -87,7 +88,7 @@ class CommitteesController < ApplicationController
 
     @user_rows = []
 
-    @committee.users.non_base do |com_user|
+    @committee.users.base.each do |com_user|
       new_user_row = UserAttendancePoints.new
       new_user_row.user = com_user
       user_total_points = 0
@@ -97,7 +98,7 @@ class CommitteesController < ApplicationController
         user_points_entry = CommitteePoints.new
 
         user_points_entry.committee_name = com_points.name
-        user_points_entry.points = com_user.points_for_committee(Committee.find_by(:name => com_points.name))
+        user_points_entry.points = com_user.points_for_committee(com_points)
 
         user_total_points += user_points_entry.points
 

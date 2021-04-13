@@ -65,12 +65,10 @@
         <% else %>
           <th>UIN</th>
         <% end %>
-        <% @user_rows.each do |row| %>
-          <% row.user_points_list.each do |point_row| %>
-            <th><%= point_row.committee_name %> Points</th>
-          <% end %>
-          <% break %>
+        <% Committee.all.order(:name).each do |committee| %>
+          <th><%= committee.name %> Points</th>
         <% end %>
+        <th>Total Points</th>
       </tr>
       </thead>
 
@@ -78,13 +76,14 @@
       <% @user_rows.each do |row| %>
         <tr>
           <% if current_user.check_staff? %>
-            <td><%= row.user.first_name + ' ' + row.user.last_name %></td>
+            <td><%= link_to row.user.first_name + ' ' + row.user.last_name, attendance_user_path(row.user) %></td>
           <% else %>
             <td><%= row.user.uin %></td>
           <% end %>
           <% row.user_points_list.each do |point_row| %>
             <td><%= point_row.points %></td>
           <% end %>
+          <td><%= row.total_points %></td>
         </tr>
       <% end %>
       </tbody>

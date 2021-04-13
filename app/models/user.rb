@@ -72,7 +72,9 @@ class User < ApplicationRecord
   # @param [Committee] point_committee
   # @return [Integer] the points this user has for a certain committee
   def points_for_committee(point_committee)
-    attended_events.where(:committee => point_committee).sum(:point_value)
+    attended_events
+      .where(:committee => point_committee)
+      .sum(:point_value)
   end
 
   # @return [Integer] The total points for this user
@@ -95,5 +97,9 @@ class User < ApplicationRecord
 
   scope :non_base, -> () {
     where.not(:user_type => :base)
+  }
+
+  scope :base, -> () {
+    where(:user_type => :base)
   }
 end
