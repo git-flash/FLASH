@@ -2,8 +2,7 @@
   "name": "Flash Point",
   "description": "FLASH member point tracker",
   "addons": [
-    "heroku-postgresql:hobby-dev",
-    "sendgrid:starter"
+    "heroku-postgresql:hobby-dev"
   ],
   "scripts": {
     "release": "bundle exec rake db:migrate"
@@ -11,8 +10,7 @@
   "environments": {
     "review": {
       "addons": [
-        "heroku-postgresql:hobby-dev",
-        "sendgrid:starter"
+        "heroku-postgresql:hobby-dev"
       ],
       "scripts": {
         "postdeploy": "bundle exec rake db:schema:load db:seed",
