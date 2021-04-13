@@ -10,14 +10,14 @@
         <% if current_user.check_executive? %>
         <%= link_to "Delete Event", delete_event_path(@event), class: "btn btn-danger" %>
         <% end %>
-        <% if (@user_rsvp_exists) %>
+        <% if @user_rsvp_exists %>
         <%= link_to "Edit RSVP", edit_rsvp_path(eid: @event.id), class: "btn btn-primary" %>
         <% else %>
         <%= link_to "RSVP", new_rsvp_path(eid: @event.id), class: "btn btn-primary" %>
         <% end %>
         <%= link_to "Attend", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
     </div>
-    <table class="table my-2">
+    <table class="table my-2 data_table">
         <tbody>
             <tr>
                 <th>Name</th>
@@ -60,5 +60,3 @@
         </tbody>
     </table>
 </div>
-
-<%= javascript_pack_tag 'datatables.js' %>
