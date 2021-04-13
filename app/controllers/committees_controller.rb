@@ -60,7 +60,6 @@ class CommitteesController < ApplicationController
 
   # Shows a specific committee to logged in users
   def show
-    console
     # If a staff user, ensure they can only access their committee
     redirect_to root_path, :alert => "You do not have permissions" if !current_user.check_executive? && (current_user.committee.id.to_i != params[:id].to_i)
 
