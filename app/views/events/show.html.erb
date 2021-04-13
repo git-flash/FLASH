@@ -17,7 +17,7 @@
         <% end %>
         <%= link_to "Attend", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
     </div>
-    <table class="table my-2">
+    <table class="table my-2 data_table">
         <tbody>
             <tr>
                 <th>Name</th>
@@ -60,5 +60,3 @@
         </tbody>
     </table>
 </div>
-
-<%= javascript_pack_tag 'datatables.js' %>
