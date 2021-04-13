@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Attendance Record</h1>
 <% if current_user.check_executive? || current_user.check_staff? || (current_user.check_freshman? && current_user.committee_id == @user.committee_id)%> 
-  <table class="table mt-4">
+  <table class="table mt-4 data_table">
     <thead>
     <tr>
       <th>Event</th>
@@ -22,7 +22,5 @@
     </tbody>
   </table>
 <% end %>
-  <%= link_to 'Back', attendance_user_index_path, :class => "btn btn-primary btn-large" %>
+  <%= link_to 'Back', :back, :class => "btn btn-primary btn-large" %>
 </div>
-
- <%= javascript_pack_tag 'datatables.js' %>
