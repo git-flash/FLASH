@@ -7,4 +7,19 @@ AllCops:
   NewCops: enable
 
 Layout/EndOfLine:
-   Enabled: False
+  Enabled: False
+
+Metrics/BlockLength:
+  Enabled: False
+
+Metrics/MethodLength:
+  Enabled: False
+
+Style/AccessModifierDeclarations:
+  Enabled: False
+
+Metrics/AbcSize:
+  Enabled: False
+
+Style/GuardClause:
+  Enabled: False

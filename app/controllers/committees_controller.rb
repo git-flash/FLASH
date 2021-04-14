@@ -1,8 +1,10 @@
-#BE
+# frozen_string_literal: true
+
+# BE
 # rubocop:disable Metrics/ClassLength
 class CommitteesController < ApplicationController
-  before_action :set_committee, :only => [:show, :edit, :update, :destroy]
-  before_action :confirm_exec, :only => [:new, :create, :update, :edit, :destroy]
+  before_action :set_committee, only: %i[show edit update destroy]
+  before_action :confirm_exec, only: %i[new create update edit destroy]
   before_action :confirm_logged_in
 
   class CommitteePoints
@@ -18,8 +20,6 @@ class CommitteesController < ApplicationController
   end
 
   # Shows all committees to all logged in users
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def index
     @committees = Committee.all.order(:name)
 
@@ -29,7 +29,7 @@ class CommitteesController < ApplicationController
     if current_user.check_executive?
       committee_list = Committee.all
     else
-      committee_list.push Committee.find_by(:name => current_user.committee.name)
+      committee_list.push Committee.find_by(name: current_user.committee.name)
     end
 
     # For each committee, create an object to contain points held in each subcommittee
@@ -44,7 +44,7 @@ class CommitteesController < ApplicationController
         committee_points_entry = CommitteePoints.new
 
         committee_points_entry.committee_name = com_points.name
-        committee_points_entry.points = com.points_of_type(Committee.find_by(:name => com_points.name))
+        committee_points_entry.points = com.points_of_type(Committee.find_by(name: com_points.name))
         total_points += committee_points_entry.points
 
         committee_points_list.push committee_points_entry
@@ -61,7 +61,10 @@ class CommitteesController < ApplicationController
   # Shows a specific committee to logged in users
   def show
     # If a staff user, ensure they can only access their committee
-    redirect_to root_path, :alert => "You do not have permissions" if !current_user.check_executive? && (current_user.committee.id.to_i != params[:id].to_i)
+    if !current_user.check_executive? && (current_user.committee.id.to_i != params[:id].to_i)
+      redirect_to root_path,
+                  alert: 'You do not have permissions'
+    end
 
     @committee = Committee.find(params[:id])
     @committee_points_row = AttendanceCommitteePoints.new
@@ -111,8 +114,6 @@ class CommitteesController < ApplicationController
       @user_rows.push new_user_row
     end
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable  Metrics/AbcSize
 
   # Creates a new committee, can only be done bby >execs
   def new
@@ -125,11 +126,11 @@ class CommitteesController < ApplicationController
 
     respond_to do |format|
       if @committee.save
-        format.html { redirect_to committees_url, :notice => "Committee successfully created" }
-        format.json { render :show, :status => :created, :location => @committee }
+        format.html { redirect_to committees_url, notice: 'Committee successfully created' }
+        format.json { render :show, status: :created, location: @committee }
       else
         format.html { render :new }
-        format.json { render :json => @committee.errors, :status => :unprocessable_entity }
+        format.json { render json: @committee.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -138,11 +139,11 @@ class CommitteesController < ApplicationController
   def update
     respond_to do |format|
       if @committee.update(committee_params)
-        format.html { redirect_to committees_url, :notice => 'Committee was successfully updated.' }
-        format.json { render :show, :status => :ok, :location => @committee }
+        format.html { redirect_to committees_url, notice: 'Committee was successfully updated.' }
+        format.json { render :show, status: :ok, location: @committee }
       else
         format.html { render :edit }
-        format.json { render :json => @committee.errors, :status => :unprocessable_entity }
+        format.json { render json: @committee.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -154,7 +155,7 @@ class CommitteesController < ApplicationController
   def destroy
     @committee.destroy
     respond_to do |format|
-      format.html { redirect_to committees_path, :notice => 'Committee was successfully deleted' }
+      format.html { redirect_to committees_path, notice: 'Committee was successfully deleted' }
       format.json { head :no_content }
     end
   end

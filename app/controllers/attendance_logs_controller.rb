@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 # MR
 class AttendanceLogsController < ApplicationController
   before_action :confirm_logged_in
+  before_action :confirm_freshman
 
   def new
     # takes a query parameter of eid from events#show
     # and populates a hidden form field in attendance_logs#new
-    @log = AttendanceLog.new(:event_id => params[:eid])
+    @log = AttendanceLog.new(event_id: params[:eid])
   end
 
   def create
@@ -13,7 +16,7 @@ class AttendanceLogsController < ApplicationController
     @log.user_id = current_user.id
     if @log.save
       # Redirect the user to the events page if the log is saved correctly
-      redirect_to events_path, :alert => 'Attendance logged.'
+      redirect_to events_path, alert: 'Attendance logged.'
     else
       # Otherwise, render attendance_logs#new with the appropriate errors
       render 'new'
