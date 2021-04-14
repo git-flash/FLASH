@@ -1,6 +1,7 @@
 # MR
 class AttendanceLogsController < ApplicationController
   before_action :confirm_logged_in
+  before_action :confirm_freshman
 
   def new
     # takes a query parameter of eid from events#show
