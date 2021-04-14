@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  protected def confirm_freshman(message = nil)
+    redirect_to_home(message) unless user_signed_in? && current_user.check_freshman?
+  end
+
   protected def confirm_staff(message = nil)
     redirect_to_home(message) unless user_signed_in? && current_user.check_staff?
   end

@@ -14,7 +14,9 @@
         <% else %>
         <%= link_to "RSVP", new_rsvp_path(eid: @event.id), class: "btn btn-primary" %>
         <% end %>
+        <% if current_user.check_freshman? %>
         <%= link_to "Attend", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
+        <% end %>
     </div>
     <table class="table my-2">
         <tbody>
