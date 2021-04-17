@@ -25,7 +25,7 @@ function toggleMenu(){
       </div>
 
       <div class="header-item">
-        <a class="header-link" href="<%= root_path %>" class="waves-effect active">
+        <a class="header-link" href="<%= root_path %>" class="active">
           <i class="fas fa-calendar-week mr-2"></i>
           <span class="float-right"><i class="fas fa-chevron-right"></i></span>
           <span>Events</span>
@@ -34,7 +34,7 @@ function toggleMenu(){
 
       <% if !current_user.check_executive? %>
         <div class="header-item">
-          <a class="header-link" href="<%= attendance_user_index_path %>"class="waves-effect active">
+          <a class="header-link" href="<%= attendance_user_index_path %>"class="active">
             <i class="fas fa-id-badge mr-2"></i>
             <span class="float-right"><i class="fas fa-chevron-right"></i></span>
             <span>Freshmen Attendance</span>
@@ -43,7 +43,7 @@ function toggleMenu(){
       <% end %>
 
       <div class="header-item">
-        <a class="header-link" href="<%= committees_path %>" class="waves-effect active">
+        <a class="header-link" href="<%= committees_path %>" class="active">
           <i class="fas fa-gavel mr-2"></i>
           <span class="float-right"><i class="fas fa-chevron-right"></i></span>
           <span>Committees</span>
@@ -58,7 +58,7 @@ function toggleMenu(){
         </div>
 
         <div class="header-item">
-          <a class="header-link" href="<%= users_path %>" class="waves-effect active">
+          <a class="header-link" href="<%= users_path %>" class="active">
             <i class="fas fa-user-check mr-2"></i>
             <span class="float-right"><i class="fas fa-chevron-right"></i></span>
             <span>Current Members</span>
@@ -66,7 +66,7 @@ function toggleMenu(){
         </div>
 
         <div class="header-item">
-          <a class="header-link" href="<%= users_pending_path %>" class="waves-effect active">
+          <a class="header-link" href="<%= users_pending_path %>" class="active">
             <i class="fas fa-user-clock mr-2"></i>
             <span class="float-right"><i class="fas fa-chevron-right"></i></span>
             <span>Pending Members</span>
@@ -80,7 +80,7 @@ function toggleMenu(){
         </div>
 
         <div class="header-item">
-          <a class="header-link" href="<%= help_contact_path %>" class="waves-effect active">
+          <a class="header-link" href="<%= help_contact_path %>" class="active">
             <i class="fas fa-paper-plane mr-2"></i>
             <span class="float-right"><i class="fas fa-chevron-right"></i></span>
             <span>Contact Us</span>
@@ -88,7 +88,7 @@ function toggleMenu(){
         </div>
 
         <div class="header-item">
-          <a class="header-link" href="<%= help_user_manual_path %>" class="waves-effect active">
+          <a class="header-link" href="<%= help_user_manual_path %>" class="active">
             <i class="fas fa-info-circle mr-2"></i>
             <span class="float-right"><i class="fas fa-chevron-right"></i></span>
             <span>User Manual</span>
@@ -102,7 +102,7 @@ function toggleMenu(){
         </div>
 
         <div class="header-item">
-          <a class="header-link" href="<%= destroy_user_session_path%>" class="waves-effect active">
+          <a class="header-link" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path%>" class="active">
             <i class="fas fa-ban mr-2"></i>
             <span class="float-right"><i class="fas fa-chevron-right"></i></span>
             <span>Logout</span>
@@ -118,7 +118,7 @@ function toggleMenu(){
       </div>
 
       <div class="header-item">
-        <a class="header-link" href="<%= new_user_session_path%>" class="waves-effect active">
+        <a class="header-link" href="<%= new_user_session_path%>" class="active">
           <i class="fas fa-chess-queen mr-2"></i>
           <span class="float-right"><i class="fas fa-chevron-right"></i></span>
           <span>Login</span>
@@ -132,7 +132,7 @@ function toggleMenu(){
       </div>
 
       <div class="header-item">
-        <a class="header-link" href="<%= help_contact_path %>" class="waves-effect active">
+        <a class="header-link" href="<%= help_contact_path %>" class="active">
           <i class="fas fa-paper-plane mr-2"></i>
           <span class="float-right"><i class="fas fa-chevron-right"></i></span>
           <span>Contact Us</span>
@@ -140,7 +140,7 @@ function toggleMenu(){
       </div>
 
       <div class="header-item">
-        <a class="header-link" href="<%= help_user_manual_path %>" class="waves-effect active">
+        <a class="header-link" href="<%= help_user_manual_path %>" class="active">
           <i class="fas fa-info-circle mr-2"></i>
           <span class="float-right"><i class="fas fa-chevron-right"></i></span>
           <span>User Manual</span>
