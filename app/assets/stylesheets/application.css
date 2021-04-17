@@ -13,3 +13,82 @@
  *= require_tree .
  *= require_self
  */
+
+.navbar.bg-dark {
+  background-color: #0c2461 !important;
+
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
+
+.header {
+  position: fixed;
+  z-index: 3;
+  background-color: #000037;
+  height: 99.9999999vh;
+  box-shadow: 3px 3px 6px -3px rgba(0, 0, 0, 0.7);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  min-width: 320px;
+  top: 0;
+}
+
+.close-link {
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.close-link:hover {
+  color: white;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.menu-text {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #eb2f06;
+  font-size: 14px;
+  font-family: 'Baloo Paaji 2', cursive;
+  margin-left: 5px;
+}
+
+.header-item {
+  font-size: 17px;
+  font-family: 'Baloo Paaji 2', cursive;
+  font-weight: 500;
+  margin: 16.5px 1rem;
+}
+
+a.header-link {
+  color: #fff;
+}
+
+a.header-link:hover {
+  text-decoration: none;
+}
+
+.header-top-link {
+  font-family: 'Zen Dots', cursive;
+  font-size: 22px;
+  letter-spacing: 1.3px;
+  display: inline-block;
+  color: white;
+}
+
+.header-link:hover,
+.header-top-link:hover {
+  color: #c4d2e8;
+  transition: all ease 0.5s;
+}
+
+.signed-in-as {
+  color: white;
+  text-align: center;
+  font-weight: 500;
+  font-family: 'Baloo Paaji 2', cursive;
+}
