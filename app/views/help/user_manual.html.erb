@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-    <div class="container" style="border-style:solid dashed; border-width:thick; background-color:beige;">
-        <head>
-            <title>User Manual</title>
-        </head>
-
-        <body>
+    <head>
+        <title>User Manual</title>
+    </head>
+    <body>
+        <div class="container page-container">
             <% if current_user.check_admin? %>
                 <div style="text-align:center;">
                     <h1><b>User Manual</b></h1>
@@ -365,7 +364,7 @@
                         </li>
                     </ul>
                 </div>
-            <% end %>
-        </body>
-    </div>
+            <% end %>    
+        </div>
+    </body>
 </html> 
