@@ -1,34 +1,79 @@
 <%= error_messages_for(f.object) %>
 
+<style>
+.table th {
+    border-top: none;
+    font-weight: normal;
+    text-align: left;
+    padding: 0rem;
+}
+
+.table td {
+    border-top: none;
+    font-weight: normal;
+    text-align: left;
+    padding: 0rem;
+}
+
+form div.form-group:first-of-type {
+    margin-top: 0px;
+}
+</style>
+<h2>Create/Edit Event</h2>
 <table class="table">
     <tbody>
         <tr>
-            <th><%= f.label :name %></th>
-            <td class="row pr-5"><%= f.text_field :name, { class: "form-control" } %></td>
+            <th colspan="2">
+                <div class="form-group" style="margin-top: 25px;">
+                    <%= f.label :name %>
+                    <%= f.text_field :name, { class: "form-control" } %>
+                </div>
+            </th>
+        </tr>
+
+        <tr>
+            <th colspan="2">
+                <div class="form-group">
+                    <%= f.label :committee_id %>
+                    <%= f.select :committee_id, options_for_select(Committee.all.map{|c|[c.name, c.id]}, current_user.committee_id), {}, { class: "form-control", disabled: !current_user.check_executive? }%>
+                </div>
+            </th>
+        </tr>
+
+        <tr >
+            <th style="padding-left: 25px; margin-bottom: 1rem;"><%= f.label :start_timestamp %></th>
+            <td class="row" style="padding-right: 40px;  margin-bottom: 1rem;"><%= f.datetime_select :start_timestamp, { start_year: Date.today.year, end_year: Date.today.year + 1 }, { class: "form-control col" } %></td>
         </tr>
         <tr>
-            <th><%= f.label :committee_id %></th>
-            <td class="row pr-5"><%= f.select :committee_id, options_for_select(Committee.all.map{|c|[c.name, c.id]}, current_user.committee_id), {}, { class: "form-control", disabled: !current_user.check_executive? }%></td>
+            <th style="padding-left: 25px;  margin-bottom: 1rem;"><%= f.label :end_timestamp %></th>
+            <td class="row" style="padding-right: 40px;  margin-bottom: 1rem;"><%= f.datetime_select :end_timestamp, { start_year: Date.today.year, end_year: Date.today.year + 1 }, { class: "form-control col" } %></td>
         </tr>
+
         <tr>
-            <th><%= f.label :start_timestamp %></th>
-            <td class="row pr-5"><%= f.datetime_select :start_timestamp, { start_year: Date.today.year, end_year: Date.today.year + 1 }, { class: "form-control col" } %></td>
+            <th colspan="2">
+                <div class="form-group">
+                   <%= f.label :location %>
+                   <%= f.text_field :location, { class: "form-control" } %>
+                </div>
+            </th>
         </tr>
+
         <tr>
-            <th><%= f.label :end_timestamp %></th>
-            <td class="row pr-5"><%= f.datetime_select :end_timestamp, { start_year: Date.today.year, end_year: Date.today.year + 1 }, { class: "form-control col" } %></td>
+            <th colspan="2">
+                <div class="form-group">
+                   <%= f.label :point_value %>
+                   <%= f.number_field :point_value, { class: "form-control" } %>
+                </div>
+            </th>
         </tr>
+
         <tr>
-            <th><%= f.label :location %></th>
-            <td class="row pr-5"><%= f.text_field :location, { class: "form-control" } %></td>
-        </tr>
-        <tr>
-            <th><%= f.label :point_value %></th>
-            <td class="row pr-5"><%= f.number_field :point_value, { class: "form-control" } %></td>
-        </tr>
-        <tr>
-            <th><%= f.label :passcode %></th>
-            <td class="row pr-5"><%= f.text_field :passcode, { class: "form-control" } %></td>
+            <th colspan="2">
+                <div class="form-group">
+                   <%= f.label :passcode %>
+                   <%= f.text_field :passcode, { class: "form-control" } %>
+                </div>
+            </th>
         </tr>
     </tbody>
 </table>

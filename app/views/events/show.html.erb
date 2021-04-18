@@ -1,25 +1,33 @@
-<%= link_to "Back to Calendar", events_path, class: "btn btn-secondary" %>
-<%= link_to "Back", :back, class: "btn btn-secondary" %>
-
 <div class="container">
-    <h2></h2>
-    <div class="links">
-        <% if ((@event.committee_id.eql? current_user.committee_id) && current_user.check_staff?) || current_user.check_executive? %>
-        <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-secondary" %>
-        <% end %>
-        <% if current_user.check_executive? %>
-        <%= link_to "Delete Event", delete_event_path(@event), class: "btn btn-danger" %>
-        <% end %>
-        <% if @user_rsvp_exists %>
-        <%= link_to "Edit RSVP", edit_rsvp_path(eid: @event.id), class: "btn btn-primary" %>
-        <% else %>
-        <%= link_to "RSVP", new_rsvp_path(eid: @event.id), class: "btn btn-primary" %>
-        <% end %>
-        <% if current_user.check_freshman? %>
-        <%= link_to "Attend", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
-        <% end %>
+    <div class="row">
+        <div class="col">
+        <h1><%= strip_tags @event.name %></h1>
+        </div>
+        <div class="col text-right">
+            <% if ((@event.committee_id.eql? current_user.committee_id) && current_user.check_staff?) || current_user.check_executive? %>
+            <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-secondary" %>
+            <% end %>
+            <% if current_user.check_executive? %>
+            <%= link_to "Delete Event", delete_event_path(@event), class: "btn btn-danger" %>
+            <% end %>
+            <% if @user_rsvp_exists %>
+            <%= link_to "Edit RSVP", edit_rsvp_path(eid: @event.id), class: "btn btn-primary" %>
+            <% else %>
+            <%= link_to "RSVP", new_rsvp_path(eid: @event.id), class: "btn btn-primary" %>
+            <% end %>
+            <% if current_user.check_freshman? %>
+            <%= link_to "Attend", new_attendance_log_path(eid: @event.id), class: "btn btn-primary" %>
+            <% end %>
+        </div>
     </div>
-    <table class="table my-2 data_table">
+    
+    <table class="table my-2 table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Event Information</th>
+                <th>Event Data</th>
+            </tr>
+        </thead>
         <tbody>
             <tr>
                 <th>Name</th>
@@ -55,10 +63,15 @@
                 <td><%= "#{pluralize(@rsvp_yes_count, 'yes')} and #{pluralize(@rsvp_maybe_count, 'maybe')}" %></td>
             </tr>
             <tr>
-                <th>Attendees</th>
+                <th style="border-bottom-left-radius: 1.375rem; border-bottom: 0;">Attendees</th>
                 <td><%= strip_tags @event.attendance_logs.size.to_s %></td>
             </tr>
             <% end %>
         </tbody>
     </table>
+
+    <div class="btn-group p-0 mt-4">
+        <%= link_to "Back to Calendar", events_path, class: "btn btn-secondary" %>
+        <%= link_to "Back to Day", :back, class: "btn btn-secondary" %>
+    </div>
 </div>
