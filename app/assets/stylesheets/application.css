@@ -291,6 +291,13 @@ form div.form-group:first-of-type {
   height: 2.75rem;
 }
 
+select option {
+  background-color: transparent !important;
+  border-color: #5b5289;
+  color: black;
+  height: 2.75rem;
+}
+
 .form-check {
   margin-left: 25px;
   margin-right: 25px;
