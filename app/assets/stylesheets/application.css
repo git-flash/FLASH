@@ -248,6 +248,10 @@ th {
   color: #eb2f06 !important;
 }
 
+.tbl-options {
+  min-width: 110px;
+}
+
 /*** /TABLES/ ***/
 
 /*** FORMS ***/
@@ -285,6 +289,16 @@ form div.form-group:first-of-type {
 .form-check {
   margin-left: 25px;
   margin-right: 25px;
+}
+
+td a {
+  color: white;
+  display: inline-block;
+}
+
+td a:hover {
+  color: white;
+  text-decoration: none;
 }
 
 /*** /FORMS/ ***/
