@@ -18,12 +18,23 @@
 body {
   background-color: rgb(44, 37, 74);
   color: white;
+  font-family: 'Baloo Paaji 2', cursive;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Zen Dots', cursive;
+  letter-spacing: 3.3px;
 }
 /*** /GLOBAL/ ***/
 
 /*** NAVBAR ***/
 .navbar.bg-dark {
-  background-color: #0c2461 !important;
+  background-color: #000037 !important;
 }
 /*** /NAVBAR/ ***/
 
@@ -234,7 +245,101 @@ th {
   text-align: center;
   border-radius: 15px;
   background-color: white;
-  color: #eb8153 !important;
+  color: #eb2f06 !important;
 }
 
 /*** /TABLES/ ***/
+
+/*** FORMS ***/
+
+form {
+  background-color: #3b3363;
+  border-radius: 1.375rem;
+  padding-bottom: 30px;
+}
+
+form h2 {
+  border-bottom: 1px solid rgb(220, 220, 220, 0.15);
+  padding: 25px;
+}
+
+form div.form-group:first-of-type {
+  margin-top: 25px;
+}
+
+.form-group {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.form-control,
+.form-control:hover,
+.form-control:active,
+.form-control:focus {
+  background-color: transparent;
+  border-color: #5b5289;
+  color: #fff;
+  height: 2.75rem;
+}
+
+.form-check {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+/*** /FORMS/ ***/
+
+/*** BUTTONS ***/
+.btn-group > .btn-group:not(:last-child) > .btn,
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+.btn {
+  margin-left: 5px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 15px;
+  border: 2px solid inherit;
+}
+
+.btn.btn-primary {
+  background-color: #eb2f06;
+  color: white !important;
+  border: 2px solid #eb2f06;
+}
+
+.btn.btn-primary:hover {
+  background-color: transparent;
+  color: #eb2f06;
+  border: 2px solid #eb2f06;
+  transition: color background 0.5s ease;
+}
+
+.btn.btn-primary:hover {
+  background-color: transparent;
+  color: #eb2f06;
+  border: 2px solid #eb2f06;
+  transition: color background 0.5s ease;
+}
+
+.btn.btn-secondary:hover {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #6c757d;
+  transition: color background 0.5s ease;
+}
+
+.btn.btn-success {
+  border: 2px solid #28a745;
+}
+
+.btn.btn-success:hover {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #28a745;
+  transition: color background 0.5s ease;
+}
+
+.btn-group {
+  display: block;
+  padding: 0px 25px;
+}
+/*** /BUTTONS/ ***/
