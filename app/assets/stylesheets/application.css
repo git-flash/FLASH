@@ -334,11 +334,8 @@ td a:hover {
   transition: color background 0.5s ease;
 }
 
-.btn.btn-primary:hover {
-  background-color: transparent;
-  color: #eb2f06;
-  border: 2px solid #eb2f06;
-  transition: color background 0.5s ease;
+.btn.btn-secondary {
+  border: 2px solid #6c757d;
 }
 
 .btn.btn-secondary:hover {
