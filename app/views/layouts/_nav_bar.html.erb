@@ -73,29 +73,30 @@ function toggleMenu(){
           </a>
         </div>    
       </div>
-
-      <div class="link-group">
-        <div class="my-3 mt-sm-5 mb-sm-3 menu-text" >
-          Having Trouble?
-        </div>
-
-        <div class="header-item">
-          <a class="header-link" href="<%= help_contact_path %>" class="active">
-            <i class="fas fa-paper-plane mr-2"></i>
-            <span class="float-right"><i class="fas fa-chevron-right"></i></span>
-            <span>Contact Us</span>
-          </a>
-        </div>
-
-        <div class="header-item">
-          <a class="header-link" href="<%= help_user_manual_path %>" class="active">
-            <i class="fas fa-info-circle mr-2"></i>
-            <span class="float-right"><i class="fas fa-chevron-right"></i></span>
-            <span>User Manual</span>
-          </a>
-        </div>    
-      </div>
     <% end %>
+
+    <div class="link-group">
+      <div class="my-3 mt-sm-5 mb-sm-3 menu-text" >
+        Having Trouble?
+      </div>
+
+      <div class="header-item">
+        <a class="header-link" href="<%= help_contact_path %>" class="active">
+          <i class="fas fa-paper-plane mr-2"></i>
+          <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+          <span>Contact Us</span>
+        </a>
+      </div>
+
+      <div class="header-item">
+        <a class="header-link" href="<%= help_user_manual_path %>" class="active">
+          <i class="fas fa-info-circle mr-2"></i>
+          <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+          <span>User Manual</span>
+        </a>
+      </div>    
+    </div>
+
     <div class="link-group">
         <div class="my-3 mt-sm-5 mb-sm-3  menu-text" >
           Authentication
