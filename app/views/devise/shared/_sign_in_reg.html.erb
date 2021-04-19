@@ -27,7 +27,7 @@
         <% end %>
 
         <div class="btn-group" role="group">
-          <%= f.submit "Log in", class: "btn btn-primary" %>
+          <%= f.submit "Log in", class: "btn btn-success" %>
           <%= link_to "Forgot your password?", new_password_path(resource_name), class: "btn btn-secondary" %><br/>
         </div>
       <% end %>
@@ -70,7 +70,7 @@
         </div>
 
         <div class="btn-group">
-          <%= f.submit "Sign up", class: "btn btn-primary" %>
+          <%= f.submit "Sign up", class: "btn btn-success" %>
         </div>
 
         <%= f.hidden_field :user_type, value: :base %>
