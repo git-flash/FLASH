@@ -27,8 +27,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Zen Dots', cursive;
+  font-family: 'Montserrat', sans-serif;
   letter-spacing: 3.3px;
+  font-weight: 500;
 }
 /*** /GLOBAL/ ***/
 
