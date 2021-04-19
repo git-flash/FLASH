@@ -445,4 +445,8 @@ td a {
 .fa-bolt {
   color: #fed330;
 }
+
+.sticky-top {
+  z-index: 2;
+}
 /*** /MISC/ ***/
