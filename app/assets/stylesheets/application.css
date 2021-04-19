@@ -114,7 +114,7 @@ a.header-link:hover {
 
 /*** TABLES ***/
 table {
-  box-shadow: 9px 16px 61px;
+  box-shadow: 9px 16px 61px rgba(0, 0, 0, 0.4);
   border-radius: 5%;
 }
 
@@ -284,7 +284,6 @@ form {
   background-color: #3b3363;
   border-radius: 1.375rem;
   padding-bottom: 30px;
-  box-shadow: ;
   box-shadow: 9px 16px 61px rgba(0, 0, 0, 0.4);
 }
 
