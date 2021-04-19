@@ -196,7 +196,7 @@ th {
 .table-bordered td,
 .table-bordered th {
   border: 0;
-  border-bottom: 1px solid rgb(220, 220, 220, 0.15);
+  border-bottom: 1px solid rgba(220, 220, 220, 0.15);
 }
 
 .table-bordered tr:last-child td {
@@ -288,7 +288,7 @@ form {
 }
 
 form h2 {
-  border-bottom: 1px solid rgb(220, 220, 220, 0.15);
+  border-bottom: 1px solid rgba(220, 220, 220, 0.15);
   padding: 25px;
 }
 
