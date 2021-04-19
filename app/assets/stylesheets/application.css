@@ -435,4 +435,8 @@ td a:hover {
   -moz-box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.4); /* Firefox 3.5 - 3.6 */
   box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.4); /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
+
+.fa-bolt {
+  color: #fed330;
+}
 /*** /MISC/ ***/
