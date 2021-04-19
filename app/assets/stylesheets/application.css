@@ -113,6 +113,11 @@ a.header-link:hover {
 /*** /NAV MENU/ ***/
 
 /*** TABLES ***/
+table {
+  box-shadow: 9px 16px 61px;
+  border-radius: 5%;
+}
+
 table.dataTable {
   width: 100%;
   margin: 0 auto;
