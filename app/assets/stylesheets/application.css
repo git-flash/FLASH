@@ -266,6 +266,11 @@ th {
   text-align: center;
 }
 
+td a:hover {
+  color: #eb2f06;
+  text-decoration: none;
+}
+
 /*** /TABLES/ ***/
 
 /*** FORMS ***/
@@ -317,11 +322,6 @@ select option {
 td a {
   color: white;
   display: inline-block;
-}
-
-td a:hover {
-  color: white;
-  text-decoration: none;
 }
 
 /*** /FORMS/ ***/
