@@ -272,8 +272,32 @@ th {
 }
 
 td a:hover {
-  color: #eb2f06;
+  color: ;
   text-decoration: none;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: white !important;
+  border: 1px solid #979797;
+  background: none;
+  background-color: #eb2f06;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background-color: #5b5288;
+}
+
+.dataTables_wrapper .dataTables_paginate span .paginate_button {
+  background: none;
+  background-color: #5b5288;
+  color: white !important;
+  border: 1px solid #979797;
+}
+
+.dataTables_wrapper .dataTables_paginate span .paginate_button:hover {
+  background: none;
+  background-color: #eb2f06;
 }
 
 /*** /TABLES/ ***/
