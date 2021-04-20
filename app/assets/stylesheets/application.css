@@ -35,6 +35,7 @@ h6 {
 /*** NAVBAR ***/
 .navbar.bg-dark {
   background-color: #000037 !important;
+  box-shadow: 9px 16px 61px rgba(0, 0, 0, 0.4);
 }
 /*** /NAVBAR/ ***/
 
