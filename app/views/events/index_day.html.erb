@@ -1,11 +1,17 @@
-<%= link_to "Back to Calendar", events_path, class: "btn btn-secondary" %>
-
 <div class="container">
-    <h2><%= params[:date].to_s %></h2>
-    <% if current_user.check_staff? %>
-    <%= link_to "Add New Event", new_event_path(start_date: params[:date]), class: "btn btn-success" %>
-    <% end %>
-    <br/><br/>
+    <div class="row">
+        <div class="col">
+        <h1><%= params[:date].to_s %></h1>
+        </div>
+        <div class="col text-right">
+            <% if current_user.check_staff? %>
+                <div class="btn-group my-4 p-0">
+                    <%= link_to "Add New Event", new_event_path(start_date: params[:date]), class: "btn btn-success" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+
     <table class="table my-2 table-striped table-bordered data_table">
         <thead style="background-color: #488cf6">
             <tr>
@@ -13,18 +19,31 @@
                 <th>Committee</th>
                 <th>Start Time</th>
                 <th>End Time</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
 
             <% @events.each do |event| %>
             <tr>
-                <td><%= link_to (strip_tags event.name), event_path(event) %></td>
+                <td><%= event.name %></td>
                 <td><%= strip_tags event.committee.name %></td>
                 <td><%= strip_tags event.start_timestamp.to_s(:long) %></td>
                 <td><%= strip_tags event.end_timestamp.to_s(:long) %></td>
+                <td>
+                    <div class="tbl-options">
+                        <a class="mr-3" href="/events/<%= event.id%>" title="View Event">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </div>
+                </td>
             </tr>
             <% end %>
         </tbody>
     </table>
+
+    <div class="btn-group p-0 mt-4">
+        <%= link_to "Back to Calendar", events_path, class: "btn btn-secondary" %>
+    </div>
+
 </div>

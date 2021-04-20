@@ -1,4 +1,6 @@
 <%= form_with(model: committee) do |form| %>
+  <h2>Create/Update Committee</h2>
+
   <% if committee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(committee.errors.count, "error") %> prohibited this committee form being saved</h2>
@@ -11,12 +13,13 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, :class => "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="btn-group mt-4">
+    <%= link_to 'Back', committees_path, class:"btn btn-secondary" %>
+    <%= form.submit :class => "btn btn-success" %>
   </div>
 <% end %>

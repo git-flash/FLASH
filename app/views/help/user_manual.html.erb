@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <div class="container" style="border-style:solid dashed; border-width:thick; background-color:beige;">
-        <head>
-            <title>User Manual</title>
-        </head>
-
-        <body>
+    <head>
+        <title>User Manual</title>
+    </head>
+    <body>
+        <div class="container page-container">
             <% if current_user.check_admin? %>
                 <div style="text-align:center;">
                     <h1><b>User Manual</b></h1>
                     <h2>How does the website work for admins?</h2>
                     <i>
                         <p>Special Admin Traits:</p>
-                            <ul>
-                                <li>Admins have access to everything the website can do</li>
-                                <li>Admins are the only people that can delete other admins</li>
-                                <li>Admins are the only people that can change someone's role to executive or admin</li>
-                            </ul>
+                            <p>Admins have access to everything the website can do</p>
+                            <p>Admins are the only people that can delete other admins</p>
+                            <p>Admins are the only people that can change someone's role to executive or admin</p>
                     </i>
                 </div>
                 <hr style="border-top:5px double"/>
@@ -112,7 +109,7 @@
                                 <li>There are 2 tables
                                     <ol>
                                         <li>The first table displays all the information on current members</li>
-                                        <li>The second table breaks down the scores of current members<li>
+                                        <li>The second table breaks down the scores of current members</li>
                                     </ol>
                                 </li>
                                 <li>"Edit a Member" - You can edit a member's information by clicking "Edit", Note: setting a member's committee to None will place them in Pending, and the same goes for setting an Executive or Admin to staff or freshman</li>
@@ -128,13 +125,11 @@
                     <h2>How does the website work for executives?</h2>
                     <i>
                         <p>Special Executive Traits:</p>
-                            <ul>
-                                <li>Executives and Admins are the only people that can edit/delete staff or base accounts</li>
-                                <li>Executives cannot edit/delete other executives or admins</li>
-                                <li>Executives and Admins are the only people than can change a member to staff</li>
-                                <li>Executives cannot assign a member a position higher than staff</li>
-                                <li>Executives and admins are the only people able to delete events</li>
-                            </ul>
+                            <p>Executives and Admins are the only people that can edit/delete staff or base accounts</p>
+                            <p>Executives cannot edit/delete other executives or admins</p>
+                            <p>Executives and Admins are the only people than can change a member to staff</p>
+                            <p>Executives cannot assign a member a position higher than staff</p>
+                            <p>Executives and admins are the only people able to delete events</p>
                     </i>
                 </div>
                 <hr style="border-top:5px double"/>
@@ -230,7 +225,7 @@
                                 <li>There are 2 tables
                                     <ol>
                                         <li>The first table displays all the information on current members</li>
-                                        <li>The second table breaks down the scores of current members<li>
+                                        <li>The second table breaks down the scores of current members</li>
                                     </ol>
                                 </li>
                                 <li>"Edit a Member" - You can edit a member's information by clicking "Edit", Note: setting a member's committee to None will place them in Pending, and the same goes for setting an Executive or Admin to staff or freshman</li>
@@ -245,11 +240,9 @@
                     <h2>How does the website work for staff?</h2>
                     <i>
                         <p>Special Staff Traits:</p>
-                            <ul>
-                                <li>Staff can create events but cannot edit or delete them</li>
-                                <li>Staff can only view their own committee's points</li>
-                                <li>Staff can see committee members by name while freshman can only see the UINs of other members</li>
-                            </ul>
+                            <p>Staff can create events but cannot edit or delete them</p>
+                            <p>Staff can only view their own committee's points</p>
+                            <p>Staff can see committee members by name while freshman can only see the UINs of other members</p>
                     </i>
                 </div>
                 <hr style="border-top:5px double"/>
@@ -365,7 +358,7 @@
                         </li>
                     </ul>
                 </div>
-            <% end %>
-        </body>
-    </div>
+            <% end %>    
+        </div>
+    </body>
 </html> 

@@ -54,16 +54,23 @@
             <td><%= user.email %></td>
 
             <td>
-              <% if current_user.check_executive? && current_user != user && (current_user.check_admin? || User.user_types[user.user_type] < User.user_types[current_user.user_type]) %>
-                <%= link_to 'Edit', edit_user_path(user), class: "btn btn-info" %>
-                <%=
-                  if @pendingCheck
-                    link_to 'Delete', user, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' }
-                  else
-                    link_to 'Remove', soft_delete_user_path(user), class: "btn btn-danger", data: { confirm: 'Are you sure?' }
-                  end
-                %>
-              <% end %>
+              <div class="tbl-options">
+                <% if current_user.check_executive? && current_user != user && (current_user.check_admin? || User.user_types[user.user_type] < User.user_types[current_user.user_type]) %>
+                  <a class="mr-3" href="<%= edit_user_path(user)%>" title="Edit User">
+                    <i class="fas fa-user-edit"></i>
+                  </a>
+
+                  <% if @pendingCheck %>
+                    <a class="mr-3" rel="nofollow" title="Delete User" data-method="delete" data-confirm="Are you sure?" href="/users/<%= user.id%>">
+                      <i class="fas fa-ban"></i>
+                    </a>
+                  <% else %>
+                    <a class="mr-3" href="<%= soft_delete_user_path(user)%>" title="Remove User" data-confirm="Are you sure?">
+                      <i class="fas fa-user-times"></i>
+                    </a>
+                  <% end %>
+                <% end %>
+              </div>
             </td>
           </tr>
         <% end %>
