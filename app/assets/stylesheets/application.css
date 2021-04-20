@@ -21,6 +21,10 @@ body {
   font-family: 'Baloo Paaji 2', cursive;
 }
 
+.alert-warning {
+  z-index: 2;
+}
+
 h1,
 h2,
 h3,
