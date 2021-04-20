@@ -16,9 +16,9 @@
 
 /*** GLOBAL ***/
 body {
-  background-color: rgb(44, 37, 74);
-  color: white;
-  font-family: 'Baloo Paaji 2', cursive;
+  background-color: rgb(192, 192, 192);
+  color: black;
+  font-family: "Baloo Paaji 2", cursive;
 }
 
 h1,
@@ -27,7 +27,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   letter-spacing: 3.3px;
   font-weight: 500;
 }
@@ -71,13 +71,13 @@ h6 {
   text-transform: uppercase;
   color: #eb2f06;
   font-size: 14px;
-  font-family: 'Baloo Paaji 2', cursive;
+  font-family: "Baloo Paaji 2", cursive;
   margin-left: 5px;
 }
 
 .header-item {
   font-size: 17px;
-  font-family: 'Baloo Paaji 2', cursive;
+  font-family: "Baloo Paaji 2", cursive;
   font-weight: 500;
   margin: 16.5px 1rem;
 }
@@ -91,7 +91,7 @@ a.header-link:hover {
 }
 
 .header-top-link {
-  font-family: 'Zen Dots', cursive;
+  font-family: "Zen Dots", cursive;
   font-size: 22px;
   letter-spacing: 7.3px;
   display: inline-block;
@@ -108,7 +108,7 @@ a.header-link:hover {
   color: white;
   text-align: center;
   font-weight: 500;
-  font-family: 'Baloo Paaji 2', cursive;
+  font-family: "Baloo Paaji 2", cursive;
 }
 /*** /NAV MENU/ ***/
 
@@ -126,7 +126,7 @@ table.dataTable {
   border-spacing: 0;
   -webkit-border-horizontal-spacing: 0px;
   -webkit-border-vertical-spacing: 0px;
-  font-family: 'Baloo Paaji 2', cursive;
+  font-family: "Baloo Paaji 2", cursive;
   margin-top: 3rem;
 }
 
@@ -163,7 +163,7 @@ tbody tr:last-child td:last-child {
 }
 
 thead tr {
-  background-color: #5b5288;
+  background-color: #000037;
   color: white;
 }
 
@@ -208,8 +208,8 @@ th {
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_processing,
 .dataTables_wrapper .dataTables_paginate {
-  color: white;
-  font-family: 'Baloo Paaji 2', cursive;
+  color: black;
+  font-family: "Baloo Paaji 2", cursive;
   margin-top: 10px;
 }
 
@@ -227,7 +227,7 @@ th {
   background-color: #5b5288;
   color: #fff !important;
   margin-top: 10px;
-  font-family: 'Baloo Paaji 2', cursive;
+  font-family: "Baloo Paaji 2", cursive;
   cursor: pointer;
 }
 
