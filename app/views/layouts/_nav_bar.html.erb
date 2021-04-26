@@ -1,66 +1,163 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #4ae3ff; border-bottom:3px solid;">
-  <%= link_to image_tag("flashLogo.jpg", width: '250', class: 'rounded-lg border border-dark'), root_path, class: "navbar-brand" %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<script>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-      
-        <li class="nav-item active">
-          <%= link_to "Events", root_path, class: "nav-link" %>
-        </li>
-        <% if !current_user.check_executive? %>
-        <li class="nav-item">
-          <%= link_to "Freshman Attendance", attendance_user_index_path, class: "nav-link" %>
-        </li> 
-        <% end %>
-        <li class="nav-item">
-          <%= link_to "Committees", committees_path, class: "nav-link" %>
-        </li>
-      <% end %>
+function toggleMenu(){
+  $( ".header").toggle("slide");
+}
+</script>
 
-      <% if user_signed_in? %>
-        <% if current_user.check_executive? %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Members
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "Current Members", users_path, class: "dropdown-item" %>
-              <%= link_to "Pending Members", users_pending_path, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% end %>
-      <% end %>
-
-    </ul>
-    <ul class="navbar-nav">
-      <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Having Trouble?
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= link_to "Contact Us", help_contact_path, class: "dropdown-item" %>
-            <%= link_to "User Manual", help_user_manual_path, class: "dropdown-item" %>
-          </div>
-        </li>
-        <li class="navbar-text">
-          Signed in as <%= current_user.first_name + " " + current_user.last_name %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", method: :delete %>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
+<header class="header py-3 px-3" style="display: none;">
+  <div class="text-right">
+    <div onclick='toggleMenu();' class='text-center'>
+    <a class="nav-link active header-top-link" href="/">FLASH <i class="fas fa-bolt ml-1"></i></a>
+    <i class="fas fa-times close-link float-right"></i></div>
   </div>
+
+
+  <% if user_signed_in? %>
+
+    <div class="signed-in-as mt-3 mt-2">
+      Signed in as <%= current_user.first_name + " " + current_user.last_name %>
+    </div>
+
+    <div class="link-group">
+      <div class="my-3 mt-sm-5 mb-sm-3 menu-text" >
+        Menu
+      </div>
+
+      <a class="header-link" href="<%= root_path %>" class="active">
+        <div class="header-item">
+          <i class="fas fa-calendar-week mr-2"></i>
+          <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+          <span>Events</span>
+        </div>
+      </a>
+
+      <% if !current_user.check_executive? %>
+        <a class="header-link" href="<%= attendance_user_index_path %>"class="active">
+          <div class="header-item">
+            <i class="fas fa-id-badge mr-2"></i>
+            <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            <span>Freshmen Attendance</span>
+          </div>
+        </a>
+        
+      <% end %>
+
+      <a class="header-link" href="<%= committees_path %>" class="active"> 
+        <div class="header-item">
+        
+          <i class="fas fa-gavel mr-2"></i>
+          <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+          <span>Committees</span>
+        </div>     
+      </a>
+    </div>
+
+    <% if current_user.check_executive? %>
+      <div class="link-group">
+        <div class="my-3 mt-sm-5 mb-sm-3 menu-text" >
+          Manage Members
+        </div>
+
+        <a class="header-link" href="<%= users_path %>" class="active">
+          <div class="header-item">
+            <i class="fas fa-user-check mr-2"></i>
+            <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            <span>Current Members</span>
+          </div>
+        </a>
+
+        <a class="header-link" href="<%= users_pending_path %>" class="active">
+          <div class="header-item">
+            <i class="fas fa-user-clock mr-2"></i>
+            <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            <span>Pending Members</span>
+          </div>   
+        </a> 
+      </div>
+    <% end %>
+
+    <div class="link-group">
+      <div class="my-3 mt-sm-5 mb-sm-3 menu-text" >
+        Having Trouble?
+      </div>
+
+      <a class="header-link" href="<%= help_contact_path %>" class="active">
+        <div class="header-item">
+          <i class="fas fa-paper-plane mr-2"></i>
+          <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+          <span>Contact Us</span>
+        </div>
+      </a>
+
+      <a class="header-link" href="<%= help_user_manual_path %>" class="active">
+        <div class="header-item">
+          <i class="fas fa-info-circle mr-2"></i>
+          <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+          <span>User Manual</span>
+        </div>   
+      </a> 
+    </div>
+
+    <div class="link-group">
+        <div class="my-3 mt-sm-5 mb-sm-3  menu-text" >
+          Authentication
+        </div>
+
+        <a class="header-link" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path%>" class="active">
+          <div class="header-item">
+            <i class="fas fa-ban mr-2"></i>
+            <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            <span>Logout</span>
+          </div>
+        </a>   
+      </div>
+  <% else %>
+    
+    <div class="link-group">
+      <div class="my-3 mt-sm-5 mb-sm-3  menu-text" >
+        Authentication
+      </div>
+
+      <a class="header-link" href="<%= new_user_session_path%>" class="active">
+        <div class="header-item">
+          <i class="fas fa-chess-queen mr-2"></i>
+          <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+          <span>Login</span>
+        </div>  
+      </a> 
+    </div>
+
+    <div class="link-group">
+      <div class="my-3 mt-sm-5 mb-sm-3  menu-text" >
+        Having Trouble?
+      </div>
+
+      <a class="header-link" href="<%= help_contact_path %>" class="active">
+        <div class="header-item">
+          <i class="fas fa-paper-plane mr-2"></i>
+          <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+          <span>Contact Us</span>
+        </div>   
+      </a>
+    </div>
+
+  <% end %>
+</header>
+
+<nav class="navbar navbar-expand navbar-dark bg-dark px-4 sticky-top">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="javascript:toggleMenu();" tabindex="0"><i class="fas fa-bars"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link active" style="font-family: 'Zen Dots', cursive; font-size: 18px; letter-spacing: 7.3px" href="/">FLASH <i class="fas fa-bolt ml-1"></i></a>
+            </li>
+        </ul>
+    </div>
 </nav>
-
-
-

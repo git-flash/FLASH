@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #4ae3ff; border-bottom:3px solid;">
+  <%= link_to image_tag("flashLogo.jpg", width: '250', class: 'rounded-lg border border-dark'), root_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <% if user_signed_in? %>
+      
+        <li class="nav-item active">
+          <%= link_to "Events", root_path, class: "nav-link" %>
+        </li>
+        <% if !current_user.check_executive? %>
+        <li class="nav-item">
+          <%= link_to "Freshman Attendance", attendance_user_index_path, class: "nav-link" %>
+        </li> 
+        <% end %>
+        <li class="nav-item">
+          <%= link_to "Committees", committees_path, class: "nav-link" %>
+        </li>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <% if current_user.check_executive? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Members
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Current Members", users_path, class: "dropdown-item" %>
+              <%= link_to "Pending Members", users_pending_path, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+
+    </ul>
+    <ul class="navbar-nav">
+      <% if user_signed_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Having Trouble?
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "Contact Us", help_contact_path, class: "dropdown-item" %>
+            <%= link_to "User Manual", help_user_manual_path, class: "dropdown-item" %>
+          </div>
+        </li>
+        <li class="navbar-text">
+          Signed in as <%= current_user.first_name + " " + current_user.last_name %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", method: :delete %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+
+
