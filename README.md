@@ -11,6 +11,7 @@ This project can be run in docker with the up.bash/up.bat file.
 - Clone project
   - `git clone https://github.com/git-flash/FLASH.git`
 - Run `./up.bash` in Linux/MacOS or `up.bat` in Windows
+  - On Windows ensure `entrypoint.sh` has LF line endings
 - All gems are auto-installed by docker
 - Ruby is auto-installed by docker
 - Database is set up automatically by docker
