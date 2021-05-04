@@ -15,5 +15,6 @@ else
 fi
 
 rails ts:routes
+yarn
 
 exec "$@"
