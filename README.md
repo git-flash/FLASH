@@ -23,8 +23,9 @@ This project can be run in docker with the up.bash/up.bat file.
 ## Deployment
 - Manual deployment can be accomplished through the heroku command line interface
   1. https://devcenter.heroku.com/articles/getting-started-with-rails6#deploy-your-application-to-heroku
-  2. Afterwards, make sure to run `db:seed` on the deployed app to get the initial users
-  3. Add the config variable `GMAIL_PASSWORD` and set it to the password of `tamuflashpoint@gmail.com`k
+     - Do all the deployment steps up to and including database migration
+  2. Afterwards, make sure to run `heroku run rake db:seed` on the deployed app to get the initial users
+  3. Add the config variable `GMAIL_PASSWORD` and set it to the password of `tamuflashpoint@gmail.com`
 - Automatic deployment can be set up using heroku's github integration
   - https://devcenter.heroku.com/articles/github-integration
 
