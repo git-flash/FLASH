@@ -38,15 +38,15 @@ This project can be run in docker with the up.bash/up.bat file.
 ## CI/CD Details
 - The application implements CI/CD using GitHub Actions (More details above) and Heroku as its main tools. 
 
-- Continous Integration (CI)
- - CI is done using Github Actions. The workflow in the .github folder runs under if the following situations occurs
+- Continous Integration (CI):
+  - CI is done using Github Actions. The workflow in the .github folder runs under if the following situations occurs
   - Daily at 8 AM
   - Every Push/Pull request to `dev `
   - Every Push/Pull request to `master`
-- The workflow in the .github folder runs the following tests: Brakeman and Rubocop
-- You can find the results of these tests in the Actions tab on GitHub once they have run
+  - The workflow in the .github folder runs the following tests: Brakeman and Rubocop
+  - You can find the results of these tests in the Actions tab on GitHub once they have run
 
-- Continous Develpoment (CD)
+- Continous Develpoment (CD):
   - Heroku was the main tool for CD 
     - Heroku builds and deploys all pushes
     - Heroku will wait for the CI to pass before depolyment
