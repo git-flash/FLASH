@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 # HG
 class UsersController < ApplicationController
   # this before action sets the capabilities of the user
-  before_action :set_user, :only => %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy soft_delete]
+
   # this before action confirms the user logged in is an executive member or higher
   before_action :confirm_exec
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.active
   end
 
   # GET /users/1 or /users/1.json
@@ -40,11 +43,31 @@ class UsersController < ApplicationController
     respond_to do |format|
       # if the user enters some changes then apply those updates
       if @user.update(user_params)
-        format.html { redirect_to @user, :notice => "user was successfully updated." }
-        format.json { render :show, :status => :ok, :location => @user }
+        format.html { redirect_to @user, notice: 'user was successfully updated.' }
+        format.json { render :show, status: :ok, location: @user }
       else
-        format.html { render :edit, :status => :unprocessable_entity }
-        format.json { render :json => @user.errors, :status => :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # Removes from 'Current Members' and puts in 'Pending Members'
+  def soft_delete
+    @user = User.find(params[:id])
+    user_name = "#{@user.first_name} #{@user.last_name}"
+
+    @user.update(committee_id: nil, user_type: :base)
+
+    respond_to do |format|
+      if @user.committee_id.nil?
+        format.html do
+          redirect_to users_url,
+                      # rubocop:disable Layout/LineLength
+                      notice: "#{user_name} was successfully removed from current members and was sent back to pending members with default values (Base member with TBD Committee)."
+          # rubocop:enable Layout/LineLength
+        end
+        format.json { head :no_content }
       end
     end
   end
@@ -52,21 +75,21 @@ class UsersController < ApplicationController
   # DELETE /users/1 or /users/1.json
   def destroy
     # userName contains currently selected member's first name and last name
-    userName = @user.first_name + " " + @user.last_name
+    user_name = "#{@user.first_name} #{@user.last_name}"
     @user.destroy
     respond_to do |format|
       # this check redirects to the current member or pending member page based on whichever page called destroy
       if @pendingCheck
-        format.html { redirect_to users_pending_url, :notice => userName + " was successfully annihilated." }
+        format.html { redirect_to users_pending_url, notice: "#{user_name} was successfully annihilated." }
       else
-        format.html { redirect_to users_url, :notice => userName + " was successfully annihilated." }
+        format.html { redirect_to users_url, notice: "#{user_name} was successfully annihilated." }
       end
       format.json { head :no_content }
     end
   end
 
   def pending
-    @users = User.all
+    @users = User.pending
   end
 
   private

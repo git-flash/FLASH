@@ -1,20 +1,6 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm">   
-            <h1>Editing user</h1>
-        </div>
-        <div class="col-sm">
-            <%=
-            if (@user.committee_id || @user.check_executive?)
-                link_to 'Back', users_path, class:"btn btn-info float-right" 
-            else
-                link_to 'Back', users_pending_path, class:"btn btn-info float-right"
-            end
-            %>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-sm">
             <%= render 'form', user: @user %>
         </div>

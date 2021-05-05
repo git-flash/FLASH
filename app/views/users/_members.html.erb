@@ -1,78 +1,82 @@
-
-
 <div class="container">
-    <div class="row">
-        <div class="col-sm">
-            <% if @pendingCheck %>
-                <h1>Pending Members</h1>
-            <% else %>
-                <h1>Current Members</h1>
-            <% end %>
-        </div>
-        <div class="col-sm">
-            <% if @pendingCheck %>
-                <%= link_to 'See Current FLASH Members', users_path, class:"btn btn-success float-right" %>
-            <% else %>
-                <%= link_to 'Show Pending Members', users_pending_path, class:"btn btn-success float-right" %>
-            <% end %>
-        </div>
+  <div class="row">
+    <div class="col-sm">
+      <% if @pendingCheck %>
+          <h1><b>Pending Members</b></h1>
+          <p><i>To accept a member into FLASH, edit the member and assign them a committee. To add Admins or Executives, edit the member and assign them a membership level and leave the committee set to none</i></p>
+      <% else %>
+          <h1><b>Current Members</b></h1>
+      <% end %>
     </div>
+    <div class="col-sm">
+      <% if @pendingCheck %>
+        <%= link_to 'See Current FLASH Members', users_path, class: "btn btn-success float-right" %>
+      <% else %>
+        <%= link_to 'Show Pending Members', users_pending_path, class: "btn btn-success float-right" %>
+      <% end %>
+    </div>
+  </div>
 
-    <div class="row">
-        <div class="col-sm">
-        <table class="table table-striped table-bordered table-hover">
+  <div class="row">
+    <div class="col-sm">
+      <table class="table table-striped table-bordered table-hover data_table">
 
-            <thead style="background-color: #488cf6">
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>UIN</th>
-                <th>Membership Level</th>
-                <th>Committee</th>
-                <th>Email</th>
-                <th colspan="2"></th>
-            </tr>
-            </thead>
+        <thead style="background-color: #488cf6">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>UIN</th>
+          <th>Membership Level</th>
+          <th>Committee</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+        </thead>
 
-            <tbody>
-            <% @users.each do |user| %>
-                <% if (((user.committee != nil) || (user.check_executive?)) != @pendingCheck) %>
-                <tr>
-                    <td><%= user.first_name %></td>
-                    <td><%= user.last_name %></td>
-                    <td><%= user.uin %></td>
-                    <td><%= user.user_type_pretty %></td>
-                    <td>
-                    <%=
-                        if (@pendingCheck)
-                            'TBD'
-                        elsif (user.committee)
-                            user.committee.name
-                        else
-                            user.user_type_pretty
-                        end
-                    %>
-                    </td>
-                    <td><%= user.email %></td>
-                    <!--<td>lessthanpercentequals link_to 'Show', user, class:"btn btn-info" percentgreaterthan</td> COMMENT ME OUT-->
-                    <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-info" %></td>
-                    <td>
-                        <%=
-                            if ((current_user.check_admin? && current_user != user) || !user.check_executive?)
-                                if (@pendingCheck)
-                                    link_to 'Reject', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } 
-                                else
-                                    link_to 'Delete', user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } 
-                                end
-                            end
-                        %>
-                    </td>
-                </tr>
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.first_name %></td>
+            <td><%= user.last_name %></td>
+            <td><%= user.uin %></td>
+            <td><%= user.user_type_pretty %></td>
+            <td>
+              <%=
+                if @pendingCheck
+                  'TBD'
+                elsif user.committee
+                  user.committee.name
+                else
+                  user.user_type_pretty
+                end
+              %>
+            </td>
+            <td><%= user.email %></td>
+
+            <td>
+              <div class="tbl-options">
+                <% if current_user.check_executive? && current_user != user && (current_user.check_admin? || User.user_types[user.user_type] < User.user_types[current_user.user_type]) %>
+                  <a class="mr-3" href="<%= edit_user_path(user)%>" title="Edit User">
+                    <i class="fas fa-user-edit"></i>
+                  </a>
+
+                  <% if @pendingCheck %>
+                    <a class="mr-3" rel="nofollow" title="Delete User" data-method="delete" data-confirm="Are you sure?" href="/users/<%= user.id%>">
+                      <i class="fas fa-ban"></i>
+                    </a>
+                  <% else %>
+                    <a class="mr-3" href="<%= soft_delete_user_path(user)%>" title="Remove User" data-confirm="Are you sure?">
+                      <i class="fas fa-user-times"></i>
+                    </a>
+                  <% end %>
                 <% end %>
-            <% end %>
-            </tbody>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
 
-        </table>
-        </div>
+      </table>
     </div>
+  </div>
 </div>

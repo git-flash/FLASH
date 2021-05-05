@@ -1,6 +1,25 @@
-require "active_support/core_ext/integer/time"
+# frozen_string_literal: true
+
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+  config.mail_sender = 'tamuflashpoint@gmail.com'
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default charset: 'utf-8'
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_options = { from: 'tamuflashpoint@gmail.com' }
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    authentication: :plain,
+    username: 'tamuflashpoint@gmail.com',
+    password: ENV['GMAIL_PASSWORD'],
+    openssl_verify_mode: 'none'
+  }
+  config.action_mailer.perform_caching = false
+
   config.web_console.whitelisted_ips = %w[172.22.0.0/16 172.18.0.0/16 127.0.0.0/16]
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -39,7 +58,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { :host => 'localhost', :port => 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
