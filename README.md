@@ -47,9 +47,9 @@ This project can be run in docker with the up.bash/up.bat file.
 - You can find the results of these tests in the Actions tab on GitHub once they have run
 
 - Continous Develpoment (CD)
- - Heroku was the main tool for CD 
-  - Heroku builds and deploys all pushes
-  - Heroku will wait for the CI to pass before depolyment
+  - Heroku was the main tool for CD 
+    - Heroku builds and deploys all pushes
+    - Heroku will wait for the CI to pass before depolyment
   - Pipeline (Heroku will use this for CD):
     - Create a new Pipeline
     - Connect this Pipeline to Github 
