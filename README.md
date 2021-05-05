@@ -55,4 +55,4 @@ This project can be run in docker with the up.bash/up.bat file.
     - Create a new Pipeline
     - Connect this Pipeline to Github 
     - Enable the Automatic Deployment of a particular branch when pull requests are made
-    - Additional information can be found here: https://devcenter.heroku.com/articles/pipelinesgit s
+    - Additional information can be found here: https://devcenter.heroku.com/articles/pipelinesgit 
